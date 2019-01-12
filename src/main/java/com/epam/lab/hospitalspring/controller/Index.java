@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class Index {
-    @RequestMapping("/index")
+    @RequestMapping("/")
     public String showLoginPage() {
         return "index"; // //path/name of the view in resources/templates
     }
