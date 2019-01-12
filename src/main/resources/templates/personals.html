@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<#if tasks?has_content>
 
-<div>
+
+<div th:if="${not #lists.isEmpty(personals}}">
     <table class="personalsList" border="1">
         <tr>
             <th>Id</th>
@@ -15,19 +16,17 @@
             <th>FirstName</th>
         </tr>
 
-        <#list tasks as task>
-        <tr>
-            <td></td>
-            <td><a href="task/${task.id}">${task.name}</a></td>
-            <td>${task.status}</td>
+        <tr th:each="personal : ${personals}">
+            <td th:text="${personal.id}">Неожиданный id</td>
+            <td th:text="${personal.login}">Неожиданный login</td>
+            <td th:text="${personal.firstName}">Неожиданное имя</td>
         </tr>
-    </#list>
 
     </table>
 </div>
-
-<#else>
+</th:if>
+<th:else>
 <p>No tasks yet</p>
-</#if>
+</th:else>
 </body>
 </html>
