@@ -5,6 +5,29 @@
     <title>Title</title>
 </head>
 <body>
+<#if tasks?has_content>
 
+<div>
+    <table class="personalsList" border="1">
+        <tr>
+            <th>Id</th>
+            <th>Login</th>
+            <th>FirstName</th>
+        </tr>
+
+        <#list tasks as task>
+        <tr>
+            <td></td>
+            <td><a href="task/${task.id}">${task.name}</a></td>
+            <td>${task.status}</td>
+        </tr>
+    </#list>
+
+    </table>
+</div>
+
+<#else>
+<p>No tasks yet</p>
+</#if>
 </body>
 </html>
