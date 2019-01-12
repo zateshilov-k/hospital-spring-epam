@@ -28,7 +28,7 @@ public class AdminCabinetController {
             personalService.addPersonal(personal);
         }
         List<Personal> personals = personalService.getAll();
-        model.addAttribute(personals);
+        model.addAttribute("personals", personals);
         return "personals"; // //path/name of the view in resources/templates
     }
 }
