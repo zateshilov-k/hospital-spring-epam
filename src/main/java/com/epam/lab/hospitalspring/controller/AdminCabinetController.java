@@ -18,8 +18,8 @@ public class AdminCabinetController {
     List<Personal> personals = new ArrayList<Personal>() {
         {
             add(new Personal(1L, "admin@epam.com", "admin", "Сергей", "Шнур", false, Role.ADMIN));
-            add(new Personal(1L, "doctor@epam.com", "doctor", "Николай", "Басков", false, Role.DOCTOR));
-            add(new Personal(1L, "nurse@epam.com", "nurse", "Верка", "Сердючка", false, Role.NURSE));
+            add(new Personal(2L, "doctor@epam.com", "doctor", "Николай", "Басков", false, Role.DOCTOR));
+            add(new Personal(3L, "nurse@epam.com", "nurse", "Верка", "Сердючка", false, Role.NURSE));
         }
     };
 
