@@ -96,6 +96,10 @@
             <artifactId>spring-data-commons</artifactId>
             <version>2.0.10.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
