@@ -9,7 +9,7 @@
 
 personals.html
 
-<div th:if="${not #lists.isEmpty(personals}}">
+<div th:if="${personals}!=null">
     <table class="personalsList" border="1">
         <tr>
             <th>Id</th>
