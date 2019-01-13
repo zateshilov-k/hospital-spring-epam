@@ -15,12 +15,16 @@ personals.html
             <th>Id</th>
             <th>Login</th>
             <th>FirstName</th>
+            <th>LastName</th>
+            <th>Role</th>
         </tr>
 
         <tr th:each="personal : ${personals}">
             <td th:text="${personal.id}">Неожиданный id</td>
             <td th:text="${personal.login}">Неожиданный login</td>
             <td th:text="${personal.firstName}">Неожиданное имя</td>
+            <td th:text="${personal.lastName}">Неожиданное имя</td>
+            <td th:text="${personal.role}">Неожиданная роль</td>
         </tr>
 
     </table>
