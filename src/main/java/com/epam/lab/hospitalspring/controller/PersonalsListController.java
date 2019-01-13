@@ -12,9 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class AdminCabinetController {
+public class PersonalsListController {
     @Autowired
     PersonalService personalService;
+    // test data
     List<Personal> personals = new ArrayList<Personal>() {
         {
             add(new Personal(1L, "admin@epam.com", "admin", "Сергей", "Шнур", false, Role.ADMIN));
