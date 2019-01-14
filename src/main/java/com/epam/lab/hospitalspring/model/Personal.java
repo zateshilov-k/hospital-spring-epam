@@ -28,7 +28,7 @@ public class Personal {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    private boolean isDeleted;
+    private Boolean isDeleted;
     @Enumerated(EnumType.STRING)
     private Role role;
 }
