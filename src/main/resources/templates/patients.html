@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patients</title>
+</head>
+<body>
+
+patients.html
+
+<div th:if="${patients} != null">
+    <table class="patientList" border="1">
+        <tr>
+            <th>Id</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>isDischarged</th>
+            <th>isDeleted</th>
+        </tr>
+
+
+        <tr th:each="patient : ${patients}">
+            <td th:text="${patient.id}"></td>
+            <td th:text="${patient.firstName}"></td>
+            <td th:text="${patient.lastName}"></td>
+            <td th:text="${patient.discharged}"></td>
+            <td th:text="${patient.deleted}"></td>
+
+        </tr>
+
+
+    </table>
+</div>
+</th:if>
+<th:else>
+    <p>No tasks yet</p>
+</th:else>
+</body>
+</html>
