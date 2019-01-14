@@ -2,7 +2,6 @@ package com.epam.lab.hospitalspring.repository;
 
 import com.epam.lab.hospitalspring.model.Personal;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -20,8 +19,6 @@ JpaRepository – это интерфейс фреймворка Spring Data п�
 @Repository
 public interface PersonalRepository extends JpaRepository<Personal, Long> {
 
-    // our custom method instead findById
-    //@Query(nativeQuery = true, value = "select * from personal where id=:id")
     Personal findPersonalById(@Param("id") Long id);
 
 }
