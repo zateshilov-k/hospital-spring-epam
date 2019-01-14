@@ -21,7 +21,7 @@ public class Patient {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    private boolean discharged;
-    private boolean deleted;
+    private Boolean isDischarged;
+    private Boolean isDeleted;
 
 }

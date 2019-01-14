@@ -4,14 +4,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Patients</title>
+    <title>Patient Page</title>
 </head>
 <body>
 
-patients.html
-
-<div th:if="${patients} != null">
-    <table class="patientList" border="1">
+    <table class="patient" border="1">
         <tr>
             <th>Id</th>
             <th>FirstName</th>
@@ -21,16 +18,15 @@ patients.html
         </tr>
 
 
-        <tr th:each="patient : ${patients}">
             <td th:text="${patient.id}"></td>
             <td th:text="${patient.firstName}"></td>
             <td th:text="${patient.lastName}"></td>
             <td th:text="${patient.isDischarged}"></td>
             <td th:text="${patient.isDeleted}"></td>
-        </tr>
+
 
     </table>
-</div>
+
 </th:if>
 <th:else>
     <p>No tasks yet</p>
