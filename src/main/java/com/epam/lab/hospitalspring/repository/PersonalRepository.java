@@ -21,7 +21,7 @@ JpaRepository – это интерфейс фреймворка Spring Data п�
 public interface PersonalRepository extends JpaRepository<Personal, Long> {
 
     // our custom method instead findById
-    @Query(nativeQuery = true, value = "select * from personal where id=:id")
+    //@Query(nativeQuery = true, value = "select * from personal where id=:id")
     Personal findPersonalById(@Param("id") Long id);
 
 }
