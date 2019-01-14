@@ -50,9 +50,10 @@
         </div>
     </div>
 </nav>
-<h3>This is test page. If you see this text, you are the best!!!</h3>
-<h2>Если мы успешно прошли авторизацию из коробки Spring, то нас перекидывает на страницу по умолчанию index.html</h2>
-<h2>В дальнейшем мы можем это изменить.</h2>
+
+<h3> Текущий пользователь: </h3>
+<h3 th:text="${personal.firstName}"> </h3>
+<h3 th:text="${personal.lastName}"> </h3>
 
 
 </body>
