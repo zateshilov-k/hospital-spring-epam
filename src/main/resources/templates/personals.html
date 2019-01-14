@@ -17,6 +17,7 @@ personals.html
             <th>FirstName</th>
             <th>LastName</th>
             <th>Role</th>
+            <th>Deleted</th>
         </tr>
 
         <tr th:each="personal : ${personals}">
@@ -25,6 +26,7 @@ personals.html
             <td th:text="${personal.firstName}">Неожиданное имя</td>
             <td th:text="${personal.lastName}">Неожиданное имя</td>
             <td th:text="${personal.role}">Неожиданная роль</td>
+            <td th:text="${personal.isDeleted}">Неожиданно удален</td>
         </tr>
 
     </table>
