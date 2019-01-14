@@ -1,10 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 
+personals.html
+
+<div th:if="${personals}!=null">
+    <table class="personalsList" border="1">
+        <tr>
+            <th>Id</th>
+            <th>Login</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Role</th>
+        </tr>
+
+        <tr th:each="personal : ${personals}">
+            <td th:text="${personal.id}">Неожиданный id</td>
+            <td th:text="${personal.login}">Неожиданный login</td>
+            <td th:text="${personal.firstName}">Неожиданное имя</td>
+            <td th:text="${personal.lastName}">Неожиданное имя</td>
+            <td th:text="${personal.role}">Неожиданная роль</td>
+        </tr>
+
+    </table>
+</div>
+</th:if>
+<th:else>
+<p>No tasks yet</p>
+</th:else>
 </body>
 </html>

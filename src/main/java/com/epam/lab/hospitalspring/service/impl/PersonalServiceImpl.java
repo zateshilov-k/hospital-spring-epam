@@ -22,7 +22,7 @@ public class PersonalServiceImpl implements PersonalService {
 
     @Override
     public void update(Personal personal) {
-
+        personalRepository.saveAndFlush(personal);
     }
 
     @Override
