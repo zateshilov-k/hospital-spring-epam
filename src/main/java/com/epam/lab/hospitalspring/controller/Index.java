@@ -1,5 +1,6 @@
 package com.epam.lab.hospitalspring.controller;
 
+import com.epam.lab.hospitalspring.model.enums.Role;
 import com.epam.lab.hospitalspring.security.details.PersonalDetailsImpl;
 import com.epam.lab.hospitalspring.transfer.PersonalDto;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,10 @@ public class Index {
         PersonalDetailsImpl userDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         PersonalDto personalDto = PersonalDto.from(userDetailsService.getPersonal());
         model.addAttribute("personal", personalDto);
-        return "index";
+        if (userDetailsService.getPersonal().getRole() == Role.ADMIN) {
+            return "redirect:/personals";
+        } else {
+            return "index";
+        }
     }
 }

@@ -4,13 +4,10 @@ import com.epam.lab.hospitalspring.model.Personal;
 import com.epam.lab.hospitalspring.model.enums.Role;
 import com.epam.lab.hospitalspring.repository.PersonalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,14 +27,8 @@ public class LoginController {
         }
     };
 
-
     @GetMapping("/login")
-    public String getLoginPage(){
-        for (Personal personal : personals) {
-            personal.setPassword(passwordEncoder.encode(personal.getPassword()));
-        }
-
-        personalRepository.saveAll(personals);
+    public String getLoginPage() {
         return "login";
     }
 }
