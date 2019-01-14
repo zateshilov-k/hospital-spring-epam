@@ -21,4 +21,5 @@ public class Personals {
     public String showPersonalList() {
         return "personals"; // //path/name of the view in resources/templates
     }
+
 }
