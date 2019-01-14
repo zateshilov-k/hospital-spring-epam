@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name = "medical_personal") // table name in DB
+@Table(name = "personal") // table name in DB
 public class Personal {
 
     @Id

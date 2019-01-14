@@ -7,16 +7,16 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication
-@EnableAutoConfiguration
+@SpringBootApplication // включает автоматом, все аннотации, что написаны ниже ))))
+//@EnableAutoConfiguration //
 
 // указываем Spring где нужно искать Entity, DAO, Service и т.п.
-@ComponentScan(basePackages = "com.epam.lab.hospitalspring")
+//@ComponentScan(basePackages = "com.epam.lab.hospitalspring")
 
 // включаем возможность использования JPARepository и говорим, где их искать
-@EnableJpaRepositories(basePackages = "com.epam.lab.hospitalspring.repository")
+//@EnableJpaRepositories(basePackages = "com.epam.lab.hospitalspring.repository")
 
-@EntityScan(basePackages = "com.epam.lab.hospitalspring.model")
+//@EntityScan(basePackages = "com.epam.lab.hospitalspring.model")
 public class HospitalApplication {
 
     public static void main(String[] args) {
