@@ -13,11 +13,11 @@ import java.util.List;
 
 @Repository
 public interface DiagnosisRepository extends JpaRepository<Diagnosis, Long> {
-    Diagnosis findDiagnosisById(@Param("id") Long id);
+    Diagnosis findDiagnosisById(Long id);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM diagnosis JOIN patient " + "ON diagnosis" +
+   /* @Query(nativeQuery = true, value = "SELECT * FROM diagnosis JOIN patient " + "ON diagnosis" +
             ".patient_id = patient.patient_id JOIN medical_personal " + "ON diagnosis.personal_id = medical_personal" +
-            ".personal_id WHERE diagnosis.patient_id = ?;")
-    List<Diagnosis> findDiagnosisByPatientId(Patient patient);
+            ".personal_id WHERE diagnosis.patient_id = ?;")*/
+    List<Diagnosis> findDiagnosisByPatientId(Long id);
 
 }

@@ -16,5 +16,5 @@ public interface DiagnosisService {
 
     List<Diagnosis> getAll();
 
-    List<Diagnosis> getDiagnosisByPatient(Patient patient);
+    List<Diagnosis> findDiagnosisByPatientId(Long id);
 }

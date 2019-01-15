@@ -24,6 +24,6 @@ public class Patient {
     private String lastName;
     private Boolean isDischarged;
     private Boolean isDeleted;
-    @OneToMany(mappedBy = "patient")
-    List<Diagnosis> diagnosisList;
+    /*@OneToMany(mappedBy = "patient")
+    List<Diagnosis> diagnosisList;*/
 }

@@ -36,7 +36,7 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     }
 
     @Override
-    public List<Diagnosis> getDiagnosisByPatient(Patient patient) {
-        return diagnosisRepository.findDiagnosisByPatientId(patient);
+    public List<Diagnosis> findDiagnosisByPatientId(Long id) {
+        return diagnosisRepository.findDiagnosisByPatientId(id);
     }
 }
