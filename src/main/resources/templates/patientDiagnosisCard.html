@@ -8,24 +8,10 @@
 </head>
 <body>
 
-    <table class="patient" border="1">
-        <tr>
-            <th>Id</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>isDischarged</th>
-            <th>isDeleted</th>
-        </tr>
 
-
-            <td th:text="${patient.id}"></td>
-            <td th:text="${patient.firstName}"></td>
-            <td th:text="${patient.lastName}"></td>
-            <td th:text="${patient.isDischarged}"></td>
-            <td th:text="${patient.isDeleted}"></td>
-
-
-    </table>
+<h3> <div style="text-align:center; font-size:28px"> Текущий пользователь:  </div>
+    <p th:text="${patient.firstName}"></p>
+    <!--<p th:text="${patient.lastName}"></p>--> </h3>
 
 </th:if>
 <th:else>

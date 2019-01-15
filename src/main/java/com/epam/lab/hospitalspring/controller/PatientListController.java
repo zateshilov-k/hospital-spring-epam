@@ -38,7 +38,7 @@ public class PatientListController {
 //        model.addAttribute("patient", patientService.getPatientById(id));
         model.addAttribute("patient", patientList.get(Math.toIntExact(id)));
 //        System.out.println(patientService.getPatientById(id));
-        return "patientProfile";
+        return "patientDiagnosisCard";
     }
 
 
