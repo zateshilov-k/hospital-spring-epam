@@ -1,30 +1,30 @@
 package com.epam.lab.hospitalspring.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "diagnosis")
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class Diagnosis {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String description;
-//    @OneToMany
-//    @JoinColumn(name = "")
-//    private Personal personal;
-    @ManyToOne
-    @JoinColumn(name="patient_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "personal_id", nullable = false)
+    private Personal personal;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
     private Boolean isOpened;
     private LocalDateTime time;
+    @OneToMany(mappedBy = "diagnosis", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    List<Prescription> prescriptions;
+
 
 }

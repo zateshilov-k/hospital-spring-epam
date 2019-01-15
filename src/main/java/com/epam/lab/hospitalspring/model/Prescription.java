@@ -9,19 +9,17 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 @Table(name = "prescription")
 public class Prescription {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String description;
-//    private Patient patient;
-
-//    private Diagnosis diagnosis;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "diagnosis_id", nullable = false)
+    private Diagnosis diagnosis;
     private Boolean isDone;
     private LocalDateTime time;
     @Enumerated(EnumType.STRING)

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -16,7 +17,7 @@ import javax.persistence.*;
 
 public class Personal {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String login; // it's like email
 
@@ -31,4 +32,6 @@ public class Personal {
     private Boolean isDeleted;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(mappedBy = "personal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    List<Diagnosis> diagnosisList;
 }

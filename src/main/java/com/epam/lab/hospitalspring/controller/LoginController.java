@@ -1,5 +1,6 @@
 package com.epam.lab.hospitalspring.controller;
 
+import com.epam.lab.hospitalspring.model.Diagnosis;
 import com.epam.lab.hospitalspring.model.Personal;
 import com.epam.lab.hospitalspring.model.enums.Role;
 import com.epam.lab.hospitalspring.repository.PersonalRepository;
@@ -19,13 +20,13 @@ public class LoginController {
     @Autowired
     PersonalRepository personalRepository;
 
-    List<Personal> personals = new ArrayList<Personal>() {
-        {
-            add(new Personal(1L, "admin@epam.com", "admin", "Сергей", "Шнуров", false, Role.ADMIN));
-            add(new Personal(2L, "doctor@epam.com", "doctor", "Николай", "Басков", false, Role.DOCTOR));
-            add(new Personal(3L, "nurse@epam.com", "nurse", "Верка", "Сердючка", false, Role.NURSE));
-        }
-    };
+//    List<Personal> personals = new ArrayList<Personal>() {
+//        {
+//            add(new Personal(1L, "admin@epam.com", "admin", "Сергей", "Шнуров", false, Role.ADMIN), null);
+//            add(new Personal(2L, "doctor@epam.com", "doctor", "Николай", "Басков", false, Role.DOCTOR), null);
+//            add(new Personal(3L, "nurse@epam.com", "nurse", "Верка", "Сердючка", false, Role.NURSE));
+//        }
+//    };
 
     @GetMapping("/login")
     public String getLoginPage() {
