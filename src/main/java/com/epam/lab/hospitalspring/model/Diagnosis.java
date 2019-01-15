@@ -16,9 +16,13 @@ public class Diagnosis {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     private String description;
-    private Personal personal;
+//    @OneToMany
+//    @JoinColumn(name = "")
+//    private Personal personal;
+    @ManyToOne
+    @JoinColumn(name="patient_id")
     private Patient patient;
     private Boolean isOpened;
     private LocalDateTime time;
