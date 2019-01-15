@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<html lang="en" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<main class="login-form">
+    <div class="cotainer">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">${titleAddPersonalPage}</div>
+                    <div class="card-body">
+                        <form action="/addPersonal" method="post">
+                            <div class="form-group row">
+                                <label for="field1"
+                                       class="col-md-4 col-form-label text-md-right">${firstNameField}</label>
+                                <div class="col-md-6">
+                                    <input type="text" id="field1" class="form-control" name="firstName" required
+                                           autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="field2"
+                                       class="col-md-4 col-form-label text-md-right">${lastNameField}</label>
+                                <div class="col-md-6">
+                                    <input type="text" id="field2" class="form-control" name="lastName" required
+                                           autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="field5"
+                                       class="col-md-4 col-form-label text-md-right">${loginField}</label>
+                                <div class="col-md-6">
+                                    <input type="text" id="field5" class="form-control" name="login" required
+                                           autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password"
+                                       class="col-md-4 col-form-label text-md-right">${passwordField}</label>
+                                <div class="col-md-6">
+                                    <input type="password" id="password" class="form-control" name="password" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-md-right">${chooseRoleField}</label>
+                                <div class="col-md-6">
+                                    <br>
+                                    <select name="role">
+                                        <option value="doctor">${DOCTOR}</option>
+                                        <option value="nurse">${NURSE}</option>
+                                        <option value="admin">${ADMIN}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row" align="center">
+                                <c:if test="${!empty requestScope.loginError}">
+                                    <p><font color="red"><span class="error">${personalError}</span></font>
+                                    </p>
+                                </c:if>
+                            </div>
+                            <div class="form-group row" align="center">
+                                <c:if test="${!empty requestScope.createPersonalError}">
+                                    <p><font color="red"><span class="error">${createPersonalError}</span></font>
+                                    </p>
+                                </c:if>
+                            </div>
+
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    ${buttonSave}
+                                </button>
+                                <a href="/personals.jsp" class="btn btn-link">
+                                    ${buttonCancel}
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+</body>
+</html>
