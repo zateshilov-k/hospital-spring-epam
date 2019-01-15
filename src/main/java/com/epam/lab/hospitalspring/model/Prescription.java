@@ -19,8 +19,9 @@ public class Prescription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
-    private Patient patient;
-    private Diagnosis diagnosis;
+//    private Patient patient;
+
+//    private Diagnosis diagnosis;
     private Boolean isDone;
     private LocalDateTime time;
     @Enumerated(EnumType.STRING)

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -23,5 +24,6 @@ public class Patient {
     private String lastName;
     private Boolean isDischarged;
     private Boolean isDeleted;
-
+    @OneToMany(mappedBy = "patient")
+    List<Diagnosis> diagnosisList;
 }
