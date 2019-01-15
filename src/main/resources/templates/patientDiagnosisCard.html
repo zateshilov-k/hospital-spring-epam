@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Page</title>
+</head>
+<body>
+
+
+<h3> <div style="text-align:center; font-size:28px"> Текущий пользователь:  </div>
+    <p th:text="${patient.firstName}"></p>
+    <!--<p th:text="${patient.lastName}"></p>--> </h3>
+
+</th:if>
+<th:else>
+    <p>No tasks yet</p>
+</th:else>
+</body>
+</html>

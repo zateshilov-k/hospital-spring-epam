@@ -14,10 +14,9 @@ patients.html
     <table class="patientList" border="1">
         <tr>
             <th>Id</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>isDischarged</th>
-            <th>isDeleted</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Personal card</th>
         </tr>
 
 
@@ -25,11 +24,13 @@ patients.html
             <td th:text="${patient.id}"></td>
             <td th:text="${patient.firstName}"></td>
             <td th:text="${patient.lastName}"></td>
-            <td th:text="${patient.isDischarged}"></td>
-            <td th:text="${patient.isDeleted}"></td>
+            <td><form name="Button" th:action="@{/patients/} + ${patient.id}" method="POST" style="display:inline">
+                <input type="submit" value="Open card"/>
+            </form></td>
         </tr>
 
     </table>
+
 </div>
 </th:if>
 <th:else>
