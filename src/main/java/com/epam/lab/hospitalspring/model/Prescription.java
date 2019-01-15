@@ -1,5 +1,6 @@
 package com.epam.lab.hospitalspring.model;
 
+import com.epam.lab.hospitalspring.model.enums.PrescriptionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name = "prescription") // table name in DB
+@Table(name = "prescription")
 public class Prescription {
 
     @Id
@@ -20,8 +21,9 @@ public class Prescription {
     private String description;
     private Patient patient;
     private Diagnosis diagnosis;
-    private boolean isDone;
+    private Boolean isDone;
     private LocalDateTime time;
+    @Enumerated(EnumType.STRING)
     private PrescriptionType type;
 
 }

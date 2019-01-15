@@ -16,11 +16,11 @@ public class Diagnosis {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+    private Long Id;
     private String description;
     private Personal personal;
     private Patient patient;
-    private boolean isOpened;
+    private Boolean isOpened;
     private LocalDateTime time;
 
 }

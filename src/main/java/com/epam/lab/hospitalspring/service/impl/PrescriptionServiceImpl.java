@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class PrescriptionServiceImpl implements PrescriptionService {
 
-    @Autowired //аннотация которая позволит Spring инициализировать наш сервис
+    @Autowired
     private PrescriptionRepository prescriptionRepository;
 
     @Override
@@ -19,20 +19,18 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         return savedPersonal;
     }
 
-
-
     @Override
     public void update(Prescription prescription) {
-
+        Prescription savedPersonal = prescriptionRepository.saveAndFlush(prescription);
     }
 
     @Override
     public Prescription getById(Long id) {
-        return null;
+        return prescriptionRepository.findPrescriptionById(id);
     }
 
     @Override
     public List<Prescription> getAll() {
-        return null;
+        return prescriptionRepository.findAll();
     }
 }

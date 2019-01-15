@@ -22,16 +22,16 @@ public class DiagnosisServiceImpl implements DiagnosisService {
 
     @Override
     public void update(Diagnosis diagnosis) {
-
+        Diagnosis savedDiagnosis = diagnosisRepository.saveAndFlush(diagnosis);
     }
 
     @Override
     public Diagnosis getById(Long id) {
-        return null;
+        return diagnosisRepository.findDiagnosisById(id);
     }
 
     @Override
     public List<Diagnosis> getAll() {
-        return null;
+        return diagnosisRepository.findAll();
     }
 }
