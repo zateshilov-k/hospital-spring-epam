@@ -31,7 +31,7 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     }
 
     @Override
-    public List<Diagnosis> getAll() {
+    public List<Diagnosis> getAllDiagnosis() {
         return diagnosisRepository.findAll();
     }
 

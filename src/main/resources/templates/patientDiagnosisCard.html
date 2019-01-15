@@ -79,6 +79,8 @@
             <tr>
                 <th>Id</th>
                 <th>Description</th>
+                <!--<th>Patient</th>-->
+                <!--<th>Diagnosis</th>-->
                 <th>Type of prescription</th>
                 <th>Time</th>
                 <th>Done</th>
@@ -89,6 +91,8 @@
             <tr th:each="prescription : ${prescriptionList}">
                 <td th:text="${prescription.id}"></td>
                 <td th:text="${prescription.description}"></td>
+                <!--<td th:text="${prescription.patient}"></td>-->
+                <!--<td th:text="${prescription.diagnosis}"></td>-->
                 <td th:text="${prescription.type}"></td>
                 <td th:text="${prescription.time}"></td>
                 <td th:text="${prescription.isDone}"></td>

@@ -5,6 +5,7 @@ import com.epam.lab.hospitalspring.model.Patient;
 import com.epam.lab.hospitalspring.model.Prescription;
 import com.epam.lab.hospitalspring.model.enums.PrescriptionType;
 import com.epam.lab.hospitalspring.repository.DiagnosisRepository;
+import com.epam.lab.hospitalspring.repository.PatientRepository;
 import com.epam.lab.hospitalspring.repository.PrescriptionRepository;
 import com.epam.lab.hospitalspring.service.DiagnosisService;
 import com.epam.lab.hospitalspring.service.PatientService;
@@ -31,11 +32,14 @@ public class PatientController {
     @Autowired
     PrescriptionService prescriptionService;
     @Autowired
+    PatientRepository patientRepository;
+    @Autowired
     DiagnosisRepository diagnosisRepository;
     @Autowired
     PrescriptionRepository prescriptionRepository;
 
     LocalDateTime today = LocalDateTime.now();
+
     // test data
     List<Patient> patientList = new ArrayList<Patient>() {
         {
@@ -56,72 +60,45 @@ public class PatientController {
 
     List<Prescription> prescriptionList = new ArrayList<Prescription>() {
         {
-            add(new Prescription(1L, "description1 !!!", false, today, PrescriptionType.PROCEDURE));
-            add(new Prescription(2L, "description2 !!!", false, today, PrescriptionType.OPERATION));
-            add(new Prescription(3L, "description3 !!!", false, today, PrescriptionType.DRUG));
+            add(new Prescription(1L, "description1 !!!", patientList.get(1), diagnosisList.get(1), false, today, PrescriptionType.PROCEDURE));
+            add(new Prescription(2L, "description2 !!!", patientList.get(1), diagnosisList.get(1), false, today, PrescriptionType.OPERATION));
+            add(new Prescription(3L, "description3 !!!", patientList.get(2), diagnosisList.get(2), false, today, PrescriptionType.DRUG));
         }
     };
 
+    //list of patients
     @RequestMapping(value = "/patients", method = RequestMethod.GET)
     public String getAllPatients(Model model) {
         model.addAttribute("patients", patientService.getAllPatients());
-//        model.addAttribute("patients", patientList);
         return "patients";
     }
 
+    // Getting for patinet his diagnoises and prescriptions
     @RequestMapping(value = "/patients/{id}", method = RequestMethod.GET)
     public String getPatient(@PathVariable("id") Long id, Model model) {
         model.addAttribute("patient", patientService.getPatientById(id));
         model.addAttribute("diagnosisList", diagnosisService.findDiagnosisByPatientId(id));
-        model.addAttribute("prescriptionList", prescriptionService.getAllPrescriptions());
-//        model.addAttribute("patient", patientList.get(Math.toIntExact(id)));
-//        model.addAttribute("diagnosisList", getListDiagnosisByPatientId(id));
-//        System.out.println(patientService.getPatientById(id));
-//        getListDiagnosisByPatientId(id);
+        model.addAttribute("prescriptionList", prescriptionService.findPrescriptionsForDiagnosisByDiagnosisId(id));
         return "patientDiagnosisCard";
     }
 
-    private List<Diagnosis> getListDiagnosisByPatientId(Long id) {
-        Patient patient = patientService.getPatientById(id);
-//        List<Diagnosis> diagnosisList = diagnosisService.getDiagnosisByPatient(patient);
-        List<Diagnosis> list = new ArrayList<>();
-        for (int i = 0; i < diagnosisList.size(); i++) {
-            if (id == diagnosisList.get(i).getPatient().getId()) {
-                list.add(diagnosisList.get(i));
-            }
-        }
-        return list;
-    }
-
-
-   /* @RequestMapping("/patients")
-    public String showPatientsList(Model model) {
-        // записываем тестовый набор пользователей
-        for (Patient patient : patientList) {
-            patientService.addPatient(patient);
-        }
-
-        List<Patient> patients = patientService.getAllPatients();
-        model.addAttribute("patients", patients);
-
-//        List<Diagnosis> diagnoses = diagnosisService.getAllPrescriptions();
-//        model.addAttribute("diagnosis", diagnoses);
-        return "patients"; // //path/name of the view in resources/templates
-    }*/
-
-    @GetMapping("/test")
+   // Init base
+    @GetMapping("/init")
     public void addTestData(){
-        //diagnosisList.forEach(diagnosis -> diagnosisRepository.save(diagnosis));
-
+        //init
+        patientList.forEach(patient -> patientRepository.save(patient));
+        diagnosisList.forEach(diagnosis -> diagnosisRepository.save(diagnosis));
         prescriptionList.forEach(prescription -> prescriptionRepository.save(prescription));
-        List<Diagnosis> allDiagnosis = diagnosisRepository.findAll();
+
+        // getting all
         List<Patient> allPatients = patientService.getAllPatients();
+        List<Diagnosis> allDiagnosis = diagnosisService.getAllDiagnosis();
         List<Prescription> allPrescriptions = prescriptionRepository.findAll();
-        allDiagnosis.forEach(System.out::println);
+
+        // sout
         allPatients.forEach(System.out::println);
+        allDiagnosis.forEach(System.out::println);
         allPrescriptions.forEach(System.out::println);
     }
-
-
 
 }

@@ -33,4 +33,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     public List<Prescription> getAllPrescriptions() {
         return prescriptionRepository.findAll();
     }
+
+    @Override
+    public List<Prescription> findPrescriptionsForDiagnosisByDiagnosisId(Long diagnosisId) {
+        return prescriptionRepository.findPrescriptionsForDiagnosisByDiagnosisId(diagnosisId);
+    }
 }
