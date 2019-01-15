@@ -20,9 +20,9 @@ public class PatientListController {
     // test data
     List<Patient> patientList = new ArrayList<Patient>() {
         {
-            add(new Patient(1L, "patient1", "secondName1",  false, true));
-            add(new Patient(2L, "patient2", "secondName2", false, true));
-            add(new Patient(3L, "patient3", "secondName3", false, true));
+//            add(new Patient(1L, "patient1", "secondName1",  false, true));
+//            add(new Patient(2L, "patient2", "secondName2", false, true));
+//            add(new Patient(3L, "patient3", "secondName3", false, true));
         }
     };
 
