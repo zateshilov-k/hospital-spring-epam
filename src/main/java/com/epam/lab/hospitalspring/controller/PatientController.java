@@ -2,10 +2,13 @@ package com.epam.lab.hospitalspring.controller;
 
 import com.epam.lab.hospitalspring.model.Diagnosis;
 import com.epam.lab.hospitalspring.model.Patient;
+import com.epam.lab.hospitalspring.model.Prescription;
+import com.epam.lab.hospitalspring.model.enums.PrescriptionType;
 import com.epam.lab.hospitalspring.repository.DiagnosisRepository;
-import com.epam.lab.hospitalspring.repository.PatientRepository;
+import com.epam.lab.hospitalspring.repository.PrescriptionRepository;
 import com.epam.lab.hospitalspring.service.DiagnosisService;
 import com.epam.lab.hospitalspring.service.PatientService;
+import com.epam.lab.hospitalspring.service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,14 +22,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class PatientListController {
+public class PatientController {
 
     @Autowired
     PatientService patientService;
     @Autowired
     DiagnosisService diagnosisService;
     @Autowired
+    PrescriptionService prescriptionService;
+    @Autowired
     DiagnosisRepository diagnosisRepository;
+    @Autowired
+    PrescriptionRepository prescriptionRepository;
+
     LocalDateTime today = LocalDateTime.now();
     // test data
     List<Patient> patientList = new ArrayList<Patient>() {
@@ -46,6 +54,14 @@ public class PatientListController {
         }
     };
 
+    List<Prescription> prescriptionList = new ArrayList<Prescription>() {
+        {
+            add(new Prescription(1L, "description1 !!!", false, today, PrescriptionType.PROCEDURE));
+            add(new Prescription(2L, "description2 !!!", false, today, PrescriptionType.OPERATION));
+            add(new Prescription(3L, "description3 !!!", false, today, PrescriptionType.DRUG));
+        }
+    };
+
     @RequestMapping(value = "/patients", method = RequestMethod.GET)
     public String getAllPatients(Model model) {
         model.addAttribute("patients", patientService.getAllPatients());
@@ -57,6 +73,7 @@ public class PatientListController {
     public String getPatient(@PathVariable("id") Long id, Model model) {
         model.addAttribute("patient", patientService.getPatientById(id));
         model.addAttribute("diagnosisList", diagnosisService.findDiagnosisByPatientId(id));
+        model.addAttribute("prescriptionList", prescriptionService.getAllPrescriptions());
 //        model.addAttribute("patient", patientList.get(Math.toIntExact(id)));
 //        model.addAttribute("diagnosisList", getListDiagnosisByPatientId(id));
 //        System.out.println(patientService.getPatientById(id));
@@ -87,7 +104,7 @@ public class PatientListController {
         List<Patient> patients = patientService.getAllPatients();
         model.addAttribute("patients", patients);
 
-//        List<Diagnosis> diagnoses = diagnosisService.getAll();
+//        List<Diagnosis> diagnoses = diagnosisService.getAllPrescriptions();
 //        model.addAttribute("diagnosis", diagnoses);
         return "patients"; // //path/name of the view in resources/templates
     }*/
@@ -96,10 +113,13 @@ public class PatientListController {
     public void addTestData(){
         //diagnosisList.forEach(diagnosis -> diagnosisRepository.save(diagnosis));
 
-        List<Diagnosis> all = diagnosisRepository.findAll();
+        prescriptionList.forEach(prescription -> prescriptionRepository.save(prescription));
+        List<Diagnosis> allDiagnosis = diagnosisRepository.findAll();
         List<Patient> allPatients = patientService.getAllPatients();
-        all.forEach(System.out::println);
+        List<Prescription> allPrescriptions = prescriptionRepository.findAll();
+        allDiagnosis.forEach(System.out::println);
         allPatients.forEach(System.out::println);
+        allPrescriptions.forEach(System.out::println);
     }
 
 

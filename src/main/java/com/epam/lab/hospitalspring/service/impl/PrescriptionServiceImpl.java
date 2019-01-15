@@ -30,7 +30,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     }
 
     @Override
-    public List<Prescription> getAll() {
+    public List<Prescription> getAllPrescriptions() {
         return prescriptionRepository.findAll();
     }
 }

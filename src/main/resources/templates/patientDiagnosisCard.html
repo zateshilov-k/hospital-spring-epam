@@ -41,13 +41,18 @@
     <a style="text-align:center;font-size:28px" th:text="${patient.lastName}"></a>
     </div>
 </h3>
+<br>
+<button onclick="window.location.href='/patients'">Go list patients</button>
+<br><br>
 
-
-</div>
+<fieldset>
+    <button id="closeDiagnosisButton">Close diagnosis button</button>
+    <button id="doPrescription"  style="display:inline; float:right">Do prescription</button>
+    <br><br>
 
 <div th:if="${diagnosisList} != null">
     <table class="diagnosisList" style="display:inline; float:left" border="1">
-        <caption  style=" font-family: Arial, Helvetica, sans-serif;">${diagnosis_msg}:</caption>
+        <caption  style=" font-family: Arial, Helvetica, sans-serif;">Диагноз сообщение:</caption>
         <tr>
             <th>Id</th>
             <th>Description</th>
@@ -65,9 +70,60 @@
             <td th:text="${diagnosis.isOpened}"></td>
             <td th:text="${diagnosis.time}"></td>
         </tr>
-
     </table>
 </div>
+
+    <div th:if="${prescriptionList} != null">
+        <table class="prescriptionList" style="display:inline; float:right" border="1">
+            <caption style=" font-family: Arial, Helvetica, sans-serif;" >Назначение сообщение:</caption>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Type of prescription</th>
+                <th>Time</th>
+                <th>Done</th>
+            </tr>
+
+
+
+            <tr th:each="prescription : ${prescriptionList}">
+                <td th:text="${prescription.id}"></td>
+                <td th:text="${prescription.description}"></td>
+                <td th:text="${prescription.type}"></td>
+                <td th:text="${prescription.time}"></td>
+                <td th:text="${prescription.isDone}"></td>
+            </tr>
+        </table>
+    </div>
+</fieldset>
+
+<br>
+<fieldset style="float:left" id = "diagnosisFieldSet">
+    <legend>Добавить диагноз</legend>
+    <br>
+    <caption>Описание диагноза:</caption>
+    <p><textarea name="comment" id="diagnosisDescription"></textarea></p>
+    <button id="diagnosisSubmit" value="Добавить">Добавить</button>
+</fieldset>
+
+<fieldset id="addPrescriptionFieldSet" style="display:none;">
+    <legend>Добавить назначение</legend>
+    <form>
+        <caption>Тип назначения:</caption>
+        <form>
+            <select name="prescriptionType" id="prescriptionType">
+                <option value="Procedure">Процедура</option>
+                <option value="Operation">Операция</option>
+                <option value="Drug">Лекарство</option>
+            </select>
+        </form>
+        <caption>Описание назначения:</caption>
+        <p><textarea id="prescriptionDescription" name="comment"></textarea></p>
+        <button id="prescriptionSubmit" value="Добавить">Добавить</button>
+    </form>
+</fieldset>
+
+
 
 </th:if>
 <th:else>
