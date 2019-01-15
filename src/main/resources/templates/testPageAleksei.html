@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
-    id="bootstrap-css">
+          id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
@@ -104,31 +104,31 @@
 </header>
 <h3 align="center">Список персонала</h3>
 <div class="container-fluid">
-<table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Login</th>
-        <th>FirstName</th>
-        <th>LastName</th>
-        <th>Role</th>
-        <th>Deleted</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <div th:if="${personals}!=null">
-        <tr th:each="personal : ${personals}">
-            <td th:text="${personal.id}">Неожиданный id</td>
-            <td th:text="${personal.login}">Неожиданный login</td>
-            <td th:text="${personal.firstName}">Неожиданное имя</td>
-            <td th:text="${personal.lastName}">Неожиданное имя</td>
-            <td th:text="${personal.role}">Неожиданная роль</td>
-            <td th:text="${personal.isDeleted}">Неожиданно удален</td>
+    <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Login</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Role</th>
+            <th>Deleted</th>
         </tr>
-    </div>
-    </tbody>
-</table>
+        </thead>
+
+        <tbody>
+        <div th:if="${personals}!=null">
+            <tr th:each="personal : ${personals}">
+                <td th:text="${personal.id}">Неожиданный id</td>
+                <td th:text="${personal.login}">Неожиданный login</td>
+                <td th:text="${personal.firstName}">Неожиданное имя</td>
+                <td th:text="${personal.lastName}">Неожиданное имя</td>
+                <td th:text="${personal.role}">Неожиданная роль</td>
+                <td th:text="${personal.isDeleted}">Неожиданно удален</td>
+            </tr>
+        </div>
+        </tbody>
+    </table>
 </div>
 <script>
     $(document).ready(function () {
