@@ -24,14 +24,14 @@ patients.html
             <td th:text="${patient.id}"></td>
             <td th:text="${patient.firstName}"></td>
             <td th:text="${patient.lastName}"></td>
-            <td><form name="Button" th:action="@{/patients/} + ${patient.id}" method="POST" style="display:inline">
+            <td><form name="Button" th:action="@{/patients/} + ${patient.id}" method="GET" style="display:inline">
                 <input type="submit" value="Open card"/>
             </form></td>
         </tr>
 
     </table>
-
 </div>
+
 </th:if>
 <th:else>
     <p>No tasks yet</p>

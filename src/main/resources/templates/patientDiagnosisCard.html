@@ -3,15 +3,67 @@
 
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <title>Patient Page</title>
+
+    <style>
+    table, tbody,thead {
+    display: block;
+    }
+    tbody {
+    height: 280px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    }
+    table, th, td {
+        padding: 11px;
+        border: 3px solid rgb(230, 230, 230);
+        border-collapse: collapse;
+    }
+    d {
+        padding: 5px;
+        text-align: left;
+    }
+    tr:hover {background-color:rgb(255, 255, 255);}
+
+    </style>
+
+
 </head>
 <body>
 
+<h3>
+    <div style="text-align:center; font-size:28px"> Текущий пользователь:
+    <a style="text-align:center;font-size:28px" th:text="${patient.firstName}"></a>
+    <a style="text-align:center;font-size:28px" th:text="${patient.lastName}"></a>
+    </div>
+</h3>
 
-<h3> <div style="text-align:center; font-size:28px"> Текущий пользователь:  </div>
-    <p th:text="${patient.firstName}"></p>
-    <!--<p th:text="${patient.lastName}"></p>--> </h3>
+
+</div><div th:if="${diagnosisList} != null">
+    <table class="diagnosisList" border="1">
+        <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Patient</th>
+            <th>isOpened</th>
+            <th>time</th>
+        </tr>
+
+
+        <tr th:each="diagnosis : ${diagnosisList}">
+            <td th:text="${diagnosis.id}"></td>
+            <td th:text="${diagnosis.description}"></td>
+            <td th:text="${diagnosis.patient}"></td>
+            <td th:text="${diagnosis.isOpened}"></td>
+            <td th:text="${diagnosis.time}"></td>
+        </tr>
+
+    </table>
+</div>
+
+
 
 </th:if>
 <th:else>

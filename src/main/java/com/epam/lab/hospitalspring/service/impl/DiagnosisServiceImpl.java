@@ -1,6 +1,7 @@
 package com.epam.lab.hospitalspring.service.impl;
 
 import com.epam.lab.hospitalspring.model.Diagnosis;
+import com.epam.lab.hospitalspring.model.Patient;
 import com.epam.lab.hospitalspring.repository.DiagnosisRepository;
 import com.epam.lab.hospitalspring.service.DiagnosisService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,7 @@ public class DiagnosisServiceImpl implements DiagnosisService {
 
     @Override
     public Diagnosis addDiagnosis(Diagnosis diagnosis) {
-        Diagnosis savedDiagnosis = diagnosisRepository.saveAndFlush(diagnosis);
-        return savedDiagnosis;
+        return diagnosisRepository.saveAndFlush(diagnosis);
     }
 
     @Override
@@ -33,5 +33,10 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     @Override
     public List<Diagnosis> getAll() {
         return diagnosisRepository.findAll();
+    }
+
+    @Override
+    public List<Diagnosis> getDiagnosisByPatient(Patient patient) {
+        return diagnosisRepository.findDiagnosisByPatientId(patient);
     }
 }
