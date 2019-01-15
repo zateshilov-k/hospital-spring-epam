@@ -5,6 +5,7 @@
     <title>SignUp page</title>
 </head>
 <body>
+<h1 th:text="#{greeting}"></h1>
 
 <span th:if="${param.loginAleadyUsed != null}" th:text="loginAleadyUsed"></span>
 <span th:if="${param.loginNotValid != null}" th:text="loginNotValid"></span>
