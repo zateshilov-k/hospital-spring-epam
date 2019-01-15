@@ -20,3 +20,5 @@
 *.rar
 
 application.properties
+
+target/*
