@@ -28,14 +28,16 @@ public class PatientListController {
 
     @RequestMapping(value = "/patients", method = RequestMethod.GET)
     public String getAllPatients(Model model) {
-        model.addAttribute("patients", patientService.getAllPatients());
+//        model.addAttribute("patients", patientService.getAllPatients());
+        model.addAttribute("patients", patientList);
         return "patients";
     }
 
-    @RequestMapping(value = "/patients/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/patients/{id}", method = RequestMethod.POST)
     public String getPatient(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("patient", patientService.getPatientById(id));
-        System.out.println(patientService.getPatientById(id));
+//        model.addAttribute("patient", patientService.getPatientById(id));
+        model.addAttribute("patient", patientList.get(Math.toIntExact(id)));
+//        System.out.println(patientService.getPatientById(id));
         return "patientProfile";
     }
 
