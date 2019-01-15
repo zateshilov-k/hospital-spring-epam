@@ -41,7 +41,6 @@ public class PatientListController {
         }
     };
 
-
     @RequestMapping(value = "/patients", method = RequestMethod.GET)
     public String getAllPatients(Model model) {
         model.addAttribute("patients", patientService.getAllPatients());
@@ -68,10 +67,6 @@ public class PatientListController {
             if (id == diagnosisList.get(i).getPatient().getId()) {
                 list.add(diagnosisList.get(i));
             }
-        }
-        for (Diagnosis diagnosis : list) {
-            System.out.println("hello");
-            System.out.println(diagnosis);
         }
         return list;
     }
