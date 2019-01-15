@@ -10,4 +10,5 @@ public interface PersonalRepository extends JpaRepository<Personal, Long> {
 
     Personal findPersonalById(@Param("id") Long id);
 
+    Optional<Personal> findOneByLogin(String login);
 }

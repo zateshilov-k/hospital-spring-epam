@@ -19,6 +19,6 @@
 *.tar.gz
 *.rar
 
-application.properties
+application-mysql.properties
 
 target/*
