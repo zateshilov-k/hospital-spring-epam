@@ -1,5 +1,6 @@
 package com.epam.lab.hospitalspring.controller;
 
+import com.epam.lab.hospitalspring.model.Patient;
 import com.epam.lab.hospitalspring.model.Personal;
 import com.epam.lab.hospitalspring.model.enums.Role;
 import com.epam.lab.hospitalspring.repository.PersonalRepository;
@@ -21,18 +22,35 @@ public class LoginController {
 
     List<Personal> personals = new ArrayList<Personal>() {
         {
-            add(new Personal(1L, "admin@epam.com", "admin", "Сергей", "Шнуров", false, Role.ADMIN));
-            add(new Personal(2L, "doctor@epam.com", "doctor", "Николай", "Басков", false, Role.DOCTOR));
-            add(new Personal(3L, "nurse@epam.com", "nurse", "Верка", "Сердючка", false, Role.NURSE));
+            add(Personal.builder()
+                        .login("admin@epam.com")
+                        .password("admin")
+                        .firstName("Сергей")
+                        .lastName("Шнуров")
+                        .isDeleted(false)
+                        .role(Role.ADMIN)
+                        .build());
+            add(Personal.builder()
+                    .login("doctor@epam.com")
+                    .password("doctor")
+                    .firstName("Николай")
+                    .lastName("Басков")
+                    .isDeleted(false)
+                    .role(Role.DOCTOR)
+                    .build());
+            add(Personal.builder()
+                    .login("nurse@epam.com")
+                    .password("nurse")
+                    .firstName("Верка")
+                    .lastName("Сердючка")
+                    .isDeleted(false)
+                    .role(Role.NURSE)
+                    .build());
         }
     };
 
     @GetMapping("/login")
     public String getLoginPage() {
-//        for (Personal personal : personals) {
-//            personal.setPassword(passwordEncoder.encode(personal.getPassword()));
-//            personalRepository.saveAndFlush(personal);
-//        }
         return "login";
     }
 }

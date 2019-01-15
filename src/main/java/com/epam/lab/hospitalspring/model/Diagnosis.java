@@ -24,7 +24,7 @@ public class Diagnosis {
     @ManyToOne
     @JoinColumn(name="patient_id")
     private Patient patient;
-    private Boolean isOpened;
+    private Boolean opened;
     private LocalDateTime time;
 
 }

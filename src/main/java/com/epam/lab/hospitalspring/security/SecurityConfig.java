@@ -1,4 +1,4 @@
-package com.epam.lab.hospitalspring.config;
+package com.epam.lab.hospitalspring.security;
 
 import com.epam.lab.hospitalspring.security.details.PersonalDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/login").permitAll()
+                    .antMatchers("/login", "/signUp").permitAll()
                     .antMatchers("/personals/**").hasAuthority("ADMIN")
                     .anyRequest().authenticated()
                     .and()
