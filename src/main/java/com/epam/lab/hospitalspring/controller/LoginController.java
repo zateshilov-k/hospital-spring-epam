@@ -29,6 +29,10 @@ public class LoginController {
 
     @GetMapping("/login")
     public String getLoginPage() {
+//        for (Personal personal : personals) {
+//            personal.setPassword(passwordEncoder.encode(personal.getPassword()));
+//            personalRepository.saveAndFlush(personal);
+//        }
         return "login";
     }
 }
