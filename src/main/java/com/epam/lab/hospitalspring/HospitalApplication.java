@@ -12,16 +12,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Locale;
 
-@SpringBootApplication // включает автоматом, все аннотации, что написаны ниже ))))
-//@EnableAutoConfiguration //
-
-// указываем Spring где нужно искать Entity, DAO, Service и т.п.
-//@ComponentScan(basePackages = "com.epam.lab.hospitalspring")
-
-// включаем возможность использования JPARepository и говорим, где их искать
-//@EnableJpaRepositories(basePackages = "com.epam.lab.hospitalspring.repository")
-
-//@EntityScan(basePackages = "com.epam.lab.hospitalspring.model")
+@SpringBootApplication
 public class HospitalApplication {
     @Bean
     public PasswordEncoder passwordEncoder() {
