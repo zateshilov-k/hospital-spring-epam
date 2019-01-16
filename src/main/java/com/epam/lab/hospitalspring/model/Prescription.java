@@ -20,7 +20,7 @@ public class Prescription {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "diagnosis_id", nullable = false)
     private Diagnosis diagnosis;
-    private Boolean isDone;
+    private Boolean done;
     private LocalDateTime time;
     @Enumerated(EnumType.STRING)
     private PrescriptionType type;

@@ -20,7 +20,7 @@ import java.util.List;
 
 public class Personal {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String login; // it's like email
 
@@ -32,7 +32,7 @@ public class Personal {
 
     @Column(name = "last_name")
     private String lastName;
-    private Boolean isDeleted;
+    private Boolean deleted;
     @Enumerated(EnumType.STRING)
     private Role role;
     @OneToMany(mappedBy = "personal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
