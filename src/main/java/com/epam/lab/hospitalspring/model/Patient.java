@@ -11,7 +11,7 @@ import java.util.List;
 public class Patient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "first_name")
@@ -20,6 +20,6 @@ public class Patient {
     private String lastName;
     private Boolean isDischarged;
     private Boolean isDeleted;
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     List<Diagnosis> diagnosisList;
 }

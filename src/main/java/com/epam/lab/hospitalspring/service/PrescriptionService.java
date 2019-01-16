@@ -11,6 +11,7 @@ public interface PrescriptionService {
 
     Prescription getById(Long id);
 
-    List<Prescription> getAll();
+    List<Prescription> getAllPrescriptions();
 
+    List<Prescription> findPrescriptionsForDiagnosisByDiagnosisId(Long diagnosisId);
 }

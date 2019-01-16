@@ -5,32 +5,128 @@
 <head>
     <meta charset="UTF-8">
     <title>Patients</title>
+
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<style>
+    header {
+        width: 100%;
+        display: inline-block;
+        background-color: #404040;
+    }
+
+    .hamburger {
+        height: 20px;
+        width: 20px;
+        padding: 20px;
+        float: right;
+        cursor: pointer;
+    }
+
+    nav {
+        background-color: #2b2b2b;
+        margin: 0;
+        max-height: 0;
+        overflow: hidden;
+        clear:both;
+        transition: max-height .3s cubic-bezier(0.63, 0, 0.25, 1);;
+    }
+
+    nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: block;
+    }
+
+    nav li {
+        display: block;
+        margin: 0;
+        text-align: center;
+    }
+
+    nav a {
+        color: white;
+        display: block;
+        padding: .4em;
+    }
+
+    header input[type="checkbox"]:checked ~ nav {
+        max-height: 150px;
+        border-bottom: #404040 5px solid;
+    }
+
+    header a:hover,
+    header a:focus,
+    header label:hover,
+    header label:focus {
+        background-color: #191919;
+    }
+
+    @media (min-width: 700px) {
+        .hamburger {
+            display: none;
+        }
+        nav {
+            background: transparent;
+            float: right;
+            border: 0 !important;
+            max-height: none;
+        }
+        nav ul, nav li, nav li a {
+            display: inline-block;
+        }
+        nav a {
+            display: inline-block;
+            padding: 15px 1em;
+        }
+    }
+
+</style>
 </head>
-<body>
 
-patients.html
+<body style="background-color:powderblue">
+<header>
+    <label ></label>
+    <nav>
+        <ul>
+            <li><a href="/personals">Personals</a></li>
+            <li><a href="/patients">Personals</a></li>
+            <li><a href="/testPageAleksei">Test main page</a></li>
+            <li><a href="#">My profile</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+<h3 align="center">Список пациентов</h3>
 
-<div th:if="${patients} != null">
-    <table class="patientList" border="1">
+<div th:if="${patients} != null" class="container-fluid">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <table class="table  table-bordered table-hover"  ellspacing="0" width="100%">
+        <thead>
         <tr>
             <th>Id</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>isDischarged</th>
-            <th>isDeleted</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Personal card</th>
         </tr>
-
+        </thead>
 
         <tr th:each="patient : ${patients}">
             <td th:text="${patient.id}"></td>
             <td th:text="${patient.firstName}"></td>
             <td th:text="${patient.lastName}"></td>
-            <td th:text="${patient.isDischarged}"></td>
-            <td th:text="${patient.isDeleted}"></td>
+            <td><form name="Button" th:action="@{/patients/} + ${patient.id}" method="GET" style="display:inline">
+                <input type="submit" value="Open card"/>
+            </form></td>
         </tr>
 
     </table>
 </div>
+
 </th:if>
 <th:else>
     <p>No tasks yet</p>
