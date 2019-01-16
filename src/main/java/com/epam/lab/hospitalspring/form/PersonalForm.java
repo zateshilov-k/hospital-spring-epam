@@ -8,4 +8,5 @@ public class PersonalForm {
     private String lastName;
     private String password;
     private String login;
+    private String role;
 }

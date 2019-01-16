@@ -21,7 +21,7 @@ public class Diagnosis {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
-    private Boolean isOpened;
+    private Boolean opened;
     private LocalDateTime time;
     @OneToMany(mappedBy = "diagnosis", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Prescription> prescriptions;

@@ -3,6 +3,7 @@ package com.epam.lab.hospitalspring.model;
 import com.epam.lab.hospitalspring.model.enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 @Table(name = "personal") // table name in DB
 
 public class Personal {
