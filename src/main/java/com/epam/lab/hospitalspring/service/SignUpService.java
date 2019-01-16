@@ -4,5 +4,5 @@ import com.epam.lab.hospitalspring.form.PersonalForm;
 import org.springframework.stereotype.Service;
 
 public interface SignUpService {
-    boolean signUp(PersonalForm personalForm);
+    void signUp(PersonalForm personalForm);
 }

@@ -27,7 +27,7 @@ public class SignUpServiceImpl implements SignUpService {
     PersonalRepository personalRepository;
 
     @Override
-    public boolean signUp(PersonalForm personalForm) throws LoginAlreadyUsed, LoginNotValid {
+    public void signUp(PersonalForm personalForm) throws LoginAlreadyUsed, LoginNotValid {
         String login = personalForm.getLogin();
         if(personalRepository.findOneByLogin(login).isPresent()) {
             throw new LoginAlreadyUsed();
@@ -45,7 +45,5 @@ public class SignUpServiceImpl implements SignUpService {
                 .isDeleted(false)
                 .build();
         personalRepository.saveAndFlush(personal);
-
-        return true;
     }
 }
