@@ -20,5 +20,6 @@
 *.rar
 
 application-mysql.properties
+application-h2.properties
 
 target/*
