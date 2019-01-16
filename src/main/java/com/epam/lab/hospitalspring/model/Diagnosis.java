@@ -15,10 +15,10 @@ public class Diagnosis {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String description;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "personal_id", nullable = false)
     private Personal personal;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
     private Boolean isOpened;

@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class Index {
     @RequestMapping("/")
     public String showLoginPage(Model model, Authentication authentication) {
-        PersonalDetailsImpl userDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
-        PersonalDto personalDto = PersonalDto.from(userDetailsService.getPersonal());
+        PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
+        PersonalDto personalDto = PersonalDto.from(personalDetailsService.getPersonal());
         model.addAttribute("personal", personalDto);
-        if (userDetailsService.getPersonal().getRole() == Role.ADMIN) {
+        if (personalDetailsService.getPersonal().getRole() == Role.ADMIN) {
             return "redirect:/personals";
         } else {
             return "index";
