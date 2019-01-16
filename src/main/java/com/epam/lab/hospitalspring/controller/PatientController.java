@@ -1,9 +1,5 @@
 package com.epam.lab.hospitalspring.controller;
 
-import com.epam.lab.hospitalspring.model.Diagnosis;
-import com.epam.lab.hospitalspring.model.Patient;
-import com.epam.lab.hospitalspring.model.Prescription;
-import com.epam.lab.hospitalspring.model.enums.PrescriptionType;
 import com.epam.lab.hospitalspring.repository.DiagnosisRepository;
 import com.epam.lab.hospitalspring.repository.PatientRepository;
 import com.epam.lab.hospitalspring.repository.PrescriptionRepository;
@@ -13,14 +9,12 @@ import com.epam.lab.hospitalspring.service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class PatientController {
@@ -51,5 +45,11 @@ public class PatientController {
     public String getPatient(@PathVariable("id") Long id, Model model) {
         model.addAttribute("patient", patientService.getPatientById(id));
         return "patientDiagnosisCard";
+    }
+
+
+    @RequestMapping(value = "/addPatient", method = RequestMethod.GET)
+    public String addPatient(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
+        return "patients";
     }
 }
