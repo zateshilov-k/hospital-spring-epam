@@ -11,4 +11,5 @@ public class LoginController {
     public String getLoginPage() {
         return "login";
     }
+
 }

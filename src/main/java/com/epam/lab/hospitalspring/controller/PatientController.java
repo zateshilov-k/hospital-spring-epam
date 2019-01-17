@@ -65,9 +65,10 @@ public class PatientController {
         }
     }
 
-    @GetMapping(value = "/addPersonal/{message}")
-    public String showError(@PathVariable("message") Long message, Model model) {
-        model.addAttribute("errorMessage", message);
+    @GetMapping(value = "/patient/{id}")
+    public String showError(@PathVariable("id") Long id, Model model) {
+        model.addAttribute(patientService.getPatientById(id));
+        //TODO передать на фронт имя и фамилию
         return "patient";
     }
 }

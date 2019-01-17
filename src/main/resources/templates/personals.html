@@ -116,6 +116,7 @@
             <th>LastName</th>
             <th>Role</th>
             <th>Deleted</th>
+            <th>action</th>
         </tr>
         </thead>
 
@@ -128,6 +129,13 @@
                 <td th:text="${personal.lastName}">Неожиданное имя</td>
                 <td th:text="${personal.role}">Неожиданная роль</td>
                 <td th:text="${personal.isDeleted}">Неожиданно удален</td>
+                <td>
+                    <form name="Button" th:action="@{/personal/{id}(id=${personal.id})}" method="GET"
+                          style="display:inline">
+                        <input type="submit" name="button" value="Перейти в профиль"/>
+                    </form>
+
+                </td>
             </tr>
         </div>
         </tbody>

@@ -6,7 +6,10 @@ import com.epam.lab.hospitalspring.service.PersonalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,17 +18,9 @@ import java.util.List;
 public class PersonalsListController {
     @Autowired
     PersonalService personalService;
-    // test data
-//    List<Personal> personals = new ArrayList<Personal>() {
-//        {
-//            add(new Personal(1L, "admin@epam.com", "admin", "Сергей", "Шнур", false, Role.ADMIN));
-//            add(new Personal(2L, "doctor@epam.com", "doctor", "Николай", "Басков", false, Role.DOCTOR));
-//            add(new Personal(3L, "nurse@epam.com", "nurse", "Верка", "Сердючка", false, Role.NURSE));
-//            add(new Personal(4L, "nurse@epam.com", "nurse", "Верка", "Сердючка", false, Role.NURSE));
-//        }
-//    };
 
-    @RequestMapping("/personals")
+
+    @GetMapping("/personals")
     public String showPersonalsList(Model model) {
         // записываем тестовый набор пользователей
 //        for (Personal personal : personals) {
@@ -34,5 +29,11 @@ public class PersonalsListController {
         List<Personal> personals = personalService.getAll();
         model.addAttribute("personals", personals);
         return "personals"; // //path/name of the view in resources/templates
+    }
+
+    @GetMapping("/personal/{id}")
+    public String getPersonalPage(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("personal", personalService.getById(id));
+        return "/personal";
     }
 }
