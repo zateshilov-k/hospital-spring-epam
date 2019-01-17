@@ -1,26 +1,62 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login page</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="icon" href="Favicon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <title>Войдите в систему EPAM Hospital</title>
+
 </head>
-<body>
-<h1 th:text="#{greeting}"></h1>
+<body style="background-color:powderblue;overflow:hidden">
 
-<form th:action="@{/login}" method="post">
-    <div><label> User Name: <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
-<form th:action="@{/signUp}" method="get">
-    <div><input type="submit" value="Sign Up"/></div>
-</form>
+<main class="login-form">
+    <div class="cotainer">
+        <span style="float: right">
+             <a href="?lang=en">en</a>
+             <a href="?lang=ru">ru</a>
+        </span>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div th:text="#{greeting}">
+                    <div class="card-body">
+                        <form th:action="@{/login}" method="post">
+                        <div><label> User Name: <input type="text" name="username"/> </label></div>
+                        <div><label> Password: <input type="password" name="password"/> </label></div>
+                                <div th:action="@{/changeLanguage}" method="post">
+                                        <select>
+                                             <option value="ru">Русский </option>
+                                             <option value="fr">Français </option>
+                                         </select>
+                                </div>
+                            <div th:action="@{/signUp}" method="get">
+                                    <div><input type="submit" value="Sign Up"/></div>
+                                    <div><input type="submit" value="Sign In"/></div>
+                            </div>
 
-<form th:action="@{/changeLanguage}" method="post">
-    <select>
-        <option value="ru">Русский </option>
-        <option value="fr">Français </option>
-    </select>
-</form>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
 </body>
 </html>
