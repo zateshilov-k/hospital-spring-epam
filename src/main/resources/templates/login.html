@@ -63,10 +63,9 @@
 
                     <!--local-->
                         <span th:text="#{lang.change}"></span>
-                        <select id="locales">
-                            <option value=""></option>
-                            <option value="ru" th:text="#{lang.ru}"></option>
+                        <select id="locales" onchange="changeEventHandler(event);">
                             <option value="en" th:text="#{lang.eng}"></option>
+                            <option value="ru" th:text="#{lang.ru}"></option>
                         </select>
 
                 </div>
@@ -86,6 +85,23 @@ $(document).ready(function() {
         }
     });
 });
+
+ if ((window.location.href.indexOf("lang=en") > 0)) {
+   lang = "English";
+   $("#locales").val("en");
+ }
+
+  if ((window.location.href.indexOf("lang=ru") > 0)) {
+   lang = "Russia";
+   $("#locales").val("ru");
+ }
+
+<!--jQuery(document).ready(function(){-->
+    <!--jQuery("#locales").change(function() {-->
+      <!--var value = jQuery(this).children(":selected").attr("value");-->
+     <!--alert(value);-->
+    <!--});-->
+<!--})-->
 
 $(document).ready(function() {
     $("#locales").change(function() {
