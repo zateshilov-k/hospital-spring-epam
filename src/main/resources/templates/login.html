@@ -1,9 +1,11 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"
+      xmlns:c="http://www.w3.org/1999/XSL/Transform" xmlns:fmt="http://jboss.org/xml/ns/javax/validation/mapping">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html>
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -23,31 +25,51 @@
     <title>Войдите в систему EPAM Hospital</title>
 
 </head>
-<body style="background-color:powderblue;overflow:hidden">
+<body style="background-color:powderblue">
+<!--<fmt:setLocale value="${sessionScope.locale}"/>-->
+<!--<%&#45;&#45;<fmt:setLocale value="de-GR"/>&#45;&#45;%>-->
+<!--<fmt:setBundle basename="internationalization.resource" var="loc"/>-->
+<!--<fmt:message bundle="${loc}" key="loginField" var="enterEmail_msg"/>-->
+<!--<fmt:message bundle="${loc}" key="passwordField" var="enterPassword_msg"/>-->
+<!--<fmt:message bundle="${loc}" key="titleIndexPage" var="title_msg"/>-->
+<!--<fmt:message bundle="${loc}" key="buttonEnter" var="buttonEnter_msg"/>-->
 
 <main class="login-form">
-    <div class="cotainer">
+    <div class="card-header" style="align:right">Полоска для чего-то важного!!!
         <span style="float: right">
-             <a href="?lang=en">en</a>
-             <a href="?lang=ru">ru</a>
+            <a href="?lang=en">en</a>
+            <a href="?lang=ru">ru</a>
         </span>
+    </div>
+    <div class="cotainer">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div th:text="#{greeting}">
+                    <div class="card-header">Добро пожаловать в систему EPAM hospital</div>
                     <div class="card-body">
-                        <form th:action="@{/login}" method="post">
-                        <div><label> User Name: <input type="text" name="username"/> </label></div>
-                        <div><label> Password: <input type="password" name="password"/> </label></div>
-                                <div th:action="@{/changeLanguage}" method="post">
-                                        <select>
-                                             <option value="ru">Русский </option>
-                                             <option value="fr">Français </option>
-                                         </select>
+                        <form action="/login" method="post">
+                            <div class="form-group row">
+                                <label for="email_address"
+                                       class="col-md-4 col-form-label text-md-right">Enter email</label>
+                                <div class="col-md-6">
+                                    <input type="text" id="email_address" class="form-control" name="login" required
+                                           autofocus>
                                 </div>
-                            <div th:action="@{/signUp}" method="get">
-                                    <div><input type="submit" value="Sign Up"/></div>
-                                    <div><input type="submit" value="Sign In"/></div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">Enter password</label>
+                                <div class="col-md-6">
+                                    <input type="password" id="password" class="form-control" name="password" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary" id="loginSubmitButton">
+                                    Enter
+                                </button>
+                                <button type="submit" class="btn btn-primary" id="toSignUpButton">
+                                    SignUp
+                                </button>
                             </div>
 
                         </form>
@@ -56,7 +78,8 @@
             </div>
         </div>
     </div>
-    </div>
+
 </main>
 </body>
-</html>
+
+
