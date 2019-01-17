@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
 </head>
 <body>
-<h1 th:text="#{greeting}"></h1>
-
+    <h1 th:text="#{greeting}"></h1>
 <form th:action="@{/login}" method="post">
     <div><label> User Name: <input type="text" name="username"/> </label></div>
     <div><label> Password: <input type="password" name="password"/> </label></div>
@@ -16,11 +16,30 @@
     <div><input type="submit" value="Sign Up"/></div>
 </form>
 
-<form th:action="@{/changeLanguage}" method="post">
-    <select>
-        <option value="ru">Русский </option>
-        <option value="fr">Français </option>
+<!--<form th:action="@{/changeLanguage}" method="post">-->
+    <!--<select>-->
+        <!--<option value="ru">Русский </option>-->
+        <!--<option value="en">English </option>-->
+    <!--</select>-->
+<!--</form>-->
+    <span th:text="#{lang.change}"></span>:
+    <select id="locales">
+        <option value=""></option>
+        <option value="ru" th:text="#{lang.ru}"></option>
+        <option value="en" th:text="#{lang.eng}"></option>
     </select>
-</form>
 </body>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#locales").change(function () {
+        var selectedOption = $('#locales').val();
+        if (selectedOption != ''){
+            window.location.replace('login?lang=' + selectedOption);
+        }
+    });
+});
+</script>
+
 </html>

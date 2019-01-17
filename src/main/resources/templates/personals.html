@@ -98,7 +98,7 @@
     <label></label>
     <nav>
         <ul>
-            <li><a href="/personals">Personals</a></li>
+            <li><a href="/personals"><p th:text="#{personals}"></p></a></li>
             <li><a href="/testPageAleksei">Test main page</a></li>
             <li><a href="#">My profile</a></li>
             <li><a href="/logout">Logout</a></li>
@@ -128,7 +128,7 @@
                 <td th:text="${personal.firstName}">Неожиданное имя</td>
                 <td th:text="${personal.lastName}">Неожиданное имя</td>
                 <td th:text="${personal.role}">Неожиданная роль</td>
-                <td th:text="${personal.isDeleted}">Неожиданно удален</td>
+                <!--<td th:text="${personal.isDeleted}">Неожиданно удален</td>-->
                 <td>
                     <form name="Button" th:action="@{/personal/{id}(id=${personal.id})}" method="GET"
                           style="display:inline">

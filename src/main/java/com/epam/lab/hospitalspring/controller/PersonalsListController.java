@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class PersonalsListController {
@@ -22,10 +23,6 @@ public class PersonalsListController {
 
     @GetMapping("/personals")
     public String showPersonalsList(Model model) {
-        // записываем тестовый набор пользователей
-//        for (Personal personal : personals) {
-//            personalService.addPersonal(personal);
-//        }
         List<Personal> personals = personalService.getAll();
         model.addAttribute("personals", personals);
         return "personals"; // //path/name of the view in resources/templates
