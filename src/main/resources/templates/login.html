@@ -1,28 +1,22 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login page</title>
+    <title th:text="#{title}"></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
     </script>
 </head>
 <body>
-    <h1 th:text="#{greeting}"></h1>
+    <h1 th:text="#{welcome}"></h1>
 <form th:action="@{/login}" method="post">
-    <div><label> User Name: <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
+    <div><label><a th:text="#{username}"></a><input type="text" name="username"/> </label></div>
+    <div><label><a th:text="#{password}"></a><input type="password" name="password"/> </label></div>
+    <div><button type="submit" th:text="#{signin}"></button></div>
 </form>
 <form th:action="@{/signUp}" method="get">
-    <div><input type="submit" value="Sign Up"/></div>
+           <div><button type="submit" th:text="#{signup}"></button></div>
 </form>
 
-<!--<form th:action="@{/changeLanguage}" method="post">-->
-    <!--<select>-->
-        <!--<option value="ru">Русский </option>-->
-        <!--<option value="en">English </option>-->
-    <!--</select>-->
-<!--</form>-->
-    <span th:text="#{lang.change}"></span>:
+    <span th:text="#{lang.change}"></span>
     <select id="locales">
         <option value=""></option>
         <option value="ru" th:text="#{lang.ru}"></option>
@@ -38,6 +32,13 @@ $(document).ready(function() {
         if (selectedOption != ''){
             window.location.replace('login?lang=' + selectedOption);
         }
+    });
+});
+
+$(document).ready(function() {
+    $("#locales").change(function() {
+        $("#value").text($(this).val());
+        $("#text").text($("#locales option:selected").text());
     });
 });
 </script>
