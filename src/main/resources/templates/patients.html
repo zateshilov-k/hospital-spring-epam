@@ -13,7 +13,7 @@
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>Patients</title>
+    <title>#{titlePatientsPage}</title>
 </head>
 <body style="background-color:powderblue">
 <style>
@@ -97,41 +97,39 @@
 <header>
     <label></label>
     <nav>
-        <ul>
-            <li><a href="/personals">Personals</a></li>
-            <li><a href="/addPatient">Add patient</a></li>
-            <li><a href="/testPageAleksei">Test main page</a></li>
-            <li><a href="#">My profile</a></li>
-            <li><a href="/logout">Logout</a></li>
+        <li><a href="/patients" th:text="#{patients}"></a></li>
+        <li><a href="/addPatient" th:text="#{menuAddPatient}"></a></li>
+        <li><a href="#" th:text="#{myProfile}"></a></li>
+        <li><a href="/logout" th:text="#{menuLogout}"></a></li>
         </ul>
     </nav>
 </header>
-<h3 align="center">Список пациентов</h3>
+<h3 align="center" th:text="#{titlePatientsPage}"></h3>
 <div class="container-fluid">
     <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
         <thead>
         <tr>
-            <th>Id</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>Action</th>
+            <th th:text="#{columnId}">Id</th>
+            <th th:text="#{columnFirstName}">FirstName</th>
+            <th th:text="#{columnLastName}">LastName</th>
+            <th th:text="#{columnAction}">Action</th>
         </tr>
         </thead>
 
         <tbody>
         <div th:if="${patients}!=null">
             <tr th:each="patient : ${patients}">
-                <td th:text="${patient.id}">Неожиданный id</td>
-                <td th:text="${patient.firstName}">Неожиданное имя</td>
-                <td th:text="${patient.lastName}">Неожиданная фамилия</td>
+                <td th:text="${patient.id}">id</td>
+                <td th:text="${patient.firstName}">first name</td>
+                <td th:text="${patient.lastName}">last name</td>
                 <td>
                     <form name="Button" th:action="@{/patientDiagnosisCard/{id}(id=${patient.id})}" method="GET"
                           style="display:inline">
-                        <input type="submit" name="button" value="Перейти в карточку"/>
+                        <input type="submit" name="button" value="Let's open patient's card" th:value="#{buttonOpenCard}"/>
                     </form>
                     <form name="Button" th:action="@{/patient/{id}(id=${patient.id})}" method="GET"
                           style="display:inline">
-                        <input type="submit" name="button" value="Изменить данные пациента"/>
+                        <input type="submit" name="button" value="Let's change patient data" th:value="#{buttonPatientProfile}"/>
                     </form>
                 </td>
             </tr>
