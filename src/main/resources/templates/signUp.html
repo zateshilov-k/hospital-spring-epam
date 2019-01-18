@@ -1,15 +1,11 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
-    <title>SignUp page</title>
-</head>
-<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,66 +25,45 @@
 </head>
 
 <body style="background-color:powderblue;overflow:hidden">
-<!--<%&#45;&#45;<fmt:setLocale value="${sessionScope.locale}"/>&#45;&#45;%>-->
-<!--<fmt:setLocale value="de-GR"/>-->
-<!--<fmt:setBundle basename="internationalization.resource" var="loc"/>-->
-<!--<fmt:message bundle="${loc}" key="titleAddPersonalPage" var="titleAddPersonalPage_msg"/>-->
-<!--<fmt:message bundle="${loc}" key="firstNameField" var="firstNameField_msg"/>-->
-<!--<fmt:message bundle="${loc}" key="lastNameField" var="lastNameField_msg"/>-->
-<!--<fmt:message bundle="${loc}" key="loginField" var="loginField_msg"/>-->
-<!--<fmt:message bundle="${loc}" key="passwordField" var="passwordField_msg"/>-->
-<!--<fmt:message bundle="${loc}" key="chooseRoleField" var="chooseRoleField_msg"/>-->
-<!--<fmt:message bundle="${loc}" key="buttonSave" var="buttonSave_msg"/>-->
-<!--<fmt:message bundle="${loc}" key="buttonCancel" var="buttonCancel_msg"/>-->
-<!--<fmt:message bundle="${loc}" key="titleUpdatePersonalPage" var="titleUpdatePersonalPage_msg"/>-->
-<!--<fmt:message bundle="${loc}" key="updatePersonalError" var="updatePersonalError_msg"/>-->
-<!--<fmt:message bundle="${loc}" key="ADMIN" var="ADMIN_msg"/>-->
-<!--<fmt:message bundle="${loc}" key="DOCTOR" var="DOCTOR_msg"/>-->
-<!--<fmt:message bundle="${loc}" key="NURSE" var="NURSE_msg"/>-->
 
 <main class="login-form">
-    <div class="card-header" style="align:right">Sign Up Page
-        <span style="float: right">
-            <a href="?lang=en">en</a>
-            <a href="?lang=ru">ru</a>
-        </span>
-    </div>
     <div class="cotainer">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
+                    <div class="card-header">Page of sign up</div>
                     <div class="card-body">
                         <form th:action="@{/signUp}" method="post">
                             <div class="form-group row">
                                 <label for="field1"
-                                       class="col-md-4 col-form-label text-md-right">User Name:</label>
+                                       class="col-md-4 col-form-label text-md-right">Input User Name:</label>
                                 <div class="col-md-6">
                                     <input type="text" id="field1" class="form-control" name="firstName" required
-                                           autofocus value="Введите логин пользователя">
+                                           autofocus>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="field2"
-                                       class="col-md-4 col-form-label text-md-right">Password</label>
+                                       class="col-md-4 col-form-label text-md-right">Input Password:</label>
                                 <div class="col-md-6">
                                     <input type="text" id="field2" class="form-control" name="lastName" required
-                                           autofocus value="Введите пароль для пользователя">
+                                           autofocus >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="field3"
-                                       class="col-md-4 col-form-label text-md-right">First name</label>
+                                       class="col-md-4 col-form-label text-md-right">Input First Name:</label>
                                 <div class="col-md-6">
                                     <input type="text" id="field3" class="form-control" name="login" required
-                                           autofocus value="Введите имя пользователя">
+                                           autofocus >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="field4"
-                                       class="col-md-4 col-form-label text-md-right">Last name</label>
+                                       class="col-md-4 col-form-label text-md-right">Input Last name:</label>
                                 <div class="col-md-6">
                                     <input type="text" id="field4" class="form-control" name="login" required
-                                           autofocus value="Введите фамилию пользователя">
+                                           autofocus>
                                 </div>
                             </div>
                             <div class="col-md-6 offset-md-4">
