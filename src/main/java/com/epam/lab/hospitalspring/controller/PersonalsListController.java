@@ -33,4 +33,9 @@ public class PersonalsListController {
         model.addAttribute("personal", personalService.getById(id));
         return "/personal";
     }
+
+    @GetMapping("/addPersonal")
+    public String addPersonal(){
+        return "personal";
+    }
 }

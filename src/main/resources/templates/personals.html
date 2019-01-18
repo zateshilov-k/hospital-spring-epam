@@ -13,7 +13,7 @@
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>#{titlePatientsPage}</title>
+    <title>#{titlePersonalsPage}</title>
 </head>
 <body style="background-color:powderblue">
 <style>
@@ -98,7 +98,7 @@
     <label></label>
     <nav>
         <ul>
-            <li><a href="/personals"><p th:text="#{personals}"></p></a></li>
+            <li><a href="/personals" th:text="#{personals}"></a></li>
             <li><a href="/addPersonal" th:text="#{menuAddPersonal}"></a></li>
             <li><a href="/testPageAleksei">Test main page</a></li>
             <li><a href="#" th:text="#{myProfile}"></a></li>
@@ -116,8 +116,8 @@
 
             <th th:text="#{columnFirstName}">FirstName</th>
             <th th:text="#{columnLastName}">LastName</th>
-            <th>Role</th>
-            <th>Deleted</th>
+            <th th:text="#{columnRole}">Role</th>
+            <th th:text="#{columnActive}">Active</th>
             <th th:text="#{columnAction}">Action</th>
         </tr>
         </thead>
@@ -129,14 +129,19 @@
                 <td th:text="${personal.login}">login</td>
                 <td th:text="${personal.firstName}">firstname</td>
                 <td th:text="${personal.lastName}">lastname</td>
-                <td th:text="${personal.role}">role</td>
-                <!--<td th:text="${personal.isDeleted}">Неожиданно удален</td>-->
+
+                <td th:switch="${personal.role}">
+                    <p th:case="${personal.role.ADMIN}" th:text="#{ADMIN}">administrator</p>
+                    <p th:case="${personal.role.DOCTOR}" th:text="#{DOCTOR}">doctor</p>
+                    <p th:case="${personal.role.NURSE}" th:text="#{NURSE}">nurse</p>
+                    <p th:case="*">Unknown role</p>
+                </td>
+                <td th:text="${personal.deleted}">Неожиданно удален</td>
                 <td>
                     <form name="Button" th:action="@{/personal/{id}(id=${personal.id})}" method="GET"
                           style="display:inline">
-                        <input type="submit" name="button" value="Перейти в профиль"/>
+                        <input type="submit" name="button" value="Open profile" th:value="#{buttonOpenProfile}"/>
                     </form>
-
                 </td>
             </tr>
         </div>
