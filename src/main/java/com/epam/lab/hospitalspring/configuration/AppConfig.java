@@ -31,7 +31,7 @@ public class AppConfig implements WebMvcConfigurer {
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:/messages");
-        messageSource.setDefaultEncoding("WINDOWS-1251");
+        messageSource.setDefaultEncoding("utf-8");
         messageSource.setFallbackToSystemLocale(true);
         return messageSource;
     }
