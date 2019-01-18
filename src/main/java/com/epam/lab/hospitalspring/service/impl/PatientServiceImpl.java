@@ -7,6 +7,7 @@ import com.epam.lab.hospitalspring.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,7 +44,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public void updatePatient(Patient patient) {
-        patientRepository.save(patient);
+        patientRepository.saveAndFlush(patient);
     }
 
     @Override
@@ -54,6 +55,21 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();
+    }
+
+    @Override
+    public List<Patient> getNotDeletedPatients() {
+        List<Patient> patients = patientRepository.findAll();
+        List<Patient> patientsNotDeleted = new ArrayList<>();
+        for (Patient patient : patients) {
+            if (patient.getDeleted() == false) {
+                patientsNotDeleted.add(patient);
+            }
+        }
+
+//        patientsNotDeleted = patientRepository.findPatientsByDeleted(false);
+
+        return patientsNotDeleted;
     }
 
 }

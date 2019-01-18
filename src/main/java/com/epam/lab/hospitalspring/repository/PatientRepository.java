@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 
 /*
 JpaRepository – это интерфейс фреймворка Spring Data предоставляющий набор стандартных методов JPA для работы с БД
@@ -18,7 +20,9 @@ JpaRepository – это интерфейс фреймворка Spring Data п�
 
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
-    @Query(nativeQuery = true, value = "SELECT * FROM patient where id=:id")
+    //@Query(nativeQuery = true, value = "SELECT * FROM patient where id=:id")
     Patient findPatientById(@Param("id") Long id);
+
+    List<Patient> findPatientsByDeleted(boolean deleted);
 
 }

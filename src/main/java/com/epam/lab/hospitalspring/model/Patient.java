@@ -35,4 +35,10 @@ public class Patient {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    @Override
+    public String toString() {
+        return "Patient{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", " +
+                "discharged=" + discharged + ", deleted=" + deleted + '}';
+    }
 }
