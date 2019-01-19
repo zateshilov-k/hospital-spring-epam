@@ -34,6 +34,6 @@ public class SignUpController {
         }catch (SignUpServiceImpl.LoginNotValid e) {
             return "redirect:/signUp?loginNotValid";
         }
-        return "redirect:/login";
+        return "redirect:/personals";
     }
 }

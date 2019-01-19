@@ -1,14 +1,23 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"
+      xmlns:justify-content="http://www.w3.org/1999/xhtml">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!------ Include the above in your HEAD tag ---------->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="icon" href="Favicon.png">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -17,86 +26,208 @@
 </head>
 <body style="background-color:powderblue">
 
-<main class="login-form">
-    <div class="cotainer">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header" th:text="#{titleAddPersonalPage}">Add personal</div>
-                    <div class="card-body">
-                        <form action="/addPersonal" method="post">
-                            <div class="form-group row">
-                                <label for="field1"
-                                       class="col-md-4 col-form-label text-md-right" th:text="#{firstNameField}">Enter
-                                    your name</label>
-                                <div class="col-md-6">
-                                    <input type="text" id="field1" class="form-control" name="firstName" required
-                                           autofocus>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="field2"
-                                       class="col-md-4 col-form-label text-md-right" th:text="#{lastNameField}">Enter
-                                    your last name</label>
-                                <div class="col-md-6">
-                                    <input type="text" id="field2" class="form-control" name="lastName" required
-                                           autofocus>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="field5"
-                                       class="col-md-4 col-form-label text-md-right" th:text="#{loginField}">Enter your
-                                    login</label>
-                                <div class="col-md-6">
-                                    <input type="text" id="field5" class="form-control" name="login" required
-                                           autofocus>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="password"
-                                       class="col-md-4 col-form-label text-md-right" th:text="#{passwordField}">Enter
-                                    your pass</label>
-                                <div class="col-md-6">
-                                    <input type="password" id="password" class="form-control" name="password" required>
-                                </div>
-                            </div>
+<style>
+    .centered {
+        position: fixed; /* or absolute */
+        top: 50%;
+        left: 50%;
+        width: 200px;
+        height: 100px;
+        margin: -50px 0 0 -100px;
+    }
 
-                            <div class="form-group row">
-                                <label class="col-md-4 col-form-label text-md-right" th:text="#{chooseRoleField}">Choose
-                                    your role</label>
-                                <div class="col-md-6">
-                                    <br>
-                                    <select name="role">
-                                        <option value="doctor" th:text="#{DOCTOR}">doctor</option>
-                                        <option value="nurse" th:text="#{NURSE}">nurse</option>
-                                        <option value="admin" th:text="#{ADMIN}">admin</option>
-                                    </select>
+    header {
+        width: 100%;
+        display: inline-block;
+        background-color: #404040;
+    }
+
+    .hamburger {
+        height: 20px;
+        width: 20px;
+        padding: 20px;
+        float: right;
+        cursor: pointer;
+    }
+
+    nav {
+        background-color: #2b2b2b;
+        margin: 0;
+        max-height: 0;
+        overflow: hidden;
+        clear: both;
+        transition: max-height .3s cubic-bezier(0.63, 0, 0.25, 1);;
+    }
+
+    nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: block;
+    }
+
+    nav li {
+        display: block;
+        margin: 0;
+        text-align: center;
+    }
+
+    nav a {
+        color: white;
+        display: block;
+        padding: .4em;
+    }
+
+    header input[type="checkbox"]:checked ~ nav {
+        max-height: 150px;
+        border-bottom: #404040 5px solid;
+    }
+
+    header a:hover,
+    header a:focus,
+    header label:hover,
+    header label:focus {
+        background-color: #191919;
+    }
+
+    @media (min-width: 700px) {
+        .hamburger {
+            display: none;
+        }
+
+        nav {
+            background: transparent;
+            float: right;
+            border: 0 !important;
+            max-height: none;
+        }
+
+        nav ul, nav li, nav li a {
+            display: inline-block;
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 15px 1em;
+        }
+    }
+
+</style>
+
+<header>
+    <label></label>
+    <nav>
+        <ul>
+            <li><a href="/personals" th:text="#{personals}"></a></li>
+            <li><a href="/addPersonal" th:text="#{menuAddPersonal}"></a></li>
+            <li><a href="/testPageAleksei">Test main page</a></li>
+            <li><a href="#" th:text="#{myProfile}"></a></li>
+            <li><a href="/logout" th:text="#{menuLogout}"></a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="container-fluid">
+                <main class="login-form">
+                    <div class="cotainer">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-header" th:text="#{titleAddPersonalPage}">Add personal</div>
+                                    <div class="card-body">
+                                        <form action="@{/signUp}" method="post">
+                                            <div class="form-group row">
+                                                <label for="field5"
+                                                       class="col-md-4 col-form-label text-md-right"
+                                                       th:text="#{loginField}">Enter
+                                                    your
+                                                    login</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" id="field5" class="form-control" name="login"
+                                                           required
+                                                           autofocus>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="password"
+                                                       class="col-md-4 col-form-label text-md-right"
+                                                       th:text="#{passwordField}">Enter
+                                                    your pass</label>
+                                                <div class="col-md-6">
+                                                    <input type="password" id="password" class="form-control"
+                                                           name="password"
+                                                           required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="field1"
+                                                       class="col-md-4 col-form-label text-md-right"
+                                                       th:text="#{firstNameField}">Enter
+                                                    your name</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" id="field1" class="form-control" name="firstName"
+                                                           required
+                                                           autofocus>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="field2"
+                                                       class="col-md-4 col-form-label text-md-right"
+                                                       th:text="#{lastNameField}">Enter
+                                                    your last name</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" id="field2" class="form-control" name="lastName"
+                                                           required
+                                                           autofocus>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <label class="col-md-4 col-form-label text-md-right"
+                                                       th:text="#{chooseRoleField}">Choose
+                                                    your role</label>
+                                                <div class="col-md-6">
+                                                    <br>
+                                                    <select name="role">
+                                                        <option value="doctor" th:text="#{DOCTOR}">doctor</option>
+                                                        <option value="nurse" th:text="#{NURSE}">nurse</option>
+                                                        <option value="admin" th:text="#{ADMIN}">admin</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!--<div class="form-group row" align="center">-->
+                                            <!--<c:if test="${!empty requestScope.loginError}">-->
+                                            <!--<p><font color="red"><span class="error">${personalError}</span></font>-->
+                                            <!--</p>-->
+                                            <!--</c:if>-->
+                                            <!--</div>-->
+                                            <!--<div class="form-group row" align="center">-->
+                                            <!--<c:if test="${!empty requestScope.createPersonalError}">-->
+                                            <!--<p><font color="red"><span class="error">${createPersonalError}</span></font>-->
+                                            <!--</p>-->
+                                            <!--</c:if>-->
+                                            <!--</div>-->
+
+                                            <div class="col-md-6 offset-md-4">
+                                                <button type="submit" class="btn btn-primary" th:text="#{buttonSave}">Save
+                                                </button>
+                                                <a href="/personals" class="btn btn-link"
+                                                   th:text="#{buttonCancel}">Cancel</a>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                            <!--<div class="form-group row" align="center">-->
-                            <!--<c:if test="${!empty requestScope.loginError}">-->
-                            <!--<p><font color="red"><span class="error">${personalError}</span></font>-->
-                            <!--</p>-->
-                            <!--</c:if>-->
-                            <!--</div>-->
-                            <!--<div class="form-group row" align="center">-->
-                            <!--<c:if test="${!empty requestScope.createPersonalError}">-->
-                            <!--<p><font color="red"><span class="error">${createPersonalError}</span></font>-->
-                            <!--</p>-->
-                            <!--</c:if>-->
-                            <!--</div>-->
-
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary" th:text="#{buttonSave}">Save</button>
-                                <a href="/personals" class="btn btn-link" th:text="#{buttonCancel}">Cancel</a>
-                            </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-</main>
+                </main>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 </body>
 </html>
