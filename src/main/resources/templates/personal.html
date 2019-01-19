@@ -15,9 +15,9 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" href="css/style.css">
+    <!--<link rel="stylesheet" href="css/style.css">-->
 
-    <link rel="icon" href="Favicon.png">
+    <!--<link rel="icon" href="Favicon.png">-->
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -135,7 +135,7 @@
                                 <div class="card">
                                     <div class="card-header" th:text="#{titleAddPersonalPage}">Add personal</div>
                                     <div class="card-body">
-                                        <form action="@{/signUp}" method="post">
+                                        <form action="@{/updatePersonal}" method="post">
                                             <div class="form-group row">
                                                 <label for="field5"
                                                        class="col-md-4 col-form-label text-md-right"
@@ -144,8 +144,7 @@
                                                     login</label>
                                                 <div class="col-md-6">
                                                     <input type="text" id="field5" class="form-control" name="login"
-                                                           required
-                                                           autofocus>
+                                                           autofocus th:value="${personal.login}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -155,8 +154,7 @@
                                                     your pass</label>
                                                 <div class="col-md-6">
                                                     <input type="password" id="password" class="form-control"
-                                                           name="password"
-                                                           required>
+                                                           name="password">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -166,8 +164,7 @@
                                                     your name</label>
                                                 <div class="col-md-6">
                                                     <input type="text" id="field1" class="form-control" name="firstName"
-                                                           required
-                                                           autofocus>
+                                                           autofocus th:value="${personal.firstName}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -177,8 +174,7 @@
                                                     your last name</label>
                                                 <div class="col-md-6">
                                                     <input type="text" id="field2" class="form-control" name="lastName"
-                                                           required
-                                                           autofocus>
+                                                           autofocus th:value="${personal.lastName}">
                                                 </div>
                                             </div>
 
@@ -188,11 +184,11 @@
                                                        th:text="#{chooseRoleField}">Choose
                                                     your role</label>
                                                 <div class="col-md-6">
-                                                    <br>
-                                                    <select name="role">
-                                                        <option value="doctor" th:text="#{DOCTOR}">doctor</option>
-                                                        <option value="nurse" th:text="#{NURSE}">nurse</option>
-                                                        <option value="admin" th:text="#{ADMIN}">admin</option>
+                                                    <!--<br>-->
+                                                    <select id="currentRole" name="role" value="t" th:value="${personal.role}">
+                                                        <option value="DOCTOR" th:text="#{DOCTOR}">doctor</option>
+                                                        <option value="NURSE" th:text="#{NURSE}">nurse</option>
+                                                        <option value="ADMIN" th:text="#{ADMIN}">admin</option>
                                                     </select>
                                                 </div>
                                             </div>

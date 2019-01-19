@@ -33,10 +33,27 @@ public class PersonalsListController {
     }
 
     @GetMapping("/addPersonal")
-    public String showSyPersonal(PersonalForm personalForm){
+    public String showSyPersonal(PersonalForm personalForm) {
         return "signUp";
     }
 
-//    @PostMapping("/updatePersonal")
-//    public String updatePersonal
+    @GetMapping("/updatePersonal")
+    public String getUpdatePersonalPage() {
+
+        System.out.println("чудо");
+        return "personal";
+    }
+
+    @PostMapping("/updatePersonal")
+    public String updatePersonal(PersonalForm personalForm) {
+
+        if (personalService.update(personalForm)) {
+            System.out.println("Успешное обновление ");
+        } else {
+            System.out.println("НЕ успешное обновление ");
+
+        }
+        return "personals";
+
+    }
 }
