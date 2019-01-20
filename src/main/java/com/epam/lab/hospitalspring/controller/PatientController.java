@@ -42,7 +42,6 @@ public class PatientController {
     public String getAllPatients(Model model) {
         String getRoleType = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
         String currentRole = getRoleType.substring(1, getRoleType.length() - 1);
-        patientService.getAllPatients().get(2).setDeleted(true);
         List<Patient> patients = new ArrayList<>();
         if (currentRole.equals(Role.DOCTOR.toString())) {
             patients = patientService.getAllPatients();
@@ -53,6 +52,8 @@ public class PatientController {
         patients.forEach(System.out::println);
         return "patients";
     }
+
+//      patients.forEach(System.out::println);
 
     // Getting for patinet his diagnoises and prescriptions
     @GetMapping(value = "/patientDiagnosisCard/{id}")

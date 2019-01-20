@@ -25,4 +25,6 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
 
     List<Patient> findPatientsByDeleted(Boolean deleted);
 
+//    List<Patient> findPatientsByDeletedFalse(Boolean deleted);
+
 }

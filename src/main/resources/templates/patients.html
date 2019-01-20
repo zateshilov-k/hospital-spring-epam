@@ -121,7 +121,7 @@
         <tbody>
         <div th:if="${patients}!=null">
             <tr th:each="patient : ${patients}">
-                <div th:if="${patient.deleted} == false">
+                <!--<div th:if="${patient.deleted} == false">-->
                     <td th:text="${patient.id}">Неожиданный id</td>
                     <td th:text="${patient.firstName}">Неожиданное имя</td>
                     <td th:text="${patient.lastName}">Неожиданная фамилия</td>
@@ -135,7 +135,7 @@
                             <input type="submit" name="button" value="Изменить данные пациента"/>
                         </form>
                     </td>
-                </div>
+                <!--</div>-->
             </tr>
         </div>
         </tbody>

@@ -63,14 +63,15 @@ public class PatientServiceImpl implements PatientService {
         List<Patient> patientsNotDeleted = new ArrayList<>();
         for (Patient patient : patients) {
             if (patient.getDeleted() == false) {
+//                System.out.println(patient.getFirstName());
+                // Добавление в лист не проихсодит
                 patientsNotDeleted.add(patient);
             }
         }
 
 //        patientsNotDeleted = patientRepository.findPatientsByDeleted(false);
-
         return patientsNotDeleted;
-//        return patientRepository.findPatientsByDeleted(false);
+//        return patientRepository.findPatientsByDeletedFalse(false);
     }
 
 }
