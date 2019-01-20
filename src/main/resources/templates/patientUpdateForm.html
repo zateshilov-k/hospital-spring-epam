@@ -4,7 +4,7 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -21,7 +21,7 @@
     <!--&lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
     <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">-->
 
-    <title>Change info patient</title>
+    <title>CHANGE INFO!!!</title>
 </head>
 <body style="background-color:powderblue;overflow:hidden">
 <!--<%&#45;&#45;<fmt:setLocale value="${sessionScope.locale}"/>&#45;&#45;%>-->
@@ -32,50 +32,50 @@
 <!--<%&#45;&#45;<fmt:message bundle="${loc}" key="buttonSave" var="buttonSave_msg"/>&#45;&#45;%>-->
 <!--<%&#45;&#45;<fmt:message bundle="${loc}" key="buttonCancel" var="buttonCancel_msg"/>&#45;&#45;%>-->
 <!--<%&#45;&#45;<fmt:message bundle="${loc}" key="patientErrorMsg" var="patientError_msg"/>&#45;&#45;%>-->
-
+<!--/patient/{id}/update-->
 <main class="login-form">
-    <span style="float: right">
- <a href="?lang=en">en</a>
- <a href="?lang=ru">ru</a>
- </span>
     <div class="cotainer">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">${titleAddPage_msg}</div>
+                    <div class="card-header">Change patient info</div>
                     <div class="card-body">
-                        <form action="/addPatient" method="post">
+                        <form th:action="@{/patients/updatePatient/{id}(id=${patient.id})}" method="POST">
+
                             <div class="form-group row">
                                 <label for="email_address"
-                                       class="col-md-4 col-form-label text-md-right">${firstName_msg}</label>
+                                       class="col-md-4 col-form-label text-md-right">firstName</label>
                                 <div class="col-md-6">
-                                    <input type="text" id="email_address" class="form-control" name="firstName">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="email_address"
-                                       class="col-md-4 col-form-label text-md-right">${lastName_msg}</label>
-                                <div class="col-md-6">
-                                    <input type="text"   name="lastName" >
+                                    <input type="text" id="email_address" class="form-control" name="firstName"
+                                           required autofocus th:value="${patient.firstName}">
                                 </div>
                             </div>
 
-                            <!--<div class="form-group row" align="center">-->
-
-                                <!--<c:if test="${!empty requestScope.patientError}">-->
-                                    <!--<p><font color="red"><span class="error">${patientError_msg}</span></font>-->
-                                    <!--</p>-->
-                                <!--</c:if>-->
-                            <!--</div>-->
-
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    ${buttonSave_msg}
-                                </button>
-                                <a href="/main.jsp" class="btn btn-link">
-                                    ${buttonCancel_msg}
-                                </a>
+                            <div class="form-group row">
+                                <label for="email_address"
+                                       class="col-md-4 col-form-label text-md-right">lastName</label>
+                                <div class="col-md-6">
+                                    <input type="text" name="lastName" required autofocus
+                                           th:value="${patient.lastName}">
+                                </div>
                             </div>
+
+                                <div class="form-group row">
+                                    <label for="email_address"
+                                           class="col-md-4 col-form-label text-md-right">deleted</label>
+                                    <div class="col-md-6">
+                                        <input type="checkbox" name="deleted"
+                                               th:checked="${patient.deleted}">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Accept
+                                    </button>
+                                    <input type="button" value="Cancel" onclick="history.back()">
+                                </div>
                         </form>
                     </div>
                 </div>
@@ -85,7 +85,6 @@
     </div>
     </div>
 </main>
-<span th:if="${param.error != null}" th:text="error"></span>
 
 </body>
 </html>

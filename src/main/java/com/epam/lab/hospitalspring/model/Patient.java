@@ -27,12 +27,18 @@ public class Patient {
     @Column(name = "last_name")
     private String lastName;
     private Boolean discharged;
-    private Boolean deleted;
+    private Boolean deleted = false;
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     List<Diagnosis> diagnosisList;
 
     public Patient(@Size(min = 1, message = "First name must be at least 1 characters") String firstName, @Size(min = 1, message = "Last name must be at least 1 characters") String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", " +
+                "discharged=" + discharged + ", deleted=" + deleted + '}';
     }
 }
