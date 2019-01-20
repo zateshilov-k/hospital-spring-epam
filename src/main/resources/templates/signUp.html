@@ -66,14 +66,16 @@
                                            autofocus>
                                 </div>
                             </div>
+                            <div>
+                                <select name="role" id="role-id">
+                                    <option value="DOCTOR">Doctor</option>
+                                    <option value="NURSE">Nurse</option>
+                                </select>
+                            </div>
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" name="personalId" value="${currentPersonal.personalId}"
-                                        class="btn btn-primary">
-                                    Save
-                                </button>
-                                <a href="/personals.jsp" class="btn btn-link">
-                                    Cancel
-                                </a>
+                                <div><input type="submit" value="Sign Up"/></div>
+
+                                <a href="/login" class="btn btn-link">Cancel</a>
                             </div>
                         </form>
                     </div>
