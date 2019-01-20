@@ -51,7 +51,7 @@ public class PersonalsListController {
             goNextPage= "redirect:/personals";
         } else {
             System.out.println("НЕ успешное обновление ");
-
+//TODO вернуться на предыдущую страницу /personal/id с ошибкой
         }
         return "redirect:/personals";
 
