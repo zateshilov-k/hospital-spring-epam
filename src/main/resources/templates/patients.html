@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
           id="bootstrap-css">
@@ -29,6 +29,10 @@
         padding: 20px;
         float: right;
         cursor: pointer;
+    }
+
+    #deleted {
+        background-color: #4b4b4b;
     }
 
     nav {
@@ -108,6 +112,7 @@
 </header>
 <h3 align="center">Список пациентов</h3>
 <div class="container-fluid">
+
     <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
         <thead>
         <tr>
@@ -119,9 +124,9 @@
         </thead>
 
         <tbody>
-        <div th:if="${patients}!=null">
+        <div th:if="${patients} != null">
             <tr th:each="patient : ${patients}">
-                <!--<div th:if="${patient.deleted} == false">-->
+                <div id="notDeleted" th:if="${patient.deleted} == false">
                     <td th:text="${patient.id}">Неожиданный id</td>
                     <td th:text="${patient.firstName}">Неожиданное имя</td>
                     <td th:text="${patient.lastName}">Неожиданная фамилия</td>
@@ -135,11 +140,51 @@
                             <input type="submit" name="button" value="Изменить данные пациента"/>
                         </form>
                     </td>
-                <!--</div>-->
+                </div>
             </tr>
         </div>
         </tbody>
     </table>
+
+    <div sec:authorize="hasRole('DOCTOR')">
+    <table id="example2" class="table  table-bordered table-hover" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <br>
+        <br>
+        <br>
+        <a>DELETED</a>
+        <tbody>
+        <div th:if="${patients} != null">
+            <tr th:each="patient : ${patients}">
+                <div id="deleted" th:if="${patient.deleted} == true">
+                <td th:text="${patient.id}">Неожиданный id</td>
+                <td th:text="${patient.firstName}">Неожиданное имя</td>
+                <td th:text="${patient.lastName}">Неожиданная фамилия</td>
+                <td>
+                    <form name="Button" th:action="@{/patientDiagnosisCard/{id}(id=${patient.id})}" method="GET"
+                          style="display:inline">
+                        <input type="submit" name="button" value="Перейти в карточку"/>
+                    </form>
+                    <form name="Button" th:action="@{/patients/{id}(id=${patient.id})}" method="GET"
+                          style="display:inline">
+                        <input type="submit" name="button" value="Изменить данные пациента"/>
+                    </form>
+                </td>
+                </div>
+            </tr>
+        </div>
+        </tbody>
+    </table>
+    </div>
+
 </div>
 <script>
     $(document).ready(function () {

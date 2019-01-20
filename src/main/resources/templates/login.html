@@ -23,8 +23,6 @@
 <body style="background-color:powderblue">
 
 <style>
-
-
     .hamburger {
         height: 20px;
         width: 20px;
@@ -32,9 +30,6 @@
         float: right;
         cursor: pointer;
     }
-
-
-}
 
 </style>
 
@@ -45,28 +40,36 @@
                 <div class="card">
                     <h1 class="card-header" th:text="#{welcome}"></h1>
 
-                            <!--form 1-->
-                        <form th:action="@{/login}" method="post">
-                            <div><label><a th:text="#{username}"></a><input type="text" name="username"/> </label></div>
-                            <div><label><a th:text="#{password}"></a><input type="password" name="password"/></label></div>
-                            <div>
-                                <button type="submit" th:text="#{signin}"></button>
+                    <!--form-->
+                    <form th:action="@{/login}" method="post">
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right"><a th:text="#{username}"></a></label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="username" name="username" required/>
                             </div>
-                        </form>
+                        </div>
 
-                    <!--button signUp-->
-                        <form th:action="@{/signUp}" method="get">
-                            <div>
-                                <button type="submit" th:text="#{signup}"></button>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right"><a
+                                    th:text="#{password}"></a></label>
+                            <div class="col-md-6">
+                                <input type="password" id="password" class="form-control" name="password" required>
                             </div>
-                        </form>
+                        </div>
 
-                    <!--local-->
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" class="btn btn-primary">Enter</button>
+                            <a href="/signUp" type="submit">Sign Up</a>
+                        </div>
+
+                        <!--local-->
                         <span th:text="#{lang.change}"></span>
                         <select id="locales" onchange="changeEventHandler(event);">
                             <option value="en" th:text="#{lang.eng}"></option>
                             <option value="ru" th:text="#{lang.ru}"></option>
                         </select>
+                    </form>
 
                 </div>
             </div>
@@ -77,38 +80,34 @@
 
 
 <script type="text/javascript">
-$(document).ready(function() {
-    $("#locales").change(function () {
-        var selectedOption = $('#locales').val();
-        if (selectedOption != ''){
-            window.location.replace('login?lang=' + selectedOption);
-        }
+    $(document).ready(function () {
+        $("#locales").change(function () {
+            var selectedOption = $('#locales').val();
+            if (selectedOption != '') {
+                window.location.replace('login?lang=' + selectedOption);
+            }
+        });
     });
-});
-
- if ((window.location.href.indexOf("lang=en") > 0)) {
-   lang = "English";
-   $("#locales").val("en");
- }
-
-  if ((window.location.href.indexOf("lang=ru") > 0)) {
-   lang = "Russia";
-   $("#locales").val("ru");
- }
-
-<!--jQuery(document).ready(function(){-->
+    if ((window.location.href.indexOf("lang=en") > 0)) {
+        lang = "English";
+        $("#locales").val("en");
+    }
+    if ((window.location.href.indexOf("lang=ru") > 0)) {
+        lang = "Russia";
+        $("#locales").val("ru");
+    }
+    <!--jQuery(document).ready(function(){-->
     <!--jQuery("#locales").change(function() {-->
-      <!--var value = jQuery(this).children(":selected").attr("value");-->
-     <!--alert(value);-->
+    <!--var value = jQuery(this).children(":selected").attr("value");-->
+    <!--alert(value);-->
     <!--});-->
-<!--})-->
-
-$(document).ready(function() {
-    $("#locales").change(function() {
-        $("#value").text($(this).val());
-        $("#text").text($("#locales option:selected").text());
+    <!--})-->
+    $(document).ready(function () {
+        $("#locales").change(function () {
+            $("#value").text($(this).val());
+            $("#text").text($("#locales option:selected").text());
+        });
     });
-});
 </script>
 
 </html>

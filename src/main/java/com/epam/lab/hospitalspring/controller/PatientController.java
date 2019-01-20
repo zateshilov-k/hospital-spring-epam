@@ -6,10 +6,13 @@ import com.epam.lab.hospitalspring.model.enums.Role;
 import com.epam.lab.hospitalspring.repository.DiagnosisRepository;
 import com.epam.lab.hospitalspring.repository.PatientRepository;
 import com.epam.lab.hospitalspring.repository.PrescriptionRepository;
+import com.epam.lab.hospitalspring.security.details.PersonalDetailsImpl;
 import com.epam.lab.hospitalspring.service.DiagnosisService;
 import com.epam.lab.hospitalspring.service.PatientService;
 import com.epam.lab.hospitalspring.service.PrescriptionService;
+import com.epam.lab.hospitalspring.transfer.PersonalDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,13 +42,14 @@ public class PatientController {
 
     //list of patients
     @GetMapping(value = "/patients")
-    public String getAllPatients(Model model) {
-        String getRoleType = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
-        String currentRole = getRoleType.substring(1, getRoleType.length() - 1);
+    public String getAllPatients(Model model, Authentication authentication) {
+        PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
+        Role currentRole = personalDetailsService.getPersonal().getRole();
+        System.out.println(currentRole);
         List<Patient> patients = new ArrayList<>();
-        if (currentRole.equals(Role.DOCTOR.toString())) {
+        if (currentRole == Role.DOCTOR) {
             patients = patientService.getAllPatients();
-        } else if (currentRole.equals(Role.NURSE.toString())) {
+        } else if (currentRole == Role.NURSE) {
             patients = patientService.getNotDeletedPatients();
         }
         model.addAttribute("patients", patients);
@@ -53,7 +57,6 @@ public class PatientController {
         return "patients";
     }
 
-//      patients.forEach(System.out::println);
 
     // Getting for patinet his diagnoises and prescriptions
     @GetMapping(value = "/patientDiagnosisCard/{id}")
