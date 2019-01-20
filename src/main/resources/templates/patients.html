@@ -17,18 +17,26 @@
 </head>
 <body style="background-color:powderblue">
 <style>
+
+    body {
+        font-size: 1.5em; /* Размер текста */
+    }
+    table {
+        width: 100%; /* Ширина таблицы */
+    }
+
+    td.col { background: rgba(125, 6, 0, 0.51); color: black; }
+
+    th.col { background: rgba(125, 6, 0, 0.51); color: black; }
+
+    th.colHeadFirstTable { background: rgba(22, 105, 99, 0.73); color: black; }
+
+    th.colHeadSecondTable { background: rgba(91, 6, 0, 0.76); color: black; }
+
     header {
         width: 100%;
         display: inline-block;
         background-color: #404040;
-    }
-
-    .hamburger {
-        height: 20px;
-        width: 20px;
-        padding: 20px;
-        float: right;
-        cursor: pointer;
     }
 
     #deleted {
@@ -111,15 +119,16 @@
     </nav>
 </header>
 <h3 align="center">Список пациентов</h3>
+
 <div class="container-fluid">
 
     <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
         <thead>
         <tr>
-            <th>Id</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>Action</th>
+            <th class="colHeadFirstTable">Id</th>
+            <th class="colHeadFirstTable">FirstName</th>
+            <th class="colHeadFirstTable">LastName</th>
+            <th class="colHeadFirstTable">Action</th>
         </tr>
         </thead>
 
@@ -146,29 +155,32 @@
         </tbody>
     </table>
 
-    <div sec:authorize="hasRole('DOCTOR')">
-    <table id="example2" class="table  table-bordered table-hover" cellspacing="0" width="100%">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <h3 align="center">Список удаленных пациентов</h3>
+    <div th:if="${currentRole.toString() eq 'DOCTOR'}">
+    <table id="example2" class="table table-bordered table-hover col1" cellspacing="0" width="100%">
         <thead>
         <tr>
-            <th>Id</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>Action</th>
+            <th class="colHeadSecondTable">Id</th>
+            <th class="colHeadSecondTable">FirstName</th>
+            <th class="colHeadSecondTable">LastName</th>
+            <th class="colHeadSecondTable">Action</th>
         </tr>
         </thead>
 
-        <br>
-        <br>
-        <br>
-        <a>DELETED</a>
         <tbody>
         <div th:if="${patients} != null">
             <tr th:each="patient : ${patients}">
                 <div id="deleted" th:if="${patient.deleted} == true">
-                <td th:text="${patient.id}">Неожиданный id</td>
-                <td th:text="${patient.firstName}">Неожиданное имя</td>
-                <td th:text="${patient.lastName}">Неожиданная фамилия</td>
-                <td>
+                <td class="col" th:text="${patient.id}">Неожиданный id</td>
+                <td class="col" th:text="${patient.firstName}">Неожиданное имя</td>
+                <td class="col" th:text="${patient.lastName}">Неожиданная фамилия</td>
+                <td class="col">
                     <form name="Button" th:action="@{/patientDiagnosisCard/{id}(id=${patient.id})}" method="GET"
                           style="display:inline">
                         <input type="submit" name="button" value="Перейти в карточку"/>
@@ -183,6 +195,7 @@
         </div>
         </tbody>
     </table>
+    </div>
     </div>
 
 </div>

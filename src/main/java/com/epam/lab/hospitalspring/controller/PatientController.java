@@ -53,10 +53,10 @@ public class PatientController {
             patients = patientService.getNotDeletedPatients();
         }
         model.addAttribute("patients", patients);
+        model.addAttribute("currentRole", currentRole);
         patients.forEach(System.out::println);
         return "patients";
     }
-
 
     // Getting for patinet his diagnoises and prescriptions
     @GetMapping(value = "/patientDiagnosisCard/{id}")
