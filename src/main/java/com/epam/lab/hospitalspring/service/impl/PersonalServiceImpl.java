@@ -24,8 +24,10 @@ public class PersonalServiceImpl implements PersonalService {
     PasswordEncoder passwordEncoder;
     @Override
     public boolean update(PersonalForm personalForm) {
+        System.out.println("дошли до update в PersonalServiceImpl");
+
         boolean result=false;
-        if(!VALID_EMAIL_ADDRESS_REGEX .matcher(personalForm.getLogin()).find()) {
+        if(!VALID_EMAIL_ADDRESS_REGEX.matcher(personalForm.getLogin()).find()) {
             return  false;
         }
         Optional<Personal> oPersonal = personalRepository.findOneByLogin(personalForm.getLogin());

@@ -46,14 +46,14 @@ public class PersonalsListController {
 
     @PostMapping("/updatePersonal")
     public String updatePersonal(PersonalForm personalForm) {
-
+        String goNextPage = "";
         if (personalService.update(personalForm)) {
-            System.out.println("Успешное обновление ");
+            goNextPage= "redirect:/personals";
         } else {
             System.out.println("НЕ успешное обновление ");
 
         }
-        return "personals";
+        return "redirect:/personals";
 
     }
 }
