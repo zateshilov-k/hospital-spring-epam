@@ -41,6 +41,7 @@
                     <div class="card-header">Change patient info</div>
                     <div class="card-body">
                         <form th:action="@{/patients/updatePatient/{id}(id=${patient.id})}" method="POST">
+
                             <div class="form-group row">
                                 <label for="email_address"
                                        class="col-md-4 col-form-label text-md-right">firstName</label>
@@ -49,6 +50,7 @@
                                            required autofocus th:value="${patient.firstName}">
                                 </div>
                             </div>
+
                             <div class="form-group row">
                                 <label for="email_address"
                                        class="col-md-4 col-form-label text-md-right">lastName</label>
@@ -56,6 +58,8 @@
                                     <input type="text" name="lastName" required autofocus
                                            th:value="${patient.lastName}">
                                 </div>
+                            </div>
+
                                 <div class="form-group row">
                                     <label for="email_address"
                                            class="col-md-4 col-form-label text-md-right">deleted</label>
@@ -70,9 +74,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         Accept
                                     </button>
-                                    <a href="/patients" class="btn btn-link">
-                                        Cancel
-                                    </a>
+                                    <input type="button" value="Cancel" onclick="history.back()">
                                 </div>
                         </form>
                     </div>

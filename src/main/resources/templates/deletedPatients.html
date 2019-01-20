@@ -144,85 +144,45 @@
         </ul>
     </nav>
 </header>
-<h3 align="center">Список пациентов</h3>
 
 <div class="container-fluid">
 
-    <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
-        <thead>
-        <tr>
-            <th class="colHeadFirstTable">Id</th>
-            <th class="colHeadFirstTable">FirstName</th>
-            <th class="colHeadFirstTable">LastName</th>
-            <th class="colHeadFirstTable">Action</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <div th:if="${patients} != null">
-            <tr th:each="patient : ${patients}">
-                <div id="notDeleted" th:if="${patient.deleted} == false">
-                    <td th:text="${patient.id}">Неожиданный id</td>
-                    <td th:text="${patient.firstName}">Неожиданное имя</td>
-                    <td th:text="${patient.lastName}">Неожиданная фамилия</td>
-                    <td>
-                        <form name="Button" th:action="@{/patientDiagnosisCard/{id}(id=${patient.id})}" method="GET"
-                              style="display:inline">
-                            <input class="buttonFirstTable" type="submit" name="button" value="Перейти в карточку"/>
-                        </form>
-                        <form name="Button" th:action="@{/patients/{id}(id=${patient.id})}" method="GET"
-                              style="display:inline">
-                            <input class="buttonFirstTable" type="submit" name="button" value="Изменить данные пациента"/>
-                        </form>
-                    </td>
-                </div>
-            </tr>
-        </div>
-        </tbody>
-    </table>
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
     <div th:if="${currentRole.toString() eq 'DOCTOR'}">
         <h3 align="center">Список удаленных пациентов</h3>
-    <table id="example2" class="table table-bordered table-hover col1" cellspacing="0" width="100%">
-        <thead>
-        <tr>
-            <th class="colHeadSecondTable">Id</th>
-            <th class="colHeadSecondTable">FirstName</th>
-            <th class="colHeadSecondTable">LastName</th>
-            <th class="colHeadSecondTable">Action</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <div th:if="${patients} != null">
-            <tr th:each="patient : ${patients}">
-                <div id="deleted" th:if="${patient.deleted} == true">
-                <td class="col" th:text="${patient.id}">Неожиданный id</td>
-                <td class="col" th:text="${patient.firstName}">Неожиданное имя</td>
-                <td class="col" th:text="${patient.lastName}">Неожиданная фамилия</td>
-                <td class="col">
-                    <form name="Button" th:action="@{/patientDiagnosisCard/{id}(id=${patient.id})}" method="GET"
-                          style="display:inline">
-                        <input class="buttonSecondTable" type="submit" name="button" value="Перейти в карточку"/>
-                    </form>
-                    <form name="Button" th:action="@{/patients/{id}(id=${patient.id})}" method="GET"
-                          style="display:inline">
-                        <input class="buttonSecondTable" type="submit" name="button" value="Изменить данные пациента"/>
-                    </form>
-                </td>
-                </div>
+        <table id="example2" class="table table-bordered table-hover col1" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th class="colHeadSecondTable">Id</th>
+                <th class="colHeadSecondTable">FirstName</th>
+                <th class="colHeadSecondTable">LastName</th>
+                <th class="colHeadSecondTable">Action</th>
             </tr>
-        </div>
-        </tbody>
-    </table>
+            </thead>
+
+            <tbody>
+            <div th:if="${patients} != null">
+                <tr th:each="patient : ${patients}">
+                    <div id="deleted" th:if="${patient.deleted} == true">
+                        <td class="col" th:text="${patient.id}">Неожиданный id</td>
+                        <td class="col" th:text="${patient.firstName}">Неожиданное имя</td>
+                        <td class="col" th:text="${patient.lastName}">Неожиданная фамилия</td>
+                        <td class="col">
+                            <form name="Button" th:action="@{/patientDiagnosisCard/{id}(id=${patient.id})}" method="GET"
+                                  style="display:inline">
+                                <input class="buttonSecondTable" type="submit" name="button" value="Перейти в карточку"/>
+                            </form>
+                            <form name="Button" th:action="@{/patients/{id}(id=${patient.id})}" method="GET"
+                                  style="display:inline">
+                                <input class="buttonSecondTable" type="submit" name="button" value="Изменить данные пациента"/>
+                            </form>
+                        </td>
+                    </div>
+                </tr>
+            </div>
+            </tbody>
+        </table>
     </div>
-    </div>
+</div>
 
 </div>
 <script>

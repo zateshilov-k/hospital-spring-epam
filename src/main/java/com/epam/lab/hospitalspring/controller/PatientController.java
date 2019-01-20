@@ -58,6 +58,23 @@ public class PatientController {
         return "patients";
     }
 
+    @GetMapping(value = "/deletedPatients")
+    public String getDeletedPatients(Model model, Authentication authentication) {
+        PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
+        Role currentRole = personalDetailsService.getPersonal().getRole();
+        System.out.println(currentRole);
+        List<Patient> patients = new ArrayList<>();
+        if (currentRole == Role.DOCTOR) {
+            patients = patientService.getAllPatients();
+        } else if (currentRole == Role.NURSE) {
+            patients = patientService.getNotDeletedPatients();
+        }
+        model.addAttribute("patients", patients);
+        model.addAttribute("currentRole", currentRole);
+        patients.forEach(System.out::println);
+        return "deletedPatients";
+    }
+
     // Getting for patinet his diagnoises and prescriptions
     @GetMapping(value = "/patientDiagnosisCard/{id}")
     public String getPatient(@PathVariable("id") Long id, Model model) {
@@ -91,7 +108,12 @@ public class PatientController {
     @PostMapping(value="/patients/updatePatient/{id}")
     public String updatePatientProfile(Patient patient) {
         patientService.updatePatient(patient);
-        return "redirect:/patients";
+        if (patient.getDeleted() == false) {
+            return "redirect:/patients";
+        } else {
+            return "redirect:/deletedPatients";
+        }
     }
+
 
 }
