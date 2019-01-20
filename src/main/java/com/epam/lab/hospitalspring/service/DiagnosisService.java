@@ -13,6 +13,11 @@ public interface DiagnosisService {
 
     Diagnosis getById(Long id);
 
-    List<Diagnosis> getAll();
+    List<Diagnosis> getAllDiagnosis();
 
+    String findDiagnosisByPatientId(Long id);
+
+    void closeDiagnosis(Long diagnosisId);
+
+    void addDiagnosis(Long patientId, Long personalId, String description);
 }

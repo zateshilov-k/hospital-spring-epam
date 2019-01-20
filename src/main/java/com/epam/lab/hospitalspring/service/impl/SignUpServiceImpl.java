@@ -42,7 +42,7 @@ public class SignUpServiceImpl implements SignUpService {
                 .login(personalForm.getLogin())
                 .password(passwordHash)
                 .role(Role.valueOf(personalForm.getRole()))
-                .isDeleted(false)
+                .deleted(false)
                 .build();
         personalRepository.saveAndFlush(personal);
     }

@@ -5,8 +5,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PrescriptionRepository extends JpaRepository<Prescription, Long> {
 
-    Prescription findPrescriptionById(@Param("id") Long id);
+    Prescription findPrescriptionById(Long id);
+
+    List<Prescription> findPrescriptionsForDiagnosisByDiagnosisId(Long diagnosisId);
+
+    List<Prescription> findPrescriptionsForDiagnosisByDiagnosisIdOrderByIdAsc(Long diagnosisId);
 }

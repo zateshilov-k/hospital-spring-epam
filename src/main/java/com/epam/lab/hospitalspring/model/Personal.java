@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -30,7 +32,9 @@ public class Personal {
 
     @Column(name = "last_name")
     private String lastName;
-    private Boolean isDeleted;
+    private Boolean deleted;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(mappedBy = "personal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    List<Diagnosis> diagnosisList;
 }

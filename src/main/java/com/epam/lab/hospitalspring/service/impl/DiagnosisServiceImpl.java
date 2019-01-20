@@ -1,23 +1,35 @@
 package com.epam.lab.hospitalspring.service.impl;
 
 import com.epam.lab.hospitalspring.model.Diagnosis;
+import com.epam.lab.hospitalspring.model.Patient;
+import com.epam.lab.hospitalspring.model.Personal;
 import com.epam.lab.hospitalspring.repository.DiagnosisRepository;
+import com.epam.lab.hospitalspring.repository.PatientRepository;
+import com.epam.lab.hospitalspring.repository.PersonalRepository;
 import com.epam.lab.hospitalspring.service.DiagnosisService;
+import com.epam.lab.hospitalspring.util.GsonFactory;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class DiagnosisServiceImpl implements DiagnosisService {
 
+    @Autowired
+    private PersonalRepository personalRepository;
+    @Autowired
+    private PatientRepository patientRepository;
 
     @Autowired
     private DiagnosisRepository diagnosisRepository;
 
     @Override
     public Diagnosis addDiagnosis(Diagnosis diagnosis) {
-        Diagnosis savedDiagnosis = diagnosisRepository.saveAndFlush(diagnosis);
-        return savedDiagnosis;
+        return diagnosisRepository.saveAndFlush(diagnosis);
     }
 
     @Override
@@ -31,7 +43,50 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     }
 
     @Override
-    public List<Diagnosis> getAll() {
+    public List<Diagnosis> getAllDiagnosis() {
         return diagnosisRepository.findAll();
+    }
+
+    @Override
+    public String findDiagnosisByPatientId(Long id) {
+        Gson gson = GsonFactory.buildGson();
+        List<Diagnosis> diagnoses = diagnosisRepository.findDiagnosisByPatientId(id);
+        return gson.toJson(diagnoses);
+    }
+
+    @Override
+    public void closeDiagnosis(Long diagnosisId) {
+        Optional<Diagnosis> currentDiagnosis = diagnosisRepository.findById(diagnosisId);
+        try{
+            currentDiagnosis.ifPresent(diagnosis -> {
+                if (diagnosis.getOpened()) {
+                    diagnosis.setOpened(false);
+                    diagnosisRepository.saveAndFlush(diagnosis);
+                } else {
+                    throw new IllegalArgumentException("Trying to close diagnosis that " +
+                            "already closed");
+                }
+            });
+            currentDiagnosis.orElseThrow(IllegalArgumentException::new);
+        } catch (Exception e) {
+            // TODO: Log
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void addDiagnosis(Long patientId, Long personalId, String description) {
+        Optional<Personal> personal= personalRepository.findById(personalId);
+        Optional<Patient> patient = patientRepository.findById(patientId);
+        try {
+            personal.orElseThrow(IllegalArgumentException::new);
+            patient.orElseThrow(IllegalArgumentException::new);
+        } catch (Exception e){
+            //TODO LOG
+            throw new RuntimeException(e);
+        }
+        Diagnosis diagnosis = new Diagnosis(null,description,personal.get(),patient.get(),
+                true,LocalDateTime.now(),null);
+        diagnosisRepository.saveAndFlush(diagnosis);
     }
 }
