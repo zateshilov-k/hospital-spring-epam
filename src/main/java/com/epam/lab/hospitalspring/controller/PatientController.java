@@ -61,23 +61,20 @@ public class PatientController {
         return "patientDiagnosisCard";
     }
 
-
-//    @GetMapping(value = "/addPatient")
-//    public String getAddPatientPage() {
-//        return "patient";
-//    }
+    @GetMapping(value = "/addPatient")
+    public String getAddPatientPage() {
+        return "patient";
+    }
 
     @PostMapping(value = "/addPatient")
     public String addPatient(PatientForm patientForm, Model model) {
-        System.out.println("Fdsgdfsg");
-//        Patient patient = patientService.addPatient(patientForm);
-//        patientService.updatePatient(patient);
-//        if (patient != null) {
-//            return "redirect:/patients";
-//        } else {
-//            return "redirect:/error/errorMessage";
-//        }
-        return null;
+        Patient patient = patientService.addPatient(patientForm);
+        patientService.updatePatient(patient);
+        if (patient != null) {
+            return "redirect:/patients";
+        } else {
+            return "redirect:/error/errorMessage";
+        }
     }
 
     @GetMapping(value = "/patients/{id}")
