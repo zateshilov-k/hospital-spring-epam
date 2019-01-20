@@ -82,17 +82,13 @@ public class PatientController {
 
     @GetMapping(value = "/patients/{id}")
     public String showPatientProfile(@PathVariable("id") Long id, Model model) {
-        System.out.println(id);
         Patient patient = patientService.getPatientById(id);
         model.addAttribute("patient", patient);
         return "patientUpdateForm";
     }
 
     @PostMapping(value="/patients/updatePatient/{id}")
-    public String updatePatientProfile(@PathVariable("id") Long id, Patient patient) {
-        patient.setFirstName(patient.getFirstName());
-        patient.setLastName(patient.getLastName());
-        patient.setDeleted(patient.getDeleted());
+    public String updatePatientProfile(Patient patient) {
         patientService.updatePatient(patient);
         return "redirect:/patients";
     }

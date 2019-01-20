@@ -44,7 +44,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public void updatePatient(Patient patient) {
-        patientRepository.saveAndFlush(patient);
+        patientRepository.save(patient);
     }
 
     @Override

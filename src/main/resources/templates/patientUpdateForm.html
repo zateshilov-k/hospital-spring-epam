@@ -60,22 +60,20 @@
                                     <label for="email_address"
                                            class="col-md-4 col-form-label text-md-right">deleted</label>
                                     <div class="col-md-6">
-                                        <input type="checkbox" name="deleted" autofocus
-                                               th:value="${patient.deleted}">
+                                        <input type="checkbox" name="deleted"
+                                               th:checked="${patient.deleted}">
                                     </div>
-
-                                <!--<p>Delete<input type="checkbox" name="deleted" th:value="${patient.deleted}"></p>-->
-                            </div>
+                                </div>
 
 
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Accept
-                                </button>
-                                <a href="/patients" class="btn btn-link">
-                                    Cancel
-                                </a>
-                            </div>
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Accept
+                                    </button>
+                                    <a href="/patients" class="btn btn-link">
+                                        Cancel
+                                    </a>
+                                </div>
                         </form>
                     </div>
                 </div>

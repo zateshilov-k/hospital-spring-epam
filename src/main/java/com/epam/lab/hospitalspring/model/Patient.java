@@ -27,7 +27,7 @@ public class Patient {
     @Column(name = "last_name")
     private String lastName;
     private Boolean discharged;
-    private Boolean deleted;
+    private Boolean deleted = false;
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     List<Diagnosis> diagnosisList;
 
