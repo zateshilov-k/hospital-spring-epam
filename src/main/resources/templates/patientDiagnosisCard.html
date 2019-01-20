@@ -50,55 +50,47 @@
     <button id="doPrescription"  style="display:inline; float:right">Do prescription</button>
     <br><br>
 
-<div th:if="${diagnosisList} != null">
-    <table class="diagnosisList" style="display:inline; float:left" border="1">
+<div>
+    <table class="diagnosisList" id="diagnosis" style="display:inline; float:left" border="1">
         <caption  style=" font-family: Arial, Helvetica, sans-serif;">Диагноз сообщение:</caption>
         <tr>
             <th>Id</th>
             <th>Description</th>
-            <th>Patient</th>
             <th>isOpened</th>
             <th>time</th>
         </tr>
 
-
-
-        <tr th:each="diagnosis : ${diagnosisList}">
-            <td th:text="${diagnosis.id}"></td>
-            <td th:text="${diagnosis.description}"></td>
-            <td th:text="${diagnosis.patient}"></td>
-            <td th:text="${diagnosis.isOpened}"></td>
-            <td th:text="${diagnosis.time}"></td>
-        </tr>
+        <!--<tr th:each="diagnosis : ${patient.getDiagnosisList()}">-->
+            <!--<td th:text="${diagnosis.id}"></td>-->
+            <!--<td th:text="${diagnosis.description}"></td>-->
+            <!--<td th:text="${diagnosis.patient}"></td>-->
+            <!--<td th:text="${diagnosis.opened}"></td>-->
+            <!--<td th:text="${diagnosis.time}"></td>-->
+        <!--</tr>-->
     </table>
 </div>
-
-    <div th:if="${prescriptionList} != null">
-        <table class="prescriptionList" style="display:inline; float:right" border="1">
-            <caption style=" font-family: Arial, Helvetica, sans-serif;" >Назначение сообщение:</caption>
-            <tr>
-                <th>Id</th>
-                <th>Description</th>
-                <!--<th>Patient</th>-->
-                <!--<th>Diagnosis</th>-->
-                <th>Type of prescription</th>
-                <th>Time</th>
-                <th>Done</th>
-            </tr>
+<div>
+    <table class="prescriptionList" id="prescriptionsTable" style="display:inline; float:right" border="1">
+        <caption style=" font-family: Arial, Helvetica, sans-serif;" >Назначение сообщение:</caption>
+        <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Type of prescription</th>
+            <th>Time</th>
+            <th>Done</th>
+        </tr>
 
 
 
-            <tr th:each="prescription : ${prescriptionList}">
-                <td th:text="${prescription.id}"></td>
-                <td th:text="${prescription.description}"></td>
-                <!--<td th:text="${prescription.patient}"></td>-->
-                <!--<td th:text="${prescription.diagnosis}"></td>-->
-                <td th:text="${prescription.type}"></td>
-                <td th:text="${prescription.time}"></td>
-                <td th:text="${prescription.isDone}"></td>
-            </tr>
-        </table>
-    </div>
+        <!--<tr th:each="prescription : ${patient.getDiagnosisList().get(0).getPrescriptions()}">-->
+            <!--<td th:text="${prescription.id}"></td>-->
+            <!--<td th:text="${prescription.description}"></td>-->
+            <!--<td th:text="${prescription.type}"></td>-->
+            <!--<td th:text="${prescription.time}"></td>-->
+            <!--<td th:text="${prescription.done}"></td>-->
+        <!--</tr>-->
+    </table>
+</div>
 </fieldset>
 
 <br>
@@ -116,9 +108,9 @@
         <caption>Тип назначения:</caption>
         <form>
             <select name="prescriptionType" id="prescriptionType">
-                <option value="Procedure">Процедура</option>
-                <option value="Operation">Операция</option>
-                <option value="Drug">Лекарство</option>
+                <option value="PROCEDURE">Процедура</option>
+                <option value="OPERATION">Операция</option>
+                <option value="DRUG">Лекарство</option>
             </select>
         </form>
         <caption>Описание назначения:</caption>
@@ -127,11 +119,244 @@
     </form>
 </fieldset>
 
+<script>
+    var currentDiagnosisRow = 1;
+    var currentPrescriptionRow = 1;
+    //var diagnosisIsOpened = '${diagnosisIsOpened_msg}';
+    var diagnosisIsOpened = 'true';
+    //var diagnosisIsNotOpened = '${diagnosisIsNotOpened_msg}';
+    var diagnosisIsNotOpened = 'false';
+    //var operation = '${operation_msg}';
+    var operation = 'OPERATION';
+    //var prescriptionIsDone = '${prescriptionIsDone_msg}';
+    //var prescriptionIsNotDone = '${prescriptionIsNotDone_msg}';
+    var prescriptionIsDone = 'true';
+    var prescriptionIsNotDone = 'false';
+
+    var doPrescriptionButton = document.getElementById("doPrescription");
+    doPrescriptionButton.addEventListener("click", prescriptionDoneListener);
+    var closeDiagnosisButton = document.getElementById("closeDiagnosisButton");
+    closeDiagnosisButton.addEventListener("click", closeDiagnosisButtonListener);
+    var diagnosisSubmitButton = document.getElementById("diagnosisSubmit");
+    diagnosisSubmitButton.addEventListener("click", diagnosisSubmitButtonListener);
+    var prescriptionSubmitButton = document.getElementById("prescriptionSubmit");
+    prescriptionSubmitButton.addEventListener("click", prescriptionSubmitButtonListener);
+
+    var diagnosisTable = document.getElementById("diagnosis");
+    var diagnosis = toJson('[[${diagnoses}]]');
+    var userRole = '[[${role}]]';
+    if (diagnosis.length > 0) {
+        //updateDiagnosisTable(diagnosis, diagnosisTable);
+        getAndUpdateDiagnosis();
+    }
 
 
-</th:if>
-<th:else>
-    <p>No tasks yet</p>
-</th:else>
+
+    function toJson(stringJson) {
+        return JSON.parse(stringJson.replace(/&quot;/g, "\""));
+    }
+
+    function prescriptionSubmitButtonListener() {
+        var prescriptionTextArea = document.getElementById("prescriptionDescription");
+        var prescriptionTypeSelect = document.getElementById("prescriptionType");
+        var diagnosisTable = document.getElementById("diagnosis");
+        if (prescriptionTextArea.value === "") {
+            alert("Введите описание назначения");
+        } else {
+            $.post(window.location.href +
+                "/diagnosis/" + diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML +
+                "/addPrescription/" +
+                "description=" + prescriptionTextArea.value+
+                "/type=" + prescriptionTypeSelect.value, {}, function (response) {
+                updatePrescriptionsTable(diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML);
+                prescriptionTextArea.value = "";
+            });
+        }
+    }
+
+    function diagnosisSubmitButtonListener() {
+        var diagnosisTextArea = document.getElementById("diagnosisDescription");
+        var diagnosisTable = document.getElementById("diagnosis");
+        var prescriptionFieldSet = document.getElementById("addPrescriptionFieldSet");
+
+        if (diagnosisTextArea.value === "") {
+            alert("Введите описание диагноза");
+        } else {
+            $.post(window.location.href + "/addDiagnosis/descr="+diagnosisTextArea.value, {}, function (response) {
+                diagnosisTextArea.value = "";
+                getAndUpdateDiagnosis();
+            });
+        }
+    }
+
+    function prescriptionDoneListener() {
+        var prescriptionTable = document.getElementById("prescriptionsTable");
+        var diagnosisTable = document.getElementById("diagnosis");
+        $.post(window.location.href + "/doPrescription/"+prescriptionTable.rows[currentPrescriptionRow].cells[0].innerHTML,
+            {prescriptionId : prescriptionTable.rows[currentPrescriptionRow].cells[0].innerHTML}, function () {
+                updatePrescriptionsTable(diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML);
+                var doPrescriptionButton = document.getElementById("doPrescription");
+                doPrescriptionButton.style.display = "none";
+            });
+    }
+
+    function updateDiagnosisTable(diagnosis, table) {
+        var diagnosisTable = document.getElementById("diagnosis");
+        for (var i = diagnosisTable.rows.length - 1; i > 0; i--) {
+            diagnosisTable.deleteRow(i);
+        }
+        for (var i = 0; i < diagnosis.length; i++) {
+            var newRow = table.insertRow(i + 1);
+            if ((i + 1) === currentDiagnosisRow) {
+                setSpecialStyle(newRow);
+            } else {
+                setDefaultStyle(newRow);
+            }
+            newRow.addEventListener("click", diagnosisClick);
+            for (var j = 0; j < 4; j++) {
+                var newCell = newRow.insertCell(j);
+                if (j === 0) {
+                    newCell.innerHTML = diagnosis[i]['id'];
+                } else if (j === 1) {
+                    newCell.innerHTML = diagnosis[i]['description'];
+                } else if (j === 2) {
+                    newCell.innerHTML = diagnosis[i]['time'];
+                } else if (j === 3) {
+                    newCell.innerHTML = diagnosis[i]['opened'];
+                }
+            }
+        }
+        updatePrescriptionsTable(diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML);
+    }
+    function updateDiagnosisElementsStyle() {
+        var diagnosisTable = document.getElementById("diagnosis");
+        var closeDiagnosisButton = document.getElementById("closeDiagnosisButton");
+        var prescriptionFieldSet = document.getElementById("addPrescriptionFieldSet");
+        var diagnosisFieldSet = document.getElementById("diagnosisFieldSet");
+        var isDiagnosisOpened = diagnosisTable.rows[currentDiagnosisRow].cells[3].innerHTML;
+        if(userRole === "DOCTOR" || userRole === "ADMIN") {
+            if (isDiagnosisOpened === diagnosisIsNotOpened) {
+                prescriptionFieldSet.style.display = "none";
+                closeDiagnosisButton.style.display = "none";
+            } else if (isDiagnosisOpened === diagnosisIsOpened) {
+                prescriptionFieldSet.style.display = "inline";
+                closeDiagnosisButton.style.display = "inline";
+            }
+        } else {
+            prescriptionFieldSet.style.display = "none";
+            closeDiagnosisButton.style.display = "none";
+            diagnosisFieldSet.style.display = "none";
+        }
+
+    }
+
+    function setSpecialStyle(row) {
+        row.style.color = "red";
+    }
+
+    function setDefaultStyle(row) {
+        row.style.color = "black";
+    }
+    function diagnosisClick() {
+        var prescriptionTable = document.getElementById("prescriptionsTable");
+        var rows = this.parentNode.rows;
+        for (i = 1; i < rows.length; i++) {
+            setDefaultStyle(rows[i]);
+        }
+        setSpecialStyle(this);
+        currentDiagnosisRow = $(this).index();
+        var currentDiagnosisId = this.cells[0].innerHTML;
+
+        updateDiagnosisElementsStyle();
+        var doPrescriptionButton = document.getElementById("doPrescription");
+        doPrescriptionButton.style.display = "none";
+
+        var prescriptionSubmitButton = document.getElementById("prescriptionSubmit");
+        prescriptionSubmitButton.value = currentDiagnosisId;
+
+        updatePrescriptionsTable(currentDiagnosisId);
+    }
+
+    function updatePrescriptionsTable(diagnosis_id) {
+
+        $.get(window.location.href+"/diagnosis/"+diagnosis_id+"/prescription",
+            {}, function (response) {
+            var prescriptions = toJson(response);
+            var table = document.getElementById('prescriptionsTable');
+            for (var i = table.rows.length - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
+            if (prescriptions.length === 0) {
+                table.style.display = "none";
+            } else {
+                table.style.display = "block";
+            }
+            for (var i = 0; i < prescriptions.length; i++) {
+                var newRow = table.insertRow(i + 1);
+                newRow.addEventListener("click",prescriptionClick);
+                for (var j = 0; j < 5; j++) {
+                    var newCell = newRow.insertCell(j);
+                    if (j === 0) {
+                        newCell.innerHTML = prescriptions[i]['id'];
+                    } else if (j === 1) {
+                        newCell.innerHTML = prescriptions[i]['description'];
+                    } else if (j === 2) {
+                        newCell.innerHTML = prescriptions[i]['type'];
+                    } else if (j === 3) {
+                        newCell.innerHTML = prescriptions[i]['time'];
+                    } else if (j === 4) {
+                        newCell.innerHTML = prescriptions[i]['done'];
+                    }
+                }
+            }
+            updateDiagnosisElementsStyle();
+            //updatePrescriptionsElementsStyle();
+        });
+    }
+    function prescriptionClick() {
+        var rows = this.parentNode.rows;
+        for (i = 1; i < rows.length; i++) {
+            setDefaultStyle(rows[i]);
+        }
+        setSpecialStyle(this);
+        currentPrescriptionRow = $(this).index();
+
+        updatePrescriptionsElementsStyle();
+    }
+    function updatePrescriptionsElementsStyle() {
+        var doPrescriptionButton = document.getElementById("doPrescription");
+        var prescriptionTable = document.getElementById("prescriptionsTable");
+
+        var isPrescriptionDone = prescriptionTable.rows[currentPrescriptionRow].cells[4].innerHTML;
+        if (isPrescriptionDone === prescriptionIsNotDone) {
+            doPrescriptionButton.style.display = "inline";
+        } else if(isPrescriptionDone === prescriptionIsDone) {
+            doPrescriptionButton.style.display = "none";
+        }
+        if (userRole === "NURSE") {
+            if(prescriptionTable.rows[currentPrescriptionRow].cells[2].innerHTML === operation) {
+                doPrescriptionButton.style.display = "none";
+            }
+        }
+    }
+
+    function closeDiagnosisButtonListener() {
+        var diagnosisTable = document.getElementById("diagnosis");
+        $.post(window.location.href+"/closeDiagnosis/"+diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML,
+            {}, function () {
+            getAndUpdateDiagnosis();
+        });
+    }
+
+    function getAndUpdateDiagnosis() {
+        $.get(window.location.href+"/diagnosis/", {}, function (response) {
+            var diagnosis = JSON.parse(response);
+            var diagnosisTable = document.getElementById("diagnosis");
+            updateDiagnosisTable(diagnosis, diagnosisTable);
+        });
+    }
+
+
+</script>
 </body>
 </html>

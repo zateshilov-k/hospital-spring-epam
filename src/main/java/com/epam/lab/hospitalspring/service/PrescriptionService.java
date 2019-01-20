@@ -14,4 +14,10 @@ public interface PrescriptionService {
     List<Prescription> getAllPrescriptions();
 
     List<Prescription> findPrescriptionsForDiagnosisByDiagnosisId(Long diagnosisId);
+
+    String findPrescriptionsForDiagnosisByDiagnosisIdOrderByIdAsc(Long diagnosisId);
+
+    void doPrescription(Long prescriptionId);
+
+    void addPrescription(long diagnosisId, String prescriptionDescription, String prescriptionType);
 }
