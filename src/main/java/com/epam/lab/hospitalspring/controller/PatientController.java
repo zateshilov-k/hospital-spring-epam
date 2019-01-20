@@ -9,10 +9,7 @@ import com.epam.lab.hospitalspring.repository.PrescriptionRepository;
 import com.epam.lab.hospitalspring.service.DiagnosisService;
 import com.epam.lab.hospitalspring.service.PatientService;
 import com.epam.lab.hospitalspring.service.PrescriptionService;
-import com.mysql.cj.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 public class PatientController {
@@ -54,6 +50,7 @@ public class PatientController {
             patients = patientService.getNotDeletedPatients();
         }
         model.addAttribute("patients", patients);
+        patients.forEach(System.out::println);
         return "patients";
     }
 
@@ -65,10 +62,10 @@ public class PatientController {
     }
 
 
-    @GetMapping(value = "/addPatient")
-    public String getAddPatientPage() {
-        return "patient";
-    }
+//    @GetMapping(value = "/addPatient")
+//    public String getAddPatientPage() {
+//        return "patient";
+//    }
 
     @PostMapping(value = "/addPatient")
     public String addPatient(PatientForm patientForm, Model model) {
@@ -83,27 +80,21 @@ public class PatientController {
         return null;
     }
 
-//    @GetMapping(value = "/patient/{id}")
-//    public String showError(@PathVariable("id") Long id, Model model) {
-//        Patient patient = patientService.getPatientById(id);
-//        System.out.println("gfdgfdgfdg!!!!!!!!!!!!!");
-//        patientService.updatePatient(patient);
-//        model.addAttribute(patient);
-//        //TODO передать на фронт имя и фамилию
-//        return "patient";
-//    }
-
-    @GetMapping(value = "/patient/{id}")
-    public String updatePatient(@PathVariable("id") Long id, Model model) {
+    @GetMapping(value = "/patients/{id}")
+    public String showPatientProfile(@PathVariable("id") Long id, Model model) {
+        System.out.println(id);
         Patient patient = patientService.getPatientById(id);
-        System.out.println(patient.getId());
-        System.out.println(patient.getFirstName());
-        System.out.println(patient.getLastName());
-        System.out.println("gfdgfdgfdg!!!!!!!!!!!!!");
-        model.addAttribute(patient);
-        //TODO передать на фронт имя и фамилию
-        return "patientTest";
+        model.addAttribute("patient", patient);
+        return "patientUpdateForm";
     }
 
+    @PostMapping(value="/patients/updatePatient/{id}")
+    public String updatePatientProfile(@PathVariable("id") Long id, Patient patient) {
+        patient.setFirstName(patient.getFirstName());
+        patient.setLastName(patient.getLastName());
+        patient.setDeleted(patient.getDeleted());
+        patientService.updatePatient(patient);
+        return "redirect:/patients";
+    }
 
 }

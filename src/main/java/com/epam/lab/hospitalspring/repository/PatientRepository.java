@@ -23,6 +23,6 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     //@Query(nativeQuery = true, value = "SELECT * FROM patient where id=:id")
     Patient findPatientById(@Param("id") Long id);
 
-    List<Patient> findPatientsByDeleted(boolean deleted);
+    List<Patient> findPatientsByDeleted(Boolean deleted);
 
 }

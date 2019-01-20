@@ -70,6 +70,7 @@ public class PatientServiceImpl implements PatientService {
 //        patientsNotDeleted = patientRepository.findPatientsByDeleted(false);
 
         return patientsNotDeleted;
+//        return patientRepository.findPatientsByDeleted(false);
     }
 
 }
