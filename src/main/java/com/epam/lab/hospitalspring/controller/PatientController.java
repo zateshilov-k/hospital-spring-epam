@@ -42,8 +42,11 @@ public class PatientController {
 
     //list of patients
     @GetMapping(value = "/patients")
-    public String getAllPatients(Model model) {
+    public String getAllPatients(Model model, Authentication authentication) {
+        PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
+        Role currentRole = personalDetailsService.getPersonal().getRole();
         model.addAttribute("patients", patientService.getAllPatients());
+        model.addAttribute("currentRole", currentRole);
         return "patients";
     }
 
@@ -83,10 +86,15 @@ public class PatientController {
     }
 
     @GetMapping(value = "/patients/{id}")
-    public String showPatientProfile(@PathVariable("id") Long id, Model model) {
-        Patient patient = patientService.getPatientById(id);
-        model.addAttribute("patient", patient);
-        return "patientUpdateForm";
+    public String showPatientProfile(@PathVariable("id") Long id, Model model, Authentication authentication) {
+        PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
+        Role currentRole = personalDetailsService.getPersonal().getRole();
+        model.addAttribute("patient", patientService.getPatientById(id));
+        if (currentRole == Role.DOCTOR) {
+            return "patientUpdateForm";
+        } else {
+            return "redirect:/error/errorMessage";
+        }
     }
 
     @PostMapping(value="/patients/updatePatient/{id}")
