@@ -35,28 +35,28 @@
                     <form th:action="@{/patients/updatePatient/{id}(id=${patient.id})}" method="POST">
 
                         <div class="form-group row">
-                            <label for="email_address"
-                                   class="col-md-4 col-form-label text-md-right">firstName</label>
+                            <label
+                                   class="col-md-4 col-form-label text-md-right">Input firstName</label>
                             <div class="col-md-6">
-                                <input type="text" id="email_address" class="form-control" name="firstName"
+                                <input type="text"  class="form-control" name="firstName"
                                        required autofocus th:value="${patient.firstName}">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="email_address"
-                                   class="col-md-4 col-form-label text-md-right">lastName</label>
+                            <label
+                                   class="col-md-4 col-form-label text-md-right"> Input lastName</label>
                             <div class="col-md-6">
-                                <input type="text" name="lastName" required autofocus
-                                       th:value="${patient.lastName}">
+                                <input type="text" class="form-control" name="lastName"
+                                       required autofocus th:value="${patient.lastName}">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="email_address"
-                                   class="col-md-4 col-form-label text-md-right">deleted</label>
+                            <label
+                                   class="col-md-4 col-form-label text-md-right">Deleted</label>
                             <div class="col-md-6">
-                                <input type="checkbox" name="deleted"
+                                <input type="checkbox" class="form-control" name="deleted"
                                        th:checked="${patient.deleted}">
                             </div>
                         </div>
