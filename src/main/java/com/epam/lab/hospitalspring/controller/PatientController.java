@@ -42,19 +42,8 @@ public class PatientController {
 
     //list of patients
     @GetMapping(value = "/patients")
-    public String getAllPatients(Model model, Authentication authentication) {
-        PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
-        Role currentRole = personalDetailsService.getPersonal().getRole();
-        System.out.println(currentRole);
-        List<Patient> patients = new ArrayList<>();
-        if (currentRole == Role.DOCTOR) {
-            patients = patientService.getAllPatients();
-        } else if (currentRole == Role.NURSE) {
-            patients = patientService.getNotDeletedPatients();
-        }
-        model.addAttribute("patients", patients);
-        model.addAttribute("currentRole", currentRole);
-        patients.forEach(System.out::println);
+    public String getAllPatients(Model model) {
+        model.addAttribute("patients", patientService.getAllPatients());
         return "patients";
     }
 
@@ -62,17 +51,12 @@ public class PatientController {
     public String getDeletedPatients(Model model, Authentication authentication) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role currentRole = personalDetailsService.getPersonal().getRole();
-        System.out.println(currentRole);
-        List<Patient> patients = new ArrayList<>();
+        model.addAttribute("patients", patientService.getAllPatients());
         if (currentRole == Role.DOCTOR) {
-            patients = patientService.getAllPatients();
-        } else if (currentRole == Role.NURSE) {
-            patients = patientService.getNotDeletedPatients();
+            return "deletedPatients";
+        } else {
+            return "redirect:/error/errorMessage";
         }
-        model.addAttribute("patients", patients);
-        model.addAttribute("currentRole", currentRole);
-        patients.forEach(System.out::println);
-        return "deletedPatients";
     }
 
     // Getting for patinet his diagnoises and prescriptions
@@ -114,6 +98,5 @@ public class PatientController {
             return "redirect:/deletedPatients";
         }
     }
-
 
 }
