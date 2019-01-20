@@ -121,19 +121,21 @@
         <tbody>
         <div th:if="${patients}!=null">
             <tr th:each="patient : ${patients}">
-                <td th:text="${patient.id}">Неожиданный id</td>
-                <td th:text="${patient.firstName}">Неожиданное имя</td>
-                <td th:text="${patient.lastName}">Неожиданная фамилия</td>
-                <td>
-                    <form name="Button" th:action="@{/patientDiagnosisCard/{id}(id=${patient.id})}" method="GET"
-                          style="display:inline">
-                        <input type="submit" name="button" value="Перейти в карточку"/>
-                    </form>
-                    <form name="Button" th:action="@{/patients/{id}(id=${patient.id})}" method="GET"
-                          style="display:inline">
-                        <input type="submit" name="button" value="Изменить данные пациента"/>
-                    </form>
-                </td>
+                <div th:if="${patient.deleted} == false">
+                    <td th:text="${patient.id}">Неожиданный id</td>
+                    <td th:text="${patient.firstName}">Неожиданное имя</td>
+                    <td th:text="${patient.lastName}">Неожиданная фамилия</td>
+                    <td>
+                        <form name="Button" th:action="@{/patientDiagnosisCard/{id}(id=${patient.id})}" method="GET"
+                              style="display:inline">
+                            <input type="submit" name="button" value="Перейти в карточку"/>
+                        </form>
+                        <form name="Button" th:action="@{/patients/{id}(id=${patient.id})}" method="GET"
+                              style="display:inline">
+                            <input type="submit" name="button" value="Изменить данные пациента"/>
+                        </form>
+                    </td>
+                </div>
             </tr>
         </div>
         </tbody>
