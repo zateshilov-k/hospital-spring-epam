@@ -18,28 +18,33 @@ import java.util.regex.Pattern;
 public class PersonalServiceImpl implements PersonalService {
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-    @Autowired //аннотация которая позволит Spring инициализировать наш сервис
+    @Autowired
     private PersonalRepository personalRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
-    @Override
-    public boolean update(PersonalForm personalForm) {
-        System.out.println("дошли до update в PersonalServiceImpl");
 
-        boolean result=false;
-        if(!VALID_EMAIL_ADDRESS_REGEX.matcher(personalForm.getLogin()).find()) {
-            return  false;
+    @Override
+    public boolean update(PersonalForm personalForm, Long id) {
+        boolean result = false;
+        System.out.println("дошли до update в PersonalServiceImpl");
+        String login = personalForm.getLogin();
+
+        if (personalRepository.findOneByLogin(login).isPresent() && !personalRepository.findPersonalById(id).getLogin().equals(login)) {
+            return false;
         }
-        Optional<Personal> oPersonal = personalRepository.findOneByLogin(personalForm.getLogin());
-        System.out.println(personalRepository.findOneByLogin(personalForm.getLogin()).get());
-        if(oPersonal.isPresent()) {
-           Personal personal  = oPersonal.get();
-           personal.setFirstName(personalForm.getFirstName());
-           personal.setLastName(personalForm.getLastName());
-           personal.setLogin(personalForm.getLogin());
-           personal.setRole(Role.valueOf(personalForm.getRole()));
+
+        if (!VALID_EMAIL_ADDRESS_REGEX.matcher(personalForm.getLogin()).find()) {
+            return false;
+        }
+        Optional<Personal> oPersonal = personalRepository.findById(id);
+        if (oPersonal.isPresent()) {
+            Personal personal = oPersonal.get();
+            personal.setFirstName(personalForm.getFirstName());
+            personal.setLastName(personalForm.getLastName());
+            personal.setLogin(personalForm.getLogin());
+            personal.setRole(Role.valueOf(personalForm.getRole()));
             personal.setPassword(passwordEncoder.encode(personalForm.getPassword()));
-           personalRepository.saveAndFlush(personal);
+            personalRepository.saveAndFlush(personal);
             result = true;
         }
         return result;

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Controller
-public class PersonalsListController {
+public class PersonalController {
     @Autowired
     PersonalService personalService;
 
@@ -27,27 +27,20 @@ public class PersonalsListController {
     }
 
     @GetMapping("/personal/{id}")
-    public String getPersonalPage(@PathVariable("id") Long id, Model model) {
+    public String showPersonalPage(@PathVariable("id") Long id, Model model) {
         model.addAttribute("personal", personalService.getById(id));
         return "/personal";
     }
 
     @GetMapping("/addPersonal")
-    public String showSyPersonal(PersonalForm personalForm) {
+    public String showSignUpPage(PersonalForm personalForm) {
         return "signUp";
     }
 
-    @GetMapping("/updatePersonal")
-    public String getUpdatePersonalPage() {
-
-        System.out.println("чудо");
-        return "personal";
-    }
-
-    @PostMapping("/updatePersonal")
-    public String updatePersonal(PersonalForm personalForm) {
-        String goNextPage = "";
-        if (personalService.update(personalForm)) {
+    @PostMapping("/updatePersonal/{id}")
+    public String updatePersonal(@PathVariable("id") Long id, PersonalForm personalForm) {
+        String goNextPage = null;
+        if (personalService.update(personalForm, id)) {
             goNextPage= "redirect:/personals";
         } else {
             System.out.println("НЕ успешное обновление ");

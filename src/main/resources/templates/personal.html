@@ -135,7 +135,8 @@
                                 <div class="card">
                                     <div class="card-header" th:text="#{titleAddPersonalPage}">Add personal</div>
                                     <div class="card-body">
-                                        <form action="/updatePersonal" method="post">
+                                        <!--th:action="@{/personal/{id}(id=${personal.id})}-->
+                                        <form th:action="@{/updatePersonal/{id}(id=${personal.id})}" method="post">
                                             <div class="form-group row">
                                                 <label for="field5"
                                                        class="col-md-4 col-form-label text-md-right"
