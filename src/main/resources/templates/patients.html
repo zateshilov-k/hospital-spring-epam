@@ -26,10 +26,16 @@ button.button3 {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+
     border: 1px solid #666;
 
 }
-    input.buttonFirstTable {
+a.link {
+    color:#000000
+
+}
+a:hover { text-decoration: none;}
+input.buttonFirstTable {
         background: -moz-linear-gradient(#1daaa4, #EBFFFF);
         background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
@@ -194,7 +200,7 @@ button.button3 {
                         <input class="buttonFirstTable" type="submit" th:value="#{buttonPatientProfile}"/>
                     </form>
 
-                    <button class="button3" type="button"><a href="yourlink.com" th:href="@{/patient/{id}(id=${patient.id})}">Link link</a></button>
+                    <button class="button3" type="button"><a class="link" href="yourlink.com" th:href="@{/patient/{id}(id=${patient.id})}">Link link</a></button>
 
                 </td>
             </tr>
