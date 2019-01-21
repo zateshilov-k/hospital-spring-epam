@@ -17,9 +17,9 @@ public class PersonalDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        Optional<Personal> user = personalRepository.findOneByLogin(login);
-        if (user.isPresent()) {
-            return new PersonalDetailsImpl(user.get());
+        Optional<Personal> personal = personalRepository.findOneByLogin(login);
+        if (personal.isPresent()) {
+            return new PersonalDetailsImpl(personal.get());
         } else {
             throw new UsernameNotFoundException(login);
         }

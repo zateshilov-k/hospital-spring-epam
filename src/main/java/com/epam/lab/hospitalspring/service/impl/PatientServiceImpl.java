@@ -7,6 +7,7 @@ import com.epam.lab.hospitalspring.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -54,6 +55,15 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();
+    }
+
+    @Override
+    public List<Patient> getNotDeletedPatients() {
+        return patientRepository.findPatientsByDeleted(false);
+    }
+
+    public List<Patient> getDeletedPatients() {
+        return patientRepository.findPatientsByDeleted(true);
     }
 
 }

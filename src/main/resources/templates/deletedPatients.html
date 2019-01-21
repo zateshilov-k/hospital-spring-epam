@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
           id="bootstrap-css">
@@ -13,7 +13,7 @@
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>#{titlePatientsPage}</title>
+    <title>Patients</title>
 </head>
 <body style="background-color:powderblue">
 <style>
@@ -45,30 +45,17 @@
     body {
         font-size: 1.5em; /* Размер текста */
     }
-
     table {
         width: 100%; /* Ширина таблицы */
     }
 
-    td.col {
-        background: rgba(125, 6, 0, 0.51);
-        color: black;
-    }
+    td.col { background: rgba(125, 6, 0, 0.51); color: black; }
 
-    th.col {
-        background: rgba(125, 6, 0, 0.51);
-        color: black;
-    }
+    th.col { background: rgba(125, 6, 0, 0.51); color: black; }
 
-    th.colHeadFirstTable {
-        background: rgba(22, 105, 99, 0.73);
-        color: black;
-    }
+    th.colHeadFirstTable { background: rgba(22, 105, 99, 0.73); color: black; }
 
-    th.colHeadSecondTable {
-        background: rgba(91, 6, 0, 0.76);
-        color: black;
-    }
+    th.colHeadSecondTable { background: rgba(91, 6, 0, 0.76); color: black; }
 
     header {
         width: 100%;
@@ -146,47 +133,53 @@
 <header>
     <label></label>
     <nav>
-        <li><a href="/patients" th:text="#{patients}"></a></li>
-        <li><a href="/addPatient" th:text="#{menuAddPatient}"></a></li>
-        <li><a href="/deletedPatients">Deleted Patients</a></li>
-        <li><a href="#" th:text="#{myProfile}"></a></li>
-        <li><a href="/logout" th:text="#{menuLogout}"></a></li>
+        <ul>
+            <li><a href="/personals">Personals</a></li>
+            <li><a href="/patients">Patients</a></li>
+            <li><a href="/deletedPatients">Deleted Patients</a></li>
+            <li><a href="/addPatient">Add patient</a></li>
+            <li><a href="/testPageAleksei">Test main page</a></li>
+            <li><a href="#">My profile</a></li>
+            <li><a href="/logout">Logout</a></li>
         </ul>
     </nav>
 </header>
-<h3 align="center" th:text="#{titlePatientsPage}"></h3>
-<div class="container-fluid">
-    <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
-        <thead>
-        <tr>
-            <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
-            <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
-            <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
-            <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
-        </tr>
-        </thead>
 
-        <tbody>
-        <div th:if="${patients} != null">
-            <tr th:each="patient : ${patients}">
-                <td th:text="${patient.id}">id</td>
-                <td th:text="${patient.firstName}">first name</td>
-                <td th:text="${patient.lastName}">last name</td>
-                <td>
-                    <form name="Button" th:action="@{/patientDiagnosisCard/{id}(id=${patient.id})}" method="POST"
-                          style="display:inline">
-                        <input class="buttonFirstTable" type="submit" th:value="#{buttonOpenCard}"/>
-                    </form>
-                    <form th:if="${currentRole.toString() eq 'DOCTOR'}" name="Button"
-                          th:action="@{/patients/{id}(id=${patient.id})}" method="GET"
-                          style="display:inline">
-                        <input class="buttonFirstTable" type="submit" th:value="#{buttonPatientProfile}"/>
-                    </form>
-                </td>
+<div class="container-fluid">
+
+        <h3 align="center">Список удаленных пациентов</h3>
+        <table id="example" class="table table-bordered table-hover col1" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th class="colHeadSecondTable">Id</th>
+                <th class="colHeadSecondTable">FirstName</th>
+                <th class="colHeadSecondTable">LastName</th>
+                <th class="colHeadSecondTable">Action</th>
             </tr>
-        </div>
-        </tbody>
-    </table>
+            </thead>
+
+            <tbody>
+            <div th:if="${patients} != null">
+                <tr th:each="patient : ${patients}">
+                        <td class="col" th:text="${patient.id}">Неожиданный id</td>
+                        <td class="col" th:text="${patient.firstName}">Неожиданное имя</td>
+                        <td class="col" th:text="${patient.lastName}">Неожиданная фамилия</td>
+                        <td class="col">
+                            <form name="Button" th:action="@{/patientDiagnosisCard/{id}(id=${patient.id})}" method="GET"
+                                  style="display:inline">
+                                <input class="buttonSecondTable" type="submit" name="button" value="Перейти в карточку"/>
+                            </form>
+                            <form name="Button" th:action="@{/patients/{id}(id=${patient.id})}" method="GET"
+                                  style="display:inline">
+                                <input class="buttonSecondTable" type="submit" name="button" value="Изменить данные пациента"/>
+                            </form>
+                        </td>
+                </tr>
+            </div>
+            </tbody>
+        </table>
+</div>
+
 </div>
 <script>
     $(document).ready(function () {

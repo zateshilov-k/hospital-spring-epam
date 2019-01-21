@@ -16,4 +16,8 @@ public interface PatientService {
 
     List<Patient> getAllPatients();
 
+    List<Patient> getNotDeletedPatients();
+
+    List<Patient> getDeletedPatients();
+
 }

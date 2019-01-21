@@ -1,5 +1,7 @@
 package com.epam.lab.hospitalspring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,23 +18,33 @@ import java.util.List;
 @Builder
 @Table(name = "patient")
 public class Patient {
-
+    @Expose
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Size(min=1, message = "First name must be at least 1 characters")
+
+    @Expose
     @Column(name = "first_name")
     private String firstName;
-    @Size(min=1, message = "Last name must be at least 1 characters")
+    @Expose
     @Column(name = "last_name")
     private String lastName;
+    @Expose
     private Boolean discharged;
-    private Boolean deleted;
+    @Expose
+    private Boolean deleted = false;
+    @Expose(serialize = false)
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     List<Diagnosis> diagnosisList;
 
-    public Patient(@Size(min = 1, message = "First name must be at least 1 characters") String firstName, @Size(min = 1, message = "Last name must be at least 1 characters") String lastName) {
+    public Patient(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", " +
+                "discharged=" + discharged + ", deleted=" + deleted + '}';
     }
 }

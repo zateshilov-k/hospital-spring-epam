@@ -1,7 +1,6 @@
 package com.epam.lab.hospitalspring.service;
 
 import com.epam.lab.hospitalspring.model.Diagnosis;
-import com.epam.lab.hospitalspring.model.Patient;
 
 
 import java.util.List;
@@ -16,5 +15,9 @@ public interface DiagnosisService {
 
     List<Diagnosis> getAllDiagnosis();
 
-    List<Diagnosis> findDiagnosisByPatientId(Long id);
+    String findDiagnosisByPatientId(Long id);
+
+    void closeDiagnosis(Long diagnosisId);
+
+    void addDiagnosis(Long patientId, Long personalId, String description);
 }

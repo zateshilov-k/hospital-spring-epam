@@ -20,13 +20,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.validation.constraints.AssertTrue;
+import java.util.Locale;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 public class SignUpServiceTest {
     @TestConfiguration
     static class EmployeeServiceImplTestContextConfiguration {
-
         @Bean
         public SignUpService signUpService() {
             return new SignUpServiceImpl();
