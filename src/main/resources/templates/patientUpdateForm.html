@@ -1,90 +1,77 @@
-<!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
-<!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>-->
-<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
-<!------ Include the above in your HEAD tag ---------->
-
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title th:text="#{title}"></title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Fonts -->
-    <!--<link rel="dns-prefetch" href="https://fonts.gstatic.com">-->
-    <!--<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">-->
-
-    <!--<link rel="stylesheet" href="css/style.css">-->
-
-    <!--<link rel="icon" href="Favicon.png">-->
+    <!--&lt;!&ndash; Fonts &ndash;&gt;-->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
     <!--&lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
-    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
-    <title>CHANGE INFO!!!</title>
+
 </head>
-<body style="background-color:powderblue;overflow:hidden">
-<!--<%&#45;&#45;<fmt:setLocale value="${sessionScope.locale}"/>&#45;&#45;%>-->
-<!--<%&#45;&#45;<fmt:setBundle basename="internationalization.resource" var="loc"/>&#45;&#45;%>-->
-<!--<%&#45;&#45;<fmt:message bundle="${loc}" key="titleAddPatientPage" var="titleAddPage_msg"/>&#45;&#45;%>-->
-<!--<%&#45;&#45;<fmt:message bundle="${loc}" key="firstNameField" var="firstName_msg"/>&#45;&#45;%>-->
-<!--<%&#45;&#45;<fmt:message bundle="${loc}" key="lastNameField" var="lastName_msg"/>&#45;&#45;%>-->
-<!--<%&#45;&#45;<fmt:message bundle="${loc}" key="buttonSave" var="buttonSave_msg"/>&#45;&#45;%>-->
-<!--<%&#45;&#45;<fmt:message bundle="${loc}" key="buttonCancel" var="buttonCancel_msg"/>&#45;&#45;%>-->
-<!--<%&#45;&#45;<fmt:message bundle="${loc}" key="patientErrorMsg" var="patientError_msg"/>&#45;&#45;%>-->
-<!--/patient/{id}/update-->
+<body style="background-color:powderblue">
+
+<style>
+</style>
+
 <main class="login-form">
     <div class="cotainer">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Change patient info</div>
-                    <div class="card-body">
-                        <form th:action="@{/patients/updatePatient/{id}(id=${patient.id})}" method="POST">
+                    <h1 class="card-header" >Update Personal</h1>
 
-                            <div class="form-group row">
-                                <label for="email_address"
-                                       class="col-md-4 col-form-label text-md-right">firstName</label>
-                                <div class="col-md-6">
-                                    <input type="text" id="email_address" class="form-control" name="firstName"
-                                           required autofocus th:value="${patient.firstName}">
-                                </div>
+                    <form th:action="@{/patients/updatePatient/{id}(id=${patient.id})}" method="POST">
+
+                        <div class="form-group row">
+                            <label
+                                   class="col-md-4 col-form-label text-md-right">Input firstName</label>
+                            <div class="col-md-6">
+                                <input type="text"  class="form-control" name="firstName"
+                                       required autofocus th:value="${patient.firstName}">
                             </div>
+                        </div>
 
-                            <div class="form-group row">
-                                <label for="email_address"
-                                       class="col-md-4 col-form-label text-md-right">lastName</label>
-                                <div class="col-md-6">
-                                    <input type="text" name="lastName" required autofocus
-                                           th:value="${patient.lastName}">
-                                </div>
+                        <div class="form-group row">
+                            <label
+                                   class="col-md-4 col-form-label text-md-right"> Input lastName</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="lastName"
+                                       required autofocus th:value="${patient.lastName}">
                             </div>
+                        </div>
 
-                                <div class="form-group row">
-                                    <label for="email_address"
-                                           class="col-md-4 col-form-label text-md-right">deleted</label>
-                                    <div class="col-md-6">
-                                        <input type="checkbox" name="deleted"
-                                               th:checked="${patient.deleted}">
-                                    </div>
-                                </div>
+                        <div class="form-group row">
+                            <label
+                                   class="col-md-4 col-form-label text-md-right">Deleted</label>
+                            <div class="col-md-6">
+                                <input type="checkbox" class="form-control" name="deleted"
+                                       th:checked="${patient.deleted}">
+                            </div>
+                        </div>
 
-
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Accept
-                                    </button>
-                                    <input type="button" value="Cancel" onclick="history.back()">
-                                </div>
-                        </form>
-                    </div>
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" class="btn btn-primary">
+                                Accept
+                            </button>
+                            <input type="button" value="Cancel" onclick="history.back()">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    </div>
 </main>
-
 </body>
 </html>
