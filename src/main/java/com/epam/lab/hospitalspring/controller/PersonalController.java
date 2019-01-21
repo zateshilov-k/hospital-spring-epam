@@ -49,4 +49,10 @@ public class PersonalController {
         return "redirect:/personals";
 
     }
+
+    @PostMapping("/deletePersonalFromDB/{id}")
+    public String deletePersonalFromDB(@PathVariable("id") Long id) {
+        String goNextPage = null;
+        return "redirect:/personals";
+    }
 }
