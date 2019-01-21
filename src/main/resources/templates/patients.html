@@ -146,10 +146,18 @@
 <header>
     <label></label>
     <nav>
+
+        <li th:switch="${currentRole}">
+            <a href="#" th:case="${currentRole.ADMIN}"
+               th:text="#{ADMIN}+' '+${lastName}+' '+${firstName}">administrator</a>
+            <a href="#" th:case="${currentRole.DOCTOR}" th:text="#{DOCTOR}+' '+${lastName}+' '+${firstName}">doctor</a>
+            <a href="#" th:case="${currentRole.NURSE}" th:text="#{NURSE}+' '+${lastName}+' '+${firstName}">nurse</a>
+            <a href="#" th:case="*">Unknown role</a>
+        </li>
         <li><a href="/patients" th:text="#{patients}"></a></li>
         <li><a href="/addPatient" th:text="#{menuAddPatient}"></a></li>
         <li><a href="/deletedPatients">Deleted Patients</a></li>
-        <li><a href="#" th:text="#{myProfile}"></a></li>
+        <!--<li><a href="#" th:text="#{myProfile}"></a></li>-->
         <li><a href="/logout" th:text="#{menuLogout}"></a></li>
         </ul>
     </nav>
