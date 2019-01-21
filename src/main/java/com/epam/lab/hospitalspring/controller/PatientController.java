@@ -76,10 +76,6 @@ public class PatientController {
         model.addAttribute("patient", currentPatient);
         Gson gson = GsonFactory.buildGson(locale);
         model.addAttribute("diagnoses",gson.toJson(currentPatient.getDiagnosisList()));
-//        model.addAttribute("prescriptions",gson.toJson(
-//                currentPatient.getDiagnosisList().get(0).getPrescriptions()));
-
-
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role role = personalDetailsService.getPersonal().getRole();
         model.addAttribute("role",role);

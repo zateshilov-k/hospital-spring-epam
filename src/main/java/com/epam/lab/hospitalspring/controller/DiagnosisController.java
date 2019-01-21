@@ -17,7 +17,7 @@ public class DiagnosisController {
     DiagnosisService diagnosisService;
 
     @ResponseBody
-    @GetMapping("/patientDiagnosisCard/{patientId}/diagnosis/")
+    @GetMapping(value = "/patientDiagnosisCard/{patientId}/diagnosis/")
     String getDiagnoses(@PathVariable("patientId") long patientId, Locale locale) {
         String diagnosesJson = diagnosisService.findDiagnosisByPatientId(patientId, locale);
         return diagnosesJson;

@@ -111,50 +111,48 @@
     <label></label>
     <nav>
         <ul>
-            <li><a href="/personals">Personals</a></li>
-            <li><a href="/testPageAleksei">Test main page</a></li>
-            <li><a href="#">My profile</a></li>
-            <li><a href="/logout">Logout</a></li>
+            <li><a href="/patients" th:text="#{patients}"></a></li>
+            <li><a href="/logout" th:text="#{menuLogout}">Logout</a></li>
         </ul>
     </nav>
 </header>
 
 <h3>
-    <div style="text-align:center; font-size:28px"> Карточка пациента:
+    <div style="text-align:center; font-size:28px" >
+        <a style="text-align:center;font-size:28px" th:text="#{currentPatientCard}"></a>
         <a style="text-align:center;font-size:28px" th:text="${patient.firstName}"></a>
         <a style="text-align:center;font-size:28px" th:text="${patient.lastName}"></a>
     </div>
 </h3>
 <br>
-<button onclick="window.location.href='/patients'">Go list patients</button>
 <br><br>
 
 <fieldset>
-    <button id="closeDiagnosisButton">Close diagnosis button</button>
-    <button id="doPrescription" style="display:inline; float:right">Do prescription</button>
+    <button id="closeDiagnosisButton" th:text="#{buttonCloseDiagnosis}">Close diagnosis button</button>
+    <button id="doPrescription" style="display:inline; float:right" th:text="#{buttonDoPerscription}" >Do prescription</button>
     <br><br>
 
     <div>
         <table class="diagnosisList" id="diagnosis" style="display:inline; float:left" border="1">
-            <caption  style=" font-family: Arial, Helvetica, sans-serif;">Диагноз сообщение:</caption>
+            <caption  style="font-family: Arial, Helvetica, sans-serif;" th:text="#{diagnosises}" >Диагноз сообщение:</caption>
             <tr>
-                <th>Id</th>
-                <th>Description</th>
-                <th>Time</th>
-                <th>isOpened</th>
+                <th th:text="#{columnId}">Id</th>
+                <th th:text="#{columnDescription}">Description</th>
+                <th th:text="#{columnTime}">Time</th>
+                <th th:text="#{columnOpen}">isOpened</th>
             </tr>
         </table>
     </div>
 
     <div>
         <table class="prescriptionList" id="prescriptionsTable" style="display:inline; float:right" border="1">
-            <caption style=" font-family: Arial, Helvetica, sans-serif;" >Назначение сообщение:</caption>
+            <caption style=" font-family: Arial, Helvetica, sans-serif;" th:text="#{perscriptions}" >Назначение сообщение:</caption>
             <tr>
-                <th>Id</th>
-                <th>Description</th>
-                <th>Type of prescription</th>
-                <th>Time</th>
-                <th>Done</th>
+                <th th:text="#{columnId}">Id</th>
+                <th th:text="#{columnDescription}">Description</th>
+                <th th:text="#{columnTypeOfPerscription}">Type of prescription</th>
+                <th th:text="#{columnTime}">Time</th>
+                <th th:text="#{columnDone}">Done</th>
             </tr>
         </table>
     </div>
@@ -162,43 +160,38 @@
 
 <br>
 <fieldset style="float:left" id="diagnosisFieldSet">
-    <legend>Добавить диагноз</legend>
+    <legend th:text="#{addDiagnosis}">Добавить диагноз</legend>
     <br>
-    <caption>Описание диагноза:</caption>
+    <caption th:text="#{diagnosisDescription}">Описание диагноза:</caption>
     <p><textarea name="comment" id="diagnosisDescription"></textarea></p>
-    <button id="diagnosisSubmit" value="Добавить">Добавить</button>
+    <button id="diagnosisSubmit" value="Добавить" th:text="#{addDiagnosis}">Добавить</button>
 </fieldset>
 
 <fieldset id="addPrescriptionFieldSet" style="display:none;">
-    <legend>Добавить назначение</legend>
+    <legend th:text="#{addPerscription}">Добавить назначение</legend>
     <form>
-        <caption>Тип назначения:</caption>
+        <caption th:text="#{columnTypeOfPerscription}">Тип назначения:</caption>
         <form>
             <select name="prescriptionType" id="prescriptionType">
-                <option value="PROCEDURE">Процедура</option>
-                <option value="OPERATION">Операция</option>
-                <option value="DRUG">Лекарство</option>
+                <option value="PROCEDURE" th:text="#{procedure}">Процедура</option>
+                <option value="OPERATION" th:text="#{operation}">Операция</option>
+                <option value="DRUG" th:text="#{drug}">Лекарство</option>
             </select>
         </form>
-        <caption>Описание назначения:</caption>
+        <caption th:text="#{perscriptionDescription}">Описание назначения:</caption>
         <p><textarea id="prescriptionDescription" name="comment"></textarea></p>
-        <button id="prescriptionSubmit" value="Добавить">Добавить</button>
+        <button id="prescriptionSubmit" value="Добавить" th:text="#{addPerscription}">Добавить</button>
     </form>
 </fieldset>
 
 <script>
     var currentDiagnosisRow = 1;
     var currentPrescriptionRow = 1;
-    //var diagnosisIsOpened = '${diagnosisIsOpened_msg}';
-    var diagnosisIsOpened = 'true';
-    //var diagnosisIsNotOpened = '${diagnosisIsNotOpened_msg}';
-    var diagnosisIsNotOpened = 'false';
-    //var operation = '${operation_msg}';
-    var operation = 'OPERATION';
-    //var prescriptionIsDone = '${prescriptionIsDone_msg}';
-    //var prescriptionIsNotDone = '${prescriptionIsNotDone_msg}';
-    var prescriptionIsDone = 'true';
-    var prescriptionIsNotDone = 'false';
+    var diagnosisIsOpened = '[[#{diagnosisIsOpened}]]';
+    var diagnosisIsNotOpened = '[[#{diagnosisIsNotOpened}]]';
+    var operation = '[[#{operation}]]';
+    var prescriptionIsDone = '[[#{prescriptionIsDone}]]';
+    var prescriptionIsNotDone = '[[#{prescriptionIsNotDone}]]';
     var doPrescriptionButton = document.getElementById("doPrescription");
     doPrescriptionButton.addEventListener("click", prescriptionDoneListener);
     var closeDiagnosisButton = document.getElementById("closeDiagnosisButton");
@@ -211,7 +204,6 @@
     var diagnosis = toJson('[[${diagnoses}]]');
     var userRole = '[[${role}]]';
     if (diagnosis.length > 0) {
-        //updateDiagnosisTable(diagnosis, diagnosisTable);
         getAndUpdateDiagnosis();
     }
     function toJson(stringJson) {
