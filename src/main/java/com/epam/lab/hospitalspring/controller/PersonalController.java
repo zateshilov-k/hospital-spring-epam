@@ -52,7 +52,7 @@ public class PersonalController {
 
     @PostMapping("/deletePersonalFromDB/{id}")
     public String deletePersonalFromDB(@PathVariable("id") Long id) {
-        String goNextPage = null;
+        personalService.deleteFromDB(id);
         return "redirect:/personals";
     }
 }

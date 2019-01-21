@@ -142,6 +142,10 @@
                           style="display:inline">
                         <input type="submit" th:value="#{buttonOpenProfile}"/>
                     </form>
+                    <form name="Button" th:action="@{/deletePersonalFromDB/{id}(id=${personal.id})}" method="post"
+                          style="display:inline">
+                        <input type="submit" th:value="#{buttonDeletePersonal}"/>
+                    </form>
                 </td>
             </tr>
         </div>
