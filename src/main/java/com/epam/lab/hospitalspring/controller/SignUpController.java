@@ -8,8 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-
+import org.springframework.web.bind.annotation.RestController;
 
 
 @Controller
@@ -35,6 +34,6 @@ public class SignUpController {
         }catch (SignUpServiceImpl.LoginNotValid e) {
             return "redirect:/signUp?loginNotValid";
         }
-        return "redirect:/login";
+        return "redirect:/personals";
     }
 }

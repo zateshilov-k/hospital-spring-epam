@@ -18,20 +18,20 @@ public class DiagnosisController {
     DiagnosisService diagnosisService;
 
     @ResponseBody
-    @GetMapping("/patients/{patientId}/diagnosis/")
+    @GetMapping("/patientDiagnosisCard/{patientId}/diagnosis/")
     String getDiagnoses(@PathVariable("patientId") long patientId) {
         String diagnosesJson = diagnosisService.findDiagnosisByPatientId(patientId);
         return diagnosesJson;
     }
 
     @ResponseBody
-    @PostMapping("/patients/{patientId}/closeDiagnosis/{diagnosisId}")
+    @PostMapping("/patientDiagnosisCard/{patientId}/closeDiagnosis/{diagnosisId}")
     void closeDiagnosis(@PathVariable("diagnosisId") long diagnosisId){
         diagnosisService.closeDiagnosis(diagnosisId);
     }
 
     @ResponseBody
-    @PostMapping("/patients/{patientId}/addDiagnosis/descr={diagnosisDescription}")
+    @PostMapping("/patientDiagnosisCard/{patientId}/addDiagnosis/descr={diagnosisDescription}")
     void addDiagnosis(@PathVariable("diagnosisDescription") String diagnosisDescription,
                       @PathVariable("patientId") Long patientId,
                       Authentication authentication) {

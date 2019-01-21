@@ -1,6 +1,6 @@
 package com.epam.lab.hospitalspring.controller;
 
-import com.epam.lab.hospitalspring.model.Diagnosis;
+import com.epam.lab.hospitalspring.form.PatientForm;
 import com.epam.lab.hospitalspring.model.Patient;
 import com.epam.lab.hospitalspring.model.Prescription;
 import com.epam.lab.hospitalspring.model.enums.PrescriptionType;
@@ -19,16 +19,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class PatientController {
@@ -46,14 +42,16 @@ public class PatientController {
     @Autowired
     PrescriptionRepository prescriptionRepository;
 
+    LocalDateTime today = LocalDateTime.now();
 
-    @RequestMapping(value = "/patients", method = RequestMethod.GET)
+
+    @GetMapping(value = "/patients")
     public String getAllPatients(Model model) {
         model.addAttribute("patients", patientService.getAllPatients());
         return "patients";
     }
 
-    @RequestMapping(value = "/patients/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/patientDiagnosisCard/{id}")
     public String getPatient(@PathVariable("id") Long id, Model model, Authentication authentication) {
         Patient currentPatient= patientService.getPatientById(id);
         model.addAttribute("patient", currentPatient);
@@ -66,5 +64,29 @@ public class PatientController {
         Role role = personalDetailsService.getPersonal().getRole();
         model.addAttribute("role",role);
         return "patientDiagnosisCard";
+    }
+
+
+    @GetMapping(value = "/addPatient")
+    public String getAddPatientPage() {
+        return "patient";
+    }
+
+    @PostMapping(value = "/addPatient")
+    public String addPatient(PatientForm patientForm, Model model) {
+
+        Patient patient = patientService.addPatient(patientForm);
+        if (patient != null) {
+            return "redirect:/patients";
+        } else {
+            return "redirect:/error/errorMessage";
+        }
+    }
+
+    @GetMapping(value = "/patient/{id}")
+    public String showError(@PathVariable("id") Long id, Model model) {
+        model.addAttribute(patientService.getPatientById(id));
+        //TODO передать на фронт имя и фамилию
+        return "patient";
     }
 }

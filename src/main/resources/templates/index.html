@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
           id="bootstrap-css">
@@ -95,11 +95,11 @@
     <label ></label>
     <nav>
         <ul>
-            <li><a href="/personals">Personals</a></li>
-            <li><a href="/patients">Patients</a></li>
+            <li><a href="/personals"><p th:text="#{personals}"></p></a></li>
+            <li><a href="/patients" method><p th:text="#{patients}"></a></li>
             <li><a href="/testPageAleksei">Test main page</a></li>
-            <li><a href="#">My profile</a></li>
-            <li><a href="/logout">Logout</a></li>
+            <li><a href="#"><p th:text="#{myprofile}"></a></li>
+            <li><a href="/logout"><p th:text="#{logout}"></a></li>
         </ul>
     </nav>
 </header>
@@ -113,7 +113,6 @@
 
 </body>
 </html>
-
 <h3>This is test page. If you see this text, you are the best!!!</h3>
 <h2>Если мы успешно прошли авторизацию из коробки Spring, то нас перекидывает на страницу по умолчанию index.html</h2>
 <h2>В дальнейшем мы можем это изменить.</h2>

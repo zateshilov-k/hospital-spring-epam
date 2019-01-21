@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
-    id="bootstrap-css">
+          id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
@@ -13,7 +13,7 @@
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>Title</title>
+    <title>#{titlePersonalsPage}</title>
 </head>
 <body style="background-color:powderblue">
 <style>
@@ -36,7 +36,7 @@
         margin: 0;
         max-height: 0;
         overflow: hidden;
-        clear:both;
+        clear: both;
         transition: max-height .3s cubic-bezier(0.63, 0, 0.25, 1);;
     }
 
@@ -75,15 +75,18 @@
         .hamburger {
             display: none;
         }
+
         nav {
             background: transparent;
             float: right;
             border: 0 !important;
             max-height: none;
         }
+
         nav ul, nav li, nav li a {
             display: inline-block;
         }
+
         nav a {
             display: inline-block;
             padding: 15px 1em;
@@ -92,43 +95,58 @@
 
 </style>
 <header>
-    <label ></label>
+    <label></label>
     <nav>
         <ul>
-            <li><a href="/personals">Personals</a></li>
+            <li><a href="/personals" th:text="#{personals}"></a></li>
+            <li><a href="/addPersonal" th:text="#{menuAddPersonal}"></a></li>
             <li><a href="/testPageAleksei">Test main page</a></li>
-            <li><a href="#">My profile</a></li>
-            <li><a href="/logout">Logout</a></li>
+            <li><a href="#" th:text="#{myProfile}"></a></li>
+            <li><a href="/logout" th:text="#{menuLogout}"></a></li>
         </ul>
     </nav>
 </header>
-<h3 align="center">Список персонала</h3>
+<h3 align="center" th:text="#{titlePersonalsPage}"></h3>
 <div class="container-fluid">
-<table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Login</th>
-        <th>FirstName</th>
-        <th>LastName</th>
-        <th>Role</th>
-        <th>Deleted</th>
-    </tr>
-    </thead>
+    <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th th:text="#{columnId}">Id</th>
+            <th th:text="#{columnId}">Id</th>
 
-    <tbody>
-    <div th:if="${personals}!=null">
-        <tr th:each="personal : ${personals}">
-            <td th:text="${personal.id}">Неожиданный id</td>
-            <td th:text="${personal.login}">Неожиданный login</td>
-            <td th:text="${personal.firstName}">Неожиданное имя</td>
-            <td th:text="${personal.lastName}">Неожиданное имя</td>
-            <td th:text="${personal.role}">Неожиданная роль</td>
-            <td th:text="${personal.isDeleted}">Неожиданно удален</td>
+            <th th:text="#{columnFirstName}">FirstName</th>
+            <th th:text="#{columnLastName}">LastName</th>
+            <th th:text="#{columnRole}">Role</th>
+            <th th:text="#{columnActive}">Active</th>
+            <th th:text="#{columnAction}">Action</th>
         </tr>
-    </div>
-    </tbody>
-</table>
+        </thead>
+
+        <tbody>
+        <div th:if="${personals}!=null">
+            <tr th:each="personal : ${personals}">
+                <td th:text="${personal.id}">id</td>
+                <td th:text="${personal.login}">login</td>
+                <td th:text="${personal.firstName}">firstname</td>
+                <td th:text="${personal.lastName}">lastname</td>
+
+                <td th:switch="${personal.role}">
+                    <p th:case="${personal.role.ADMIN}" th:text="#{ADMIN}">administrator</p>
+                    <p th:case="${personal.role.DOCTOR}" th:text="#{DOCTOR}">doctor</p>
+                    <p th:case="${personal.role.NURSE}" th:text="#{NURSE}">nurse</p>
+                    <p th:case="*">Unknown role</p>
+                </td>
+                <td th:text="${personal.deleted}">Неожиданно удален</td>
+                <td>
+                    <form name="Button" th:action="@{/personal/{id}(id=${personal.id})}" method="GET"
+                          style="display:inline">
+                        <input type="submit" th:value="#{buttonOpenProfile}"/>
+                    </form>
+                </td>
+            </tr>
+        </div>
+        </tbody>
+    </table>
 </div>
 <script>
     $(document).ready(function () {

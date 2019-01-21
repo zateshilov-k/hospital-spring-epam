@@ -1,5 +1,6 @@
 package com.epam.lab.hospitalspring.service.impl;
 
+import com.epam.lab.hospitalspring.form.PatientForm;
 import com.epam.lab.hospitalspring.model.Patient;
 import com.epam.lab.hospitalspring.repository.PatientRepository;
 import com.epam.lab.hospitalspring.service.PatientService;
@@ -15,8 +16,29 @@ public class PatientServiceImpl implements PatientService {
     private PatientRepository patientRepository;
 
     @Override
-    public Patient addPatient(Patient patient) {
-        return patientRepository.saveAndFlush(patient);
+    public boolean validateData(PatientForm patientForm) {
+        boolean isValidData = true;
+        if (patientForm.getFirstName().equals("") || patientForm.getFirstName() == null
+                || patientForm.getLastName().equals("") || patientForm.getLastName() == null) {
+            isValidData = false;
+        }
+        return isValidData;
+    }
+
+    @Override
+    public Patient addPatient(PatientForm patientForm) {
+        Patient patient = null;
+        if (validateData(patientForm)) {
+            patient = Patient.builder()
+                    .firstName(patientForm.getFirstName())
+                    .lastName(patientForm.getLastName())
+                    .deleted(false)
+                    .discharged(false)
+                    .diagnosisList(null)
+                    .build();
+            patient = patientRepository.saveAndFlush(patient);
+        }
+        return patient;
     }
 
     @Override

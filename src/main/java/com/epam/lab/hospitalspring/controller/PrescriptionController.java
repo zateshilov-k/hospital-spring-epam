@@ -21,7 +21,7 @@ public class PrescriptionController {
     PrescriptionService prescriptionService;
 
     @ResponseBody
-    @GetMapping("/patients/{patientId}/diagnosis/{diagnosisId}/prescription")
+    @GetMapping("/patientDiagnosisCard/{patientId}/diagnosis/{diagnosisId}/prescription")
     String getPrescriptions(@PathVariable("diagnosisId") long diagnosisId,
                             @PathVariable("patientId") long patientId) {
         String prescriptionsJson =
@@ -30,14 +30,14 @@ public class PrescriptionController {
     }
 
     @ResponseBody
-    @PostMapping("/patients/{patientId}/doPrescription/{prescriptionId}")
+    @PostMapping("/patientDiagnosisCard/{patientId}/doPrescription/{prescriptionId}")
     void doPrescription(@PathVariable("prescriptionId") long prescriptionId,
                         @PathVariable("patientId") long patientId){
         prescriptionService.doPrescription(prescriptionId);
     }
 
     @ResponseBody
-    @PostMapping("/patients/{patientId}/diagnosis/{diagnosisId}/addPrescription/description={prescriptionDescription}/type={prescriptionType}")
+    @PostMapping("/patientDiagnosisCard/{patientId}/diagnosis/{diagnosisId}/addPrescription/description={prescriptionDescription}/type={prescriptionType}")
     void addPrescription(@PathVariable("diagnosisId") long diagnosisId,
                          @PathVariable("prescriptionDescription") String prescriptionDescription,
                          @PathVariable("prescriptionType") String prescriptionType){
