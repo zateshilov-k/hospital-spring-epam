@@ -55,7 +55,7 @@ public class PersonalController {
 
     }
 
-    @PostMapping("/deletePersonalFromDB/{id}")
+    @GetMapping("/deletePersonalFromDB/{id}")
     public String deletePersonalFromDB(@PathVariable("id") Long id) {
         personalService.deleteFromDB(id);
         return "redirect:/personals";

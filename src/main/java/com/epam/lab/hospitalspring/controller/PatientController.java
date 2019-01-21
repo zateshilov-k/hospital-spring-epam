@@ -70,7 +70,7 @@ public class PatientController {
         }
     }
 
-    @PostMapping(value = "/patientDiagnosisCard/{id}")
+    @GetMapping(value = "/patientDiagnosisCard/{id}")
     public String getPatient(@PathVariable("id") Long id, Model model, Authentication authentication) {
         Patient currentPatient = patientService.getPatientById(id);
         model.addAttribute("patient", currentPatient);
@@ -102,7 +102,7 @@ public class PatientController {
         }
     }
 
-    @GetMapping(value = "/patients/{id}")
+    @GetMapping(value = "/patient/{id}")
     public String showPatientProfile(@PathVariable("id") Long id, Model model, Authentication authentication) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role currentRole = personalDetailsService.getPersonal().getRole();
