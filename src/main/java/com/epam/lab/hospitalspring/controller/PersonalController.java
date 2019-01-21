@@ -3,8 +3,10 @@ package com.epam.lab.hospitalspring.controller;
 import com.epam.lab.hospitalspring.form.PersonalForm;
 import com.epam.lab.hospitalspring.model.Personal;
 import com.epam.lab.hospitalspring.model.enums.Role;
+import com.epam.lab.hospitalspring.security.details.PersonalDetailsImpl;
 import com.epam.lab.hospitalspring.service.PersonalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +20,15 @@ public class PersonalController {
     @Autowired
     PersonalService personalService;
 
-
     @GetMapping("/personals")
-    public String showPersonalsList(Model model) {
+    public String showPersonalsList(Model model, Authentication authentication) {
         List<Personal> personals = personalService.getAll();
         model.addAttribute("personals", personals);
-        return "personals"; // //path/name of the view in resources/templates
+        PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
+        model.addAttribute("currentRole", personalDetailsService.getPersonal().getRole());
+        model.addAttribute("firstName", personalDetailsService.getPersonal().getFirstName());
+        model.addAttribute("lastName", personalDetailsService.getPersonal().getLastName());
+        return "personals";
     }
 
     @GetMapping("/personal/{id}")
@@ -41,7 +46,7 @@ public class PersonalController {
     public String updatePersonal(@PathVariable("id") Long id, PersonalForm personalForm) {
         String goNextPage = null;
         if (personalService.update(personalForm, id)) {
-            goNextPage= "redirect:/personals";
+            goNextPage = "redirect:/personals";
         } else {
             System.out.println("НЕ успешное обновление ");
 //TODO вернуться на предыдущую страницу /personal/id с ошибкой
