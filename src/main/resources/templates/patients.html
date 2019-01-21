@@ -125,7 +125,7 @@
                 <td>
                     <form name="Button" th:action="@{/patientDiagnosisCard/{id}(id=${patient.id})}" method="GET"
                           style="display:inline">
-                        <input type="submit" name="button" value="Let's open patient's card" th:value="#{buttonOpenCard}"/>
+                        <input type="submit" th:value="#{buttonOpenCard}"/>
                     </form>
                     <form name="Button" th:action="@{/patient/{id}(id=${patient.id})}" method="GET"
                           style="display:inline">
