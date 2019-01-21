@@ -52,7 +52,21 @@
         margin: 0;
         text-align: center;
     }
-
+    th.colHeadFirstTable {
+        background: rgba(22, 105, 99, 0.73);
+        color: black;
+    }
+    input.buttonFirstTable {
+        background: -moz-linear-gradient(#1daaa4, #EBFFFF);
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
+        padding: 3px 7px;
+        color: #333;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        border: 1px solid #666;
+    }
     nav a {
         color: white;
         display: block;
@@ -111,14 +125,14 @@
     <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
         <thead>
         <tr>
-            <th th:text="#{columnId}">Id</th>
-            <th th:text="#{columnId}">Id</th>
+            <th class="colHeadFirstTable"  th:text="#{columnId}">Id</th>
+            <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
 
-            <th th:text="#{columnFirstName}">FirstName</th>
-            <th th:text="#{columnLastName}">LastName</th>
-            <th th:text="#{columnRole}">Role</th>
-            <th th:text="#{columnActive}">Active</th>
-            <th th:text="#{columnAction}">Action</th>
+            <th  class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
+            <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
+            <th class="colHeadFirstTable" th:text="#{columnRole}">Role</th>
+            <th class="colHeadFirstTable" th:text="#{columnActive}">Active</th>
+            <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
         </tr>
         </thead>
 
@@ -140,7 +154,7 @@
                 <td>
                     <form name="Button" th:action="@{/personal/{id}(id=${personal.id})}" method="GET"
                           style="display:inline">
-                        <input type="submit" th:value="#{buttonOpenProfile}"/>
+                        <input class="buttonFirstTable" type="submit" th:value="#{buttonOpenProfile}"/>
                     </form>
                 </td>
             </tr>
