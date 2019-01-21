@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <!--<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"-->
-          <!--id="bootstrap-css">-->
+    <!--id="bootstrap-css">-->
     <!--<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>-->
     <!--&lt;!&ndash;&#45;&#45;&#45;&#45; Include the above in your HEAD tag &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
     <!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">-->
@@ -24,34 +24,28 @@
     table, tbody, thead {
         display: block;
     }
-
     tbody {
         height: 280px;
         overflow-y: auto;
         overflow-x: hidden;
     }
-
     table, th, td {
         padding: 11px;
         border: 3px solid rgb(230, 230, 230);
         border-collapse: collapse;
     }
-
     d {
         padding: 5px;
         text-align: left;
     }
-
     tr:hover {
         background-color: rgb(255, 255, 255);
     }
-
     header {
         width: 100%;
         display: inline-block;
         background-color: #404040;
     }
-
     .hamburger {
         height: 20px;
         width: 20px;
@@ -59,7 +53,6 @@
         float: right;
         cursor: pointer;
     }
-
     nav {
         background-color: #2b2b2b;
         margin: 0;
@@ -68,61 +61,50 @@
         clear: both;
         transition: max-height .3s cubic-bezier(0.63, 0, 0.25, 1);;
     }
-
     nav ul {
         margin: 0;
         padding: 0;
         list-style: none;
         display: block;
     }
-
     nav li {
         display: block;
         margin: 0;
         text-align: center;
     }
-
     nav a {
         color: white;
         display: block;
         padding: .4em;
     }
-
     header input[type="checkbox"]:checked ~ nav {
         max-height: 150px;
         border-bottom: #404040 5px solid;
     }
-
     header a:hover,
     header a:focus,
     header label:hover,
     header label:focus {
         background-color: #191919;
     }
-
     @media (min-width: 700px) {
         .hamburger {
             display: none;
         }
-
         nav {
             background: transparent;
             float: right;
             border: 0 !important;
             max-height: none;
         }
-
         nav ul, nav li, nav li a {
             display: inline-block;
         }
-
         nav a {
             display: inline-block;
             padding: 15px 1em;
         }
     }
-
-
 </style>
 
 <header>
@@ -144,7 +126,7 @@
     </div>
 </h3>
 <br>
-<input type="button" value="Go list patients" onclick="history.back()">
+<button onclick="window.location.href='/patients'">Go list patients</button>
 <br><br>
 
 <fieldset>
@@ -152,17 +134,17 @@
     <button id="doPrescription" style="display:inline; float:right">Do prescription</button>
     <br><br>
 
-<div>
-    <table class="diagnosisList" id="diagnosis" style="display:inline; float:left" border="1">
-        <caption  style=" font-family: Arial, Helvetica, sans-serif;">Диагноз сообщение:</caption>
-        <tr>
-            <th>Id</th>
-            <th>Description</th>
-            <th>Time</th>
-            <th>isOpened</th>
-        </tr>
-    </table>
-</div>
+    <div>
+        <table class="diagnosisList" id="diagnosis" style="display:inline; float:left" border="1">
+            <caption  style=" font-family: Arial, Helvetica, sans-serif;">Диагноз сообщение:</caption>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Time</th>
+                <th>isOpened</th>
+            </tr>
+        </table>
+    </div>
 
     <div>
         <table class="prescriptionList" id="prescriptionsTable" style="display:inline; float:right" border="1">
@@ -217,7 +199,6 @@
     //var prescriptionIsNotDone = '${prescriptionIsNotDone_msg}';
     var prescriptionIsDone = 'true';
     var prescriptionIsNotDone = 'false';
-
     var doPrescriptionButton = document.getElementById("doPrescription");
     doPrescriptionButton.addEventListener("click", prescriptionDoneListener);
     var closeDiagnosisButton = document.getElementById("closeDiagnosisButton");
@@ -226,7 +207,6 @@
     diagnosisSubmitButton.addEventListener("click", diagnosisSubmitButtonListener);
     var prescriptionSubmitButton = document.getElementById("prescriptionSubmit");
     prescriptionSubmitButton.addEventListener("click", prescriptionSubmitButtonListener);
-
     var diagnosisTable = document.getElementById("diagnosis");
     var diagnosis = toJson('[[${diagnoses}]]');
     var userRole = '[[${role}]]';
@@ -234,13 +214,9 @@
         //updateDiagnosisTable(diagnosis, diagnosisTable);
         getAndUpdateDiagnosis();
     }
-
-
-
     function toJson(stringJson) {
         return JSON.parse(stringJson.replace(/&quot;/g, "\""));
     }
-
     function prescriptionSubmitButtonListener() {
         var prescriptionTextArea = document.getElementById("prescriptionDescription");
         var prescriptionTypeSelect = document.getElementById("prescriptionType");
@@ -258,12 +234,10 @@
             });
         }
     }
-
     function diagnosisSubmitButtonListener() {
         var diagnosisTextArea = document.getElementById("diagnosisDescription");
         var diagnosisTable = document.getElementById("diagnosis");
         var prescriptionFieldSet = document.getElementById("addPrescriptionFieldSet");
-
         if (diagnosisTextArea.value === "") {
             alert("Введите описание диагноза");
         } else {
@@ -273,7 +247,6 @@
             });
         }
     }
-
     function prescriptionDoneListener() {
         var prescriptionTable = document.getElementById("prescriptionsTable");
         var diagnosisTable = document.getElementById("diagnosis");
@@ -284,7 +257,6 @@
                 doPrescriptionButton.style.display = "none";
             });
     }
-
     function updateDiagnosisTable(diagnosis, table) {
         var diagnosisTable = document.getElementById("diagnosis");
         for (var i = diagnosisTable.rows.length - 1; i > 0; i--) {
@@ -332,13 +304,10 @@
             closeDiagnosisButton.style.display = "none";
             diagnosisFieldSet.style.display = "none";
         }
-
     }
-
     function setSpecialStyle(row) {
         row.style.color = "red";
     }
-
     function setDefaultStyle(row) {
         row.style.color = "black";
     }
@@ -351,19 +320,14 @@
         setSpecialStyle(this);
         currentDiagnosisRow = $(this).index();
         var currentDiagnosisId = this.cells[0].innerHTML;
-
         updateDiagnosisElementsStyle();
         var doPrescriptionButton = document.getElementById("doPrescription");
         doPrescriptionButton.style.display = "none";
-
         var prescriptionSubmitButton = document.getElementById("prescriptionSubmit");
         prescriptionSubmitButton.value = currentDiagnosisId;
-
         updatePrescriptionsTable(currentDiagnosisId);
     }
-
     function updatePrescriptionsTable(diagnosis_id) {
-
         $.get(window.location.href+"/diagnosis/"+diagnosis_id+"/prescription",
             {}, function (response) {
             var prescriptions = toJson(response);
@@ -405,13 +369,11 @@
         }
         setSpecialStyle(this);
         currentPrescriptionRow = $(this).index();
-
         updatePrescriptionsElementsStyle();
     }
     function updatePrescriptionsElementsStyle() {
         var doPrescriptionButton = document.getElementById("doPrescription");
         var prescriptionTable = document.getElementById("prescriptionsTable");
-
         var isPrescriptionDone = prescriptionTable.rows[currentPrescriptionRow].cells[4].innerHTML;
         if (isPrescriptionDone === prescriptionIsNotDone) {
             doPrescriptionButton.style.display = "inline";
@@ -424,7 +386,6 @@
             }
         }
     }
-
     function closeDiagnosisButtonListener() {
         var diagnosisTable = document.getElementById("diagnosis");
         $.post(window.location.href+"/closeDiagnosis/"+diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML,
@@ -432,7 +393,6 @@
             getAndUpdateDiagnosis();
         });
     }
-
     function getAndUpdateDiagnosis() {
         $.get(window.location.href+"/diagnosis/", {}, function (response) {
             var diagnosis = toJson(response);
@@ -440,8 +400,6 @@
             updateDiagnosisTable(diagnosis, diagnosisTable);
         });
     }
-
-
 </script>
 </body>
 </html>

@@ -14,6 +14,8 @@ import com.epam.lab.hospitalspring.service.DiagnosisService;
 import com.epam.lab.hospitalspring.service.PatientService;
 import com.epam.lab.hospitalspring.service.PrescriptionService;
 import com.epam.lab.hospitalspring.transfer.PersonalDto;
+import com.epam.lab.hospitalspring.util.GsonFactory;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -68,14 +70,14 @@ public class PatientController {
     }
 
     // Getting for patinet his diagnoises and prescriptions
-    @GetMapping(value = "/patientDiagnosisCard/{id}")
+    @PostMapping(value = "/patientDiagnosisCard/{id}")
     public String getPatient(@PathVariable("id") Long id, Model model, Authentication authentication) {
         Patient currentPatient= patientService.getPatientById(id);
         model.addAttribute("patient", currentPatient);
         Gson gson = GsonFactory.buildGson();
         model.addAttribute("diagnoses",gson.toJson(currentPatient.getDiagnosisList()));
-        model.addAttribute("prescriptions",gson.toJson(
-                currentPatient.getDiagnosisList().get(0).getPrescriptions()));
+//        model.addAttribute("prescriptions",gson.toJson(
+//                currentPatient.getDiagnosisList().get(0).getPrescriptions()));
 
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role role = personalDetailsService.getPersonal().getRole();
