@@ -49,10 +49,10 @@ public class PatientController {
 
 
     @GetMapping(value = "/patients")
-    public String getAllPatients(Model model, Authentication authentication) {
+    public String getNotDeletedPatients(Model model, Authentication authentication) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role currentRole = personalDetailsService.getPersonal().getRole();
-        model.addAttribute("patients", patientService.getAllPatients());
+        model.addAttribute("patients", patientService.getNotDeletedPatients());
         model.addAttribute("currentRole", currentRole);
         return "patients";
     }
@@ -61,7 +61,7 @@ public class PatientController {
     public String getDeletedPatients(Model model, Authentication authentication) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role currentRole = personalDetailsService.getPersonal().getRole();
-        model.addAttribute("patients", patientService.getAllPatients());
+        model.addAttribute("patients", patientService.getDeletedPatients());
         if (currentRole == Role.DOCTOR) {
             return "deletedPatients";
         } else {

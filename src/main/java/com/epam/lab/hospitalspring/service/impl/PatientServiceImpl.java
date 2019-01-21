@@ -62,4 +62,8 @@ public class PatientServiceImpl implements PatientService {
         return patientRepository.findPatientsByDeleted(false);
     }
 
+    public List<Patient> getDeletedPatients() {
+        return patientRepository.findPatientsByDeleted(true);
+    }
+
 }

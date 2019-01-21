@@ -169,7 +169,6 @@
         <tbody>
         <div th:if="${patients} != null">
             <tr th:each="patient : ${patients}">
-                <div id="notDeleted" th:if="${patient.deleted} == false">
                 <td th:text="${patient.id}">id</td>
                 <td th:text="${patient.firstName}">first name</td>
                 <td th:text="${patient.lastName}">last name</td>
@@ -184,7 +183,6 @@
                         <input class="buttonFirstTable" type="submit" th:value="#{buttonPatientProfile}"/>
                     </form>
                 </td>
-                </div>
             </tr>
         </div>
         </tbody>

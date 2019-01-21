@@ -148,7 +148,7 @@
 <div class="container-fluid">
 
         <h3 align="center">Список удаленных пациентов</h3>
-        <table id="example2" class="table table-bordered table-hover col1" cellspacing="0" width="100%">
+        <table id="example" class="table table-bordered table-hover col1" cellspacing="0" width="100%">
             <thead>
             <tr>
                 <th class="colHeadSecondTable">Id</th>
@@ -161,7 +161,6 @@
             <tbody>
             <div th:if="${patients} != null">
                 <tr th:each="patient : ${patients}">
-                    <div id="deleted" th:if="${patient.deleted} == true">
                         <td class="col" th:text="${patient.id}">Неожиданный id</td>
                         <td class="col" th:text="${patient.firstName}">Неожиданное имя</td>
                         <td class="col" th:text="${patient.lastName}">Неожиданная фамилия</td>
@@ -175,7 +174,6 @@
                                 <input class="buttonSecondTable" type="submit" name="button" value="Изменить данные пациента"/>
                             </form>
                         </td>
-                    </div>
                 </tr>
             </div>
             </tbody>
