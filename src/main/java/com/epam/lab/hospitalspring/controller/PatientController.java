@@ -69,7 +69,6 @@ public class PatientController {
         }
     }
 
-    // Getting for patinet his diagnoises and prescriptions
     @PostMapping(value = "/patientDiagnosisCard/{id}")
     public String getPatient(@PathVariable("id") Long id, Model model, Authentication authentication) {
         Patient currentPatient= patientService.getPatientById(id);
