@@ -32,7 +32,7 @@ public class Patient {
     @Expose
     private Boolean discharged;
     @Expose
-    private Boolean deleted;
+    private Boolean deleted = false;
     @Expose(serialize = false)
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     List<Diagnosis> diagnosisList;
@@ -40,5 +40,11 @@ public class Patient {
     public Patient(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", " +
+                "discharged=" + discharged + ", deleted=" + deleted + '}';
     }
 }

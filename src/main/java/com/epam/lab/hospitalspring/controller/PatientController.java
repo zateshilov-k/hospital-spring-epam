@@ -2,6 +2,7 @@ package com.epam.lab.hospitalspring.controller;
 
 import com.epam.lab.hospitalspring.form.PatientForm;
 import com.epam.lab.hospitalspring.model.Patient;
+import com.epam.lab.hospitalspring.model.enums.Role;
 import com.epam.lab.hospitalspring.model.Prescription;
 import com.epam.lab.hospitalspring.model.enums.PrescriptionType;
 import com.epam.lab.hospitalspring.model.enums.Role;
@@ -12,12 +13,10 @@ import com.epam.lab.hospitalspring.security.details.PersonalDetailsImpl;
 import com.epam.lab.hospitalspring.service.DiagnosisService;
 import com.epam.lab.hospitalspring.service.PatientService;
 import com.epam.lab.hospitalspring.service.PrescriptionService;
-import com.epam.lab.hospitalspring.util.GsonFactory;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.epam.lab.hospitalspring.transfer.PersonalDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,6 +24,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class PatientController {
@@ -46,11 +47,27 @@ public class PatientController {
 
 
     @GetMapping(value = "/patients")
-    public String getAllPatients(Model model) {
+    public String getAllPatients(Model model, Authentication authentication) {
+        PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
+        Role currentRole = personalDetailsService.getPersonal().getRole();
         model.addAttribute("patients", patientService.getAllPatients());
+        model.addAttribute("currentRole", currentRole);
         return "patients";
     }
 
+    @GetMapping(value = "/deletedPatients")
+    public String getDeletedPatients(Model model, Authentication authentication) {
+        PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
+        Role currentRole = personalDetailsService.getPersonal().getRole();
+        model.addAttribute("patients", patientService.getAllPatients());
+        if (currentRole == Role.DOCTOR) {
+            return "deletedPatients";
+        } else {
+            return "redirect:/error/errorMessage";
+        }
+    }
+
+    // Getting for patinet his diagnoises and prescriptions
     @GetMapping(value = "/patientDiagnosisCard/{id}")
     public String getPatient(@PathVariable("id") Long id, Model model, Authentication authentication) {
         Patient currentPatient= patientService.getPatientById(id);
@@ -66,7 +83,6 @@ public class PatientController {
         return "patientDiagnosisCard";
     }
 
-
     @GetMapping(value = "/addPatient")
     public String getAddPatientPage() {
         return "patient";
@@ -74,8 +90,8 @@ public class PatientController {
 
     @PostMapping(value = "/addPatient")
     public String addPatient(PatientForm patientForm, Model model) {
-
         Patient patient = patientService.addPatient(patientForm);
+        patientService.updatePatient(patient);
         if (patient != null) {
             return "redirect:/patients";
         } else {
@@ -83,10 +99,26 @@ public class PatientController {
         }
     }
 
-    @GetMapping(value = "/patient/{id}")
-    public String showError(@PathVariable("id") Long id, Model model) {
-        model.addAttribute(patientService.getPatientById(id));
-        //TODO передать на фронт имя и фамилию
-        return "patient";
+    @GetMapping(value = "/patients/{id}")
+    public String showPatientProfile(@PathVariable("id") Long id, Model model, Authentication authentication) {
+        PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
+        Role currentRole = personalDetailsService.getPersonal().getRole();
+        model.addAttribute("patient", patientService.getPatientById(id));
+        if (currentRole == Role.DOCTOR) {
+            return "patientUpdateForm";
+        } else {
+            return "redirect:/error/errorMessage";
+        }
     }
+
+    @PostMapping(value="/patients/updatePatient/{id}")
+    public String updatePatientProfile(Patient patient) {
+        patientService.updatePatient(patient);
+        if (patient.getDeleted() == false) {
+            return "redirect:/patients";
+        } else {
+            return "redirect:/deletedPatients";
+        }
+    }
+
 }

@@ -6,4 +6,5 @@ import lombok.Data;
 public class PatientForm {
     private String firstName;
     private String lastName;
+    private Boolean deleted;
 }
