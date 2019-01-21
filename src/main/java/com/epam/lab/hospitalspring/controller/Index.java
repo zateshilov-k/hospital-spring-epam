@@ -20,7 +20,7 @@ public class Index {
         if (personalDetailsService.getPersonal().getRole() == Role.ADMIN) {
             return "redirect:/personals";
         } else {
-            return "index";
+            return "redirect:/patients";
         }
     }
 
