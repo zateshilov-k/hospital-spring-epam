@@ -7,12 +7,10 @@ import com.epam.lab.hospitalspring.util.GsonFactory;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Controller
@@ -23,24 +21,25 @@ public class PrescriptionController {
     @ResponseBody
     @GetMapping("/patientDiagnosisCard/{patientId}/diagnosis/{diagnosisId}/prescription")
     String getPrescriptions(@PathVariable("diagnosisId") long diagnosisId,
-                            @PathVariable("patientId") long patientId) {
+                            @PathVariable("patientId") long patientId,
+                            Locale locale) {
         String prescriptionsJson =
-                prescriptionService.findPrescriptionsForDiagnosisByDiagnosisIdOrderByIdAsc(diagnosisId);
+                prescriptionService.findPrescriptionsForDiagnosisByDiagnosisIdOrderByIdAsc(diagnosisId,locale);
         return prescriptionsJson;
     }
 
     @ResponseBody
     @PostMapping("/patientDiagnosisCard/{patientId}/doPrescription/{prescriptionId}")
     void doPrescription(@PathVariable("prescriptionId") long prescriptionId,
-                        @PathVariable("patientId") long patientId){
+                        @PathVariable("patientId") long patientId) {
         prescriptionService.doPrescription(prescriptionId);
     }
 
     @ResponseBody
-    @PostMapping("/patientDiagnosisCard/{patientId}/diagnosis/{diagnosisId}/addPrescription/description={prescriptionDescription}/type={prescriptionType}")
+    @PostMapping("/patientDiagnosisCard/{patientId}/diagnosis/{diagnosisId}/addPrescription/")
     void addPrescription(@PathVariable("diagnosisId") long diagnosisId,
-                         @PathVariable("prescriptionDescription") String prescriptionDescription,
-                         @PathVariable("prescriptionType") String prescriptionType){
+                         @RequestParam("prescriptionDescription") String prescriptionDescription,
+                         @RequestParam("prescriptionType") String prescriptionType){
         prescriptionService.addPrescription(diagnosisId, prescriptionDescription, prescriptionType);
     }
 }
