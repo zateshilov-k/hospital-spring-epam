@@ -51,9 +51,10 @@ public class PatientController {
     @GetMapping(value = "/patients")
     public String getNotDeletedPatients(Model model, Authentication authentication) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
-        Role currentRole = personalDetailsService.getPersonal().getRole();
         model.addAttribute("patients", patientService.getNotDeletedPatients());
-        model.addAttribute("currentRole", currentRole);
+        model.addAttribute("currentRole", personalDetailsService.getPersonal().getRole());
+        model.addAttribute("firstName", personalDetailsService.getPersonal().getFirstName());
+        model.addAttribute("lastName", personalDetailsService.getPersonal().getLastName());
         return "patients";
     }
 
@@ -71,17 +72,17 @@ public class PatientController {
 
     @PostMapping(value = "/patientDiagnosisCard/{id}")
     public String getPatient(@PathVariable("id") Long id, Model model, Authentication authentication) {
-        Patient currentPatient= patientService.getPatientById(id);
+        Patient currentPatient = patientService.getPatientById(id);
         model.addAttribute("patient", currentPatient);
         Gson gson = GsonFactory.buildGson();
-        model.addAttribute("diagnoses",gson.toJson(currentPatient.getDiagnosisList()));
+        model.addAttribute("diagnoses", gson.toJson(currentPatient.getDiagnosisList()));
 //        model.addAttribute("prescriptions",gson.toJson(
 //                currentPatient.getDiagnosisList().get(0).getPrescriptions()));
 
 
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role role = personalDetailsService.getPersonal().getRole();
-        model.addAttribute("role",role);
+        model.addAttribute("role", role);
         return "patientDiagnosisCard";
     }
 
@@ -113,7 +114,7 @@ public class PatientController {
         }
     }
 
-    @PostMapping(value="/patients/updatePatient/{id}")
+    @PostMapping(value = "/patients/updatePatient/{id}")
     public String updatePatientProfile(Patient patient) {
         patientService.updatePatient(patient);
         if (patient.getDeleted() == false) {
