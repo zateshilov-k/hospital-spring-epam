@@ -26,7 +26,6 @@ public class PersonalServiceImpl implements PersonalService {
     @Override
     public boolean update(PersonalForm personalForm, Long id) {
         boolean result = false;
-        System.out.println("дошли до update в PersonalServiceImpl");
         String login = personalForm.getLogin();
 
         if (personalRepository.findOneByLogin(login).isPresent() && !personalRepository.findPersonalById(id).getLogin().equals(login)) {

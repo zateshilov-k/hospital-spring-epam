@@ -58,36 +58,26 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     @Override
     public void closeDiagnosis(Long diagnosisId) {
         Optional<Diagnosis> currentDiagnosis = diagnosisRepository.findById(diagnosisId);
-        try{
-            currentDiagnosis.ifPresent(diagnosis -> {
-                if (diagnosis.getOpened()) {
-                    diagnosis.setOpened(false);
-                    diagnosisRepository.saveAndFlush(diagnosis);
-                } else {
-                    throw new IllegalArgumentException("Trying to close diagnosis that " +
-                            "already closed");
-                }
-            });
-            currentDiagnosis.orElseThrow(IllegalArgumentException::new);
-        } catch (Exception e) {
-            // TODO: Log
-            throw new RuntimeException(e);
-        }
+        currentDiagnosis.ifPresent(diagnosis -> {
+            if (diagnosis.getOpened()) {
+                diagnosis.setOpened(false);
+                diagnosisRepository.saveAndFlush(diagnosis);
+            } else {
+                throw new IllegalArgumentException("Trying to close diagnosis that " +
+                        "already closed");
+            }
+        });
+        currentDiagnosis.orElseThrow(IllegalArgumentException::new);
     }
 
     @Override
     public void addDiagnosis(Long patientId, Long personalId, String description) {
-        Optional<Personal> personal= personalRepository.findById(personalId);
+        Optional<Personal> personal = personalRepository.findById(personalId);
         Optional<Patient> patient = patientRepository.findById(patientId);
-        try {
-            personal.orElseThrow(IllegalArgumentException::new);
-            patient.orElseThrow(IllegalArgumentException::new);
-        } catch (Exception e){
-            //TODO LOG
-            throw new RuntimeException(e);
-        }
-        Diagnosis diagnosis = new Diagnosis(null,description,personal.get(),patient.get(),
-                true,LocalDateTime.now(),null);
+        personal.orElseThrow(IllegalArgumentException::new);
+        patient.orElseThrow(IllegalArgumentException::new);
+        Diagnosis diagnosis = new Diagnosis(null, description, personal.get(), patient.get(),
+                true, LocalDateTime.now(), null);
         diagnosisRepository.saveAndFlush(diagnosis);
     }
 }

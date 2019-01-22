@@ -10,10 +10,13 @@ import org.springframework.stereotype.Repository;
 
 import java.lang.annotation.Native;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DiagnosisRepository extends JpaRepository<Diagnosis, Long> {
     Diagnosis findDiagnosisById(Long id);
+
+    Optional<Diagnosis> findById(Long id);
 
     List<Diagnosis> findDiagnosisByPatientId(Long id);
 

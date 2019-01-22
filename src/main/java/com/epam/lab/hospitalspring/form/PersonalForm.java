@@ -3,12 +3,14 @@ package com.epam.lab.hospitalspring.form;
 import com.epam.lab.hospitalspring.model.Personal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class PersonalForm {
     private String firstName;
     private String lastName;

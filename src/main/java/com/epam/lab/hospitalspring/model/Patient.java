@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -23,9 +24,11 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "{firstName.not.blank}")
     @Expose
     @Column(name = "first_name")
     private String firstName;
+    @NotBlank(message = "{lastName.not.blank}")
     @Expose
     @Column(name = "last_name")
     private String lastName;

@@ -23,8 +23,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,19 +99,17 @@ public class PatientController {
     }
 
     @GetMapping(value = "/addPatient")
-    public String getAddPatientPage() {
+    public String getAddPatientPage(Patient patient) {
         return "patient";
     }
 
     @PostMapping(value = "/addPatient")
-    public String addPatient(PatientForm patientForm, Model model) {
-        Patient patient = patientService.addPatient(patientForm);
-        patientService.updatePatient(patient);
-        if (patient != null) {
-            return "redirect:/patients";
-        } else {
-            return "redirect:/error/errorMessage";
+    public String addPatient(@Valid Patient patient, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "patient";
         }
+        patientService.addPatient(patient);
+        return "redirect:/patients";
     }
 
     @GetMapping(value = "/patient/{id}")
@@ -124,10 +124,19 @@ public class PatientController {
         }
     }
 
+    @GetMapping(value = "/patients/updatePatient/{id}")
+    public String getPatientProfile(Patient patient) {
+        return "patientUpdateForm";
+    }
+
+
     @PostMapping(value = "/patients/updatePatient/{id}")
-    public String updatePatientProfile(Patient patient) {
+    public String updatePatientProfile(@Valid Patient patient, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "patientUpdateForm";
+        }
         patientService.updatePatient(patient);
-        if (patient.getDeleted() == false) {
+        if (!patient.getDeleted()) {
             return "redirect:/patients";
         } else {
             return "redirect:/deletedPatients";

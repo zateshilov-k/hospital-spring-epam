@@ -42,6 +42,12 @@ public class PersonalController {
         return "signUp";
     }
 
+
+    @GetMapping("/updatePersonal/{id}")
+    public String getUpdatePersonal(Personal personal) {
+        return "personal";
+    }
+
     @PostMapping("/updatePersonal/{id}")
     public String updatePersonal(@PathVariable("id") Long id, PersonalForm personalForm) {
         String goNextPage = null;
@@ -49,7 +55,6 @@ public class PersonalController {
             goNextPage = "redirect:/personals";
         } else {
             System.out.println("НЕ успешное обновление ");
-//TODO вернуться на предыдущую страницу /personal/id с ошибкой
         }
         return "redirect:/personals";
 

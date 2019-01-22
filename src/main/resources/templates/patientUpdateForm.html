@@ -31,13 +31,14 @@
                 <div class="card">
                     <div class="card-header" th:text="#{titleUpdatePatientPage}"></div>
                     <div class="card-body">
-                        <form th:action="@{/patients/updatePatient/{id}(id=${patient.id})}" method="POST">
+                        <form th:action="@{/patients/updatePatient/{id}(id=${patient.id})}" th:object="${patient}" method="POST">
                             <div class="form-group row">
                                 <label
                                         class="col-md-4 col-form-label text-md-right">Input firstName</label>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" name="firstName"
-                                           autofocus th:value="${patient.firstName}">
+                                           autofocus th:value="${patient.firstName}" th:field="*{firstName}">
+                                    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
                                 </div>
                             </div>
 
@@ -46,7 +47,8 @@
                                         class="col-md-4 col-form-label text-md-right"> Input lastName</label>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" name="lastName"
-                                           autofocus th:value="${patient.lastName}">
+                                           autofocus th:value="${patient.lastName}" th:field="*{lastName}">
+                                    <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
                                 </div>
                             </div>
 
@@ -63,7 +65,8 @@
                                 <button type="submit" class="btn btn-primary">
                                     Accept
                                 </button>
-                                <input type="button" value="Cancel" onclick="history.back()">
+                                <!--<input type="button" value="Cancel" onclick="history.back()">-->
+                                <input type="button" value="Cancel" onclick="location.href='/patients';">
                             </div>
                         </form>
                     </div>
