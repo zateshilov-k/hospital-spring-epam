@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class Personal {
     @JsonIgnore // does not include in json
     private String password;
 
+    @NotBlank(message = "{firstName.not.blank}")
     @Column(name = "first_name") // uses if the column name is differ
     private String firstName;
 

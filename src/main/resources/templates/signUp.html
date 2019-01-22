@@ -29,7 +29,13 @@
                 <div class="card">
                     <div class="card-header" th:text="#{titleAddPersonalPage}">Page of sign up</div>
                     <div class="card-body">
-                        <form th:action="@{/signUp}" method="post">
+                        <form th:action="@{/signUp}" th:object="${personal}" method="post">
+
+                            <!--<div id="errors" th:if="${(param.loginAleadyUsed != null)}">-->
+                                <!--<div class="alert alert-danger" role="alert">-->
+                                    <!--<strong th:text="#{signUpErrorLoginAlreadyUsed}"></strong>-->
+                                <!--</div>-->
+                            <!--</div>-->
 
                             <div class="form-group row">
                                 <label class="col-md-4 col-form-label text-md-right" th:text="#{loginField}">User
@@ -50,9 +56,12 @@
                                 <label class="col-md-4 col-form-label text-md-right" th:text="#{firstNameField}">First
                                     name:</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="firstname" name="firstName"/>
+                                    <input type="text" class="form-control" id="firstname" name="firstName" th:field="*{firstName}"/>
+                                    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
                                 </div>
                             </div>
+
+
 
                             <div class="form-group row">
                                 <label class="col-md-4 col-form-label text-md-right" th:text="#{lastNameField}"> Last
@@ -62,16 +71,23 @@
                                 </div>
                             </div>
 
-                            <div>
-                                <select name="role" id="role-id">
-                                    <option value="DOCTOR">Doctor</option>
-                                    <option value="NURSE">Nurse</option>
-                                </select>
+                            <div class="form-group row">
+                                <div class="col-md-4 col-form-label text-md-right" th:text="#{chooseRoleField}">
+                                    Role:
+                                </div>
+                                <div class="col-md-6">
+                                    <select name="role" id="role-id" class="custom-select" style="width:auto;">
+                                        <option value="DOCTOR" th:text="#{doctorField}">Doctor</option>
+                                        <option value="NURSE" th:text="#{nurseField}">Nurse</option>
+                                    </select>
+                                </div>
                             </div>
+
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary" th:text="#{buttonSave}">Save</button>
                                 <!--<a href="/login" th:text="#{buttonCancel}">Cancel</a>-->
-                                <input type="button" value="Cancel" onclick="history.back()">
+                                <button type="button"
+                                        class="btn btn-secondary" onclick="history.back()" th:text="#{buttonCancel}"> Cancel </button>
                             </div>
                         </form>
                     </div>
