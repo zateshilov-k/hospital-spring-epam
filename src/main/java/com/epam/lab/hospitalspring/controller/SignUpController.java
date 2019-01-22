@@ -34,18 +34,13 @@ public class SignUpController {
     @PostMapping("/signUp")
     public String signUp(@Valid Personal personal, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult);
             return "signUp";
         }
-        System.out.println(personal.getFirstName() + " " + personal.getLastName() + " "
-        + personal.getPassword() + " " + personal.getLogin() + " " + personal.getRole());
-        /*try {
-            signUpService.signUp(personalForm);
+        try {
+            signUpService.signUp(PersonalForm.from(personal));
         } catch (SignUpServiceImpl.LoginAlreadyUsed e) {
             return "redirect:/signUp?loginAleadyUsed";
-        }catch (SignUpServiceImpl.LoginNotValid e) {
-            return "redirect:/signUp?loginNotValid";
-        }*/
+        }
         return "redirect:/personals";
     }
 }

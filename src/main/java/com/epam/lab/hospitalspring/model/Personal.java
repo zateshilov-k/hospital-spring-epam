@@ -8,7 +8,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +26,10 @@ public class Personal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Email(message = "{email.validation}")
     private String login; // it's like email
 
+    @Size(min = 7, message = "{password.length}")
     @JsonIgnore // does not include in json
     private String password;
 
@@ -32,6 +37,7 @@ public class Personal {
     @Column(name = "first_name") // uses if the column name is differ
     private String firstName;
 
+    @NotBlank(message = "{lastName.not.blank}")
     @Column(name = "last_name")
     private String lastName;
     private Boolean deleted;

@@ -15,11 +15,6 @@ import java.util.regex.Pattern;
 public class SignUpServiceImpl implements SignUpService {
     public static class LoginAlreadyUsed extends RuntimeException {
     }
-    public static class LoginNotValid extends RuntimeException {
-
-    }
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -27,13 +22,10 @@ public class SignUpServiceImpl implements SignUpService {
     PersonalRepository personalRepository;
 
     @Override
-    public void signUp(PersonalForm personalForm) throws LoginAlreadyUsed, LoginNotValid {
+    public void signUp(PersonalForm personalForm) throws LoginAlreadyUsed {
         String login = personalForm.getLogin();
         if(personalRepository.findOneByLogin(login).isPresent()) {
             throw new LoginAlreadyUsed();
-        }
-        if(!VALID_EMAIL_ADDRESS_REGEX .matcher(login).find()) {
-            throw new LoginNotValid();
         }
         String passwordHash = passwordEncoder.encode(personalForm.getPassword());
         Personal personal = Personal.builder()

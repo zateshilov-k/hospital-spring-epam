@@ -15,7 +15,7 @@ public class PersonalForm {
     private String password;
     private String login;
     private String role;
-    static PersonalForm from(Personal personal){
+    public static PersonalForm from(Personal personal){
         return new PersonalForm(personal.getFirstName(),personal.getLastName(),personal.getPassword(),personal.getLogin(),
                 personal.getRole().toString());
     }
