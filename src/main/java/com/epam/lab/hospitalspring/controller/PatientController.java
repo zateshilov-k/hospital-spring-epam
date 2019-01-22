@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class PatientController {
@@ -71,15 +72,11 @@ public class PatientController {
     }
 
     @GetMapping(value = "/patientDiagnosisCard/{id}")
-    public String getPatient(@PathVariable("id") Long id, Model model, Authentication authentication) {
-        Patient currentPatient = patientService.getPatientById(id);
+    public String getPatient(@PathVariable("id") Long id, Model model, Authentication authentication,Locale locale) {
+        Patient currentPatient= patientService.getPatientById(id);
         model.addAttribute("patient", currentPatient);
-        Gson gson = GsonFactory.buildGson();
-        model.addAttribute("diagnoses", gson.toJson(currentPatient.getDiagnosisList()));
-//        model.addAttribute("prescriptions",gson.toJson(
-//                currentPatient.getDiagnosisList().get(0).getPrescriptions()));
-
-
+        Gson gson = GsonFactory.buildGson(locale);
+        model.addAttribute("diagnoses",gson.toJson(currentPatient.getDiagnosisList()));
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role role = personalDetailsService.getPersonal().getRole();
         model.addAttribute("role", role);

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -48,8 +49,8 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     }
 
     @Override
-    public String findDiagnosisByPatientId(Long id) {
-        Gson gson = GsonFactory.buildGson();
+    public String findDiagnosisByPatientId(Long id, Locale locale) {
+        Gson gson = GsonFactory.buildGson(locale);
         List<Diagnosis> diagnoses = diagnosisRepository.findDiagnosisByPatientId(id);
         return gson.toJson(diagnoses);
     }
