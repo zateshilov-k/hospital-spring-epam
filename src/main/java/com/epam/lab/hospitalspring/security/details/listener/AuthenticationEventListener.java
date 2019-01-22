@@ -1,6 +1,8 @@
 package com.epam.lab.hospitalspring.security.details.listener;
 
 import com.epam.lab.hospitalspring.security.details.PersonalDetailsImpl;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AbstractAuthenticationEvent;
 import org.springframework.security.core.Authentication;
@@ -8,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AuthenticationEventListener implements ApplicationListener<AbstractAuthenticationEvent> {
+    @Autowired
+    private Logger log;
 
     @Override
     public void onApplicationEvent(AbstractAuthenticationEvent authenticationEvent) {
@@ -16,8 +20,8 @@ public class AuthenticationEventListener implements ApplicationListener<Abstract
                 authentication.getName() + " " +
                 authentication.getAuthorities() + " " +
                 authentication.getCredentials() + " " +
-                authentication.getPrincipal()+ " " +
+                authentication.getPrincipal() + " " +
                 "\t\tSuccess: " + authentication.isAuthenticated();
-        System.out.println(auditMessage);
+        log.info(auditMessage);
     }
 }

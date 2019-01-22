@@ -1,80 +1,64 @@
-<!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
-<!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>-->
-<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
-<!------ Include the above in your HEAD tag ---------->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
-<!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Fonts -->
-    <!--<link rel="dns-prefetch" href="https://fonts.gstatic.com">-->
-    <!--<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">-->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
     <!--<link rel="stylesheet" href="css/style.css">-->
 
     <!--<link rel="icon" href="Favicon.png">-->
 
-    <!--&lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
-    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">-->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
-    <title>Change info patient</title>
+    <title>#{titleAddPatientPage}</title>
 </head>
-<body style="background-color:powderblue;overflow:hidden">
-<!--<%&#45;&#45;<fmt:setLocale value="${sessionScope.locale}"/>&#45;&#45;%>-->
-<!--<%&#45;&#45;<fmt:setBundle basename="internationalization.resource" var="loc"/>&#45;&#45;%>-->
-<!--<%&#45;&#45;<fmt:message bundle="${loc}" key="titleAddPatientPage" var="titleAddPage_msg"/>&#45;&#45;%>-->
-<!--<%&#45;&#45;<fmt:message bundle="${loc}" key="firstNameField" var="firstName_msg"/>&#45;&#45;%>-->
-<!--<%&#45;&#45;<fmt:message bundle="${loc}" key="lastNameField" var="lastName_msg"/>&#45;&#45;%>-->
-<!--<%&#45;&#45;<fmt:message bundle="${loc}" key="buttonSave" var="buttonSave_msg"/>&#45;&#45;%>-->
-<!--<%&#45;&#45;<fmt:message bundle="${loc}" key="buttonCancel" var="buttonCancel_msg"/>&#45;&#45;%>-->
-<!--<%&#45;&#45;<fmt:message bundle="${loc}" key="patientErrorMsg" var="patientError_msg"/>&#45;&#45;%>-->
+<body style="background-color:powderblue">
 
 <main class="login-form">
-    <span style="float: right">
- <a href="?lang=en">en</a>
- <a href="?lang=ru">ru</a>
- </span>
-    <div class="cotainer">
+    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">${titleAddPage_msg}</div>
+                    <div class="card-header" th:text="#{titleAddPatientPage}"></div>
                     <div class="card-body">
                         <form action="/addPatient" method="post">
                             <div class="form-group row">
                                 <label for="email_address"
-                                       class="col-md-4 col-form-label text-md-right">${firstName_msg}</label>
+                                       class="col-md-4 col-form-label text-md-right" th:text="#{firstNameField}"></label>
                                 <div class="col-md-6">
                                     <input type="text" id="email_address" class="form-control" name="firstName">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="email_address"
-                                       class="col-md-4 col-form-label text-md-right">${lastName_msg}</label>
+                                       class="col-md-4 col-form-label text-md-right" th:text="#{lastNameField}"></label>
                                 <div class="col-md-6">
-                                    <input type="text"   name="lastName" >
+                                    <input type="text" name="lastName">
                                 </div>
                             </div>
 
                             <!--<div class="form-group row" align="center">-->
 
-                                <!--<c:if test="${!empty requestScope.patientError}">-->
-                                    <!--<p><font color="red"><span class="error">${patientError_msg}</span></font>-->
-                                    <!--</p>-->
-                                <!--</c:if>-->
+                            <!--<c:if test="${!empty requestScope.patientError}">-->
+                            <!--<p><font color="red"><span class="error">${patientError_msg}</span></font>-->
+                            <!--</p>-->
+                            <!--</c:if>-->
                             <!--</div>-->
 
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    ${buttonSave_msg}
-                                </button>
-                                <a href="/main.jsp" class="btn btn-link">
-                                    ${buttonCancel_msg}
-                                </a>
+                                <button type="submit" class="btn btn-primary" th:text="#{buttonSave}"></button>
+                                <a href="/patients" class="btn btn-link" th:text="#{buttonCancel}">Cancel></a>
                             </div>
                         </form>
                     </div>

@@ -156,13 +156,13 @@
                 <td th:text="${patient.lastName}">last name</td>
                 <td>
                     <form style="display:inline">
-                        <button class="button3" type="submit">
+                        <button class="button3" type="button">
                             <a class="link" href="yourlink.com"
                                th:href="@{/patientDiagnosisCard/{id}(id=${patient.id})}"
                                th:text="#{buttonOpenCard}">Link link</a></button>
                     </form>
                     <form th:if="${currentRole.toString() eq 'DOCTOR'}" style="display:inline">
-                        <button class="button3" type="submit">
+                        <button class="button3" type="button">
                             <a class="link" href="yourlink.com" th:href="@{/patient/{id}(id=${patient.id})}"
                                th:text="#{buttonPatientProfile}">Link link</a></button>
                     </form>
