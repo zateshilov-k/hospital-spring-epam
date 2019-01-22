@@ -4,6 +4,7 @@ import com.epam.lab.hospitalspring.model.Diagnosis;
 
 
 import java.util.List;
+import java.util.Locale;
 
 public interface DiagnosisService {
 
@@ -15,7 +16,7 @@ public interface DiagnosisService {
 
     List<Diagnosis> getAllDiagnosis();
 
-    String findDiagnosisByPatientId(Long id);
+    String findDiagnosisByPatientId(Long id, Locale locale);
 
     void closeDiagnosis(Long diagnosisId);
 

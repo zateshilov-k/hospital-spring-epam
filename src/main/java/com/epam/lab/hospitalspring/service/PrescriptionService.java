@@ -3,6 +3,7 @@ package com.epam.lab.hospitalspring.service;
 import com.epam.lab.hospitalspring.model.Prescription;
 
 import java.util.List;
+import java.util.Locale;
 
 public interface PrescriptionService {
     Prescription addPrescription(Prescription prescription);
@@ -15,7 +16,7 @@ public interface PrescriptionService {
 
     List<Prescription> findPrescriptionsForDiagnosisByDiagnosisId(Long diagnosisId);
 
-    String findPrescriptionsForDiagnosisByDiagnosisIdOrderByIdAsc(Long diagnosisId);
+    String findPrescriptionsForDiagnosisByDiagnosisIdOrderByIdAsc(Long diagnosisId, Locale locale);
 
     void doPrescription(Long prescriptionId);
 

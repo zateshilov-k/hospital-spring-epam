@@ -17,7 +17,8 @@
 </head>
 <body style="background-color:powderblue">
 <style>
-    input.buttonSecondTable {
+
+    button.button3 {
         background: -moz-linear-gradient(#a50600, rgba(216, 200, 192, 0.7));
         background: -webkit-gradient(linear, 0 0, 0 100%, from(#a50600), to(#d8c8c0));
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
@@ -32,22 +33,41 @@
     body {
         font-size: 1.5em; /* Размер текста */
     }
+
     table {
         width: 100%; /* Ширина таблицы */
     }
 
-    td.col { background: rgba(125, 6, 0, 0.51); color: black; }
+    td.col {
+        background: rgba(125, 6, 0, 0.51);
+        color: black;
+    }
 
-    th.col { background: rgba(125, 6, 0, 0.51); color: black; }
+    th.col {
+        background: rgba(125, 6, 0, 0.51);
+        color: black;
+    }
 
+    th.colHeadFirstTable {
+        background: rgba(91, 6, 0, 0.76);
+        color: black;
+        width: 30%;
+    }
 
-
-    th.colHeadSecondTable { background: rgba(91, 6, 0, 0.76); color: black; }
+    th.FirstColumn {
+        background: rgba(91, 6, 0, 0.76);
+        color: black;
+        width: 10%;
+    }
 
     header {
         width: 100%;
         display: inline-block;
         background-color: #404040;
+    }
+
+    #deleted {
+        background-color: #4b4b4b;
     }
 
     nav {
@@ -110,6 +130,14 @@
             display: inline-block;
             padding: 15px 1em;
         }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        a.link {
+            color: #000000;
+        }
     }
 
 </style>
@@ -117,50 +145,55 @@
     <label></label>
     <nav>
         <ul>
-            <li><a href="/personals">Personals</a></li>
-            <li><a href="/patients">Patients</a></li>
-            <li><a href="/deletedPatients">Deleted Patients</a></li>
-            <li><a href="/addPatient">Add patient</a></li>
-            <li><a href="/testPageAleksei">Test main page</a></li>
-            <li><a href="#">My profile</a></li>
-            <li><a href="/logout">Logout</a></li>
+            <li th:switch="${currentRole}">
+                <a href="#" th:case="${currentRole.ADMIN}"
+                   th:text="#{ADMIN}+' '+${lastName}+' '+${firstName}">administrator</a>
+                <a href="#" th:case="${currentRole.DOCTOR}"
+                   th:text="#{DOCTOR}+' '+${lastName}+' '+${firstName}">doctor</a>
+                <a href="#" th:case="${currentRole.NURSE}" th:text="#{NURSE}+' '+${lastName}+' '+${firstName}">nurse</a>
+                <a href="#" th:case="*">Unknown role</a>
+            </li>
+            <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/patients" th:text="#{menuPatients}"></a></li>
+            <li><a href="/logout" th:text="#{menuLogout}"></a></li>
         </ul>
     </nav>
 </header>
 
 <div class="container-fluid">
 
-        <h3 align="center">Список удаленных пациентов</h3>
-        <table id="example" class="table table-bordered table-hover col1" cellspacing="0" width="100%">
-            <thead>
-            <tr>
-                <th class="colHeadSecondTable">Id</th>
-                <th class="colHeadSecondTable">FirstName</th>
-                <th class="colHeadSecondTable">LastName</th>
-                <th class="colHeadSecondTable">Action</th>
-            </tr>
-            </thead>
+    <h3 align="center">Список удаленных пациентов</h3>
+    <table id="example" class="table table-bordered table-hover col1" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th class="FirstColumn">Id</th>
+            <th class="colHeadFirstTable">FirstName</th>
+            <th class="colHeadFirstTable">LastName</th>
+            <th class="colHeadFirstTable">Action</th>
+        </tr>
+        </thead>
 
-            <tbody>
-            <div th:if="${patients} != null">
-                <tr th:each="patient : ${patients}">
-                        <td class="col" th:text="${patient.id}">Неожиданный id</td>
-                        <td class="col" th:text="${patient.firstName}">Неожиданное имя</td>
-                        <td class="col" th:text="${patient.lastName}">Неожиданная фамилия</td>
-                        <td class="col">
-                            <form name="Button" th:action="@{/patientDiagnosisCard/{id}(id=${patient.id})}" method="GET"
-                                  style="display:inline">
-                                <input class="buttonSecondTable" type="submit" name="button" value="Перейти в карточку"/>
-                            </form>
-                            <form name="Button" th:action="@{/patients/{id}(id=${patient.id})}" method="GET"
-                                  style="display:inline">
-                                <input class="buttonSecondTable" type="submit" name="button" value="Изменить данные пациента"/>
-                            </form>
-                        </td>
-                </tr>
-            </div>
-            </tbody>
-        </table>
+        <tbody>
+        <div th:if="${patients} != null">
+            <tr th:each="patient : ${patients}">
+                <td class="col" th:text="${patient.id}">Неожиданный id</td>
+                <td class="col" th:text="${patient.firstName}">Неожиданное имя</td>
+                <td class="col" th:text="${patient.lastName}">Неожиданная фамилия</td>
+                <td class="col">
+
+                    <!--<form name="Button" th:action="@{/patients/{id}(id=${patient.id})}" method="GET"-->
+                    <!--style="display:inline">-->
+                    <!--<input class="buttonSecondTable" type="submit" name="button" value="Изменить данные пациента"/>-->
+                    <!--</form>-->
+                    <form th:if="${currentRole.toString() eq 'DOCTOR'}" style="display:inline">
+                        <button class="button3" type="button">
+                            <a class="link" href="yourlink.com" th:href="@{/patient/{id}(id=${patient.id})}"
+                               th:text="#{buttonPatientProfile}">Link link</a></button>
+                    </form>
+                </td>
+            </tr>
+        </div>
+        </tbody>
+    </table>
 </div>
 
 </div>

@@ -17,6 +17,36 @@
 </head>
 <body style="background-color:powderblue">
 <style>
+    button.button3 {
+        background: -moz-linear-gradient(#1daaa4, #EBFFFF);
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
+        padding: 3px 7px;
+        color: #333;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        border: 1px solid #666;
+    }
+    body {
+        font-size: 1.5em; /* Размер текста */
+    }
+    table {
+        width: 100%; /* Ширина таблицы */
+    }
+    th.colHeadFirstTable {
+        background: rgba(22, 105, 99, 0.73);
+        color: black;
+        width: 15%;
+    }
+
+    th.FirstColumn {
+        background: rgba(22, 105, 99, 0.73);
+        color: black;
+        width: 5%;
+    }
+
+
     header {
         width: 100%;
         display: inline-block;
@@ -30,83 +60,69 @@
         clear: both;
         transition: max-height .3s cubic-bezier(0.63, 0, 0.25, 1);;
     }
-
     nav ul {
         margin: 0;
         padding: 0;
         list-style: none;
         display: block;
     }
-
     nav li {
         display: block;
         margin: 0;
         text-align: center;
-    }
-    th.colHeadFirstTable {
-        background: rgba(22, 105, 99, 0.73);
-        color: black;
-    }
-    input.buttonFirstTable {
-        background: -moz-linear-gradient(#1daaa4, #EBFFFF);
-        background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
-        padding: 3px 7px;
-        color: #333;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border-radius: 5px;
-        border: 1px solid #666;
     }
     nav a {
         color: white;
         display: block;
         padding: .4em;
     }
-
     header input[type="checkbox"]:checked ~ nav {
         max-height: 150px;
         border-bottom: #404040 5px solid;
     }
-
     header a:hover,
     header a:focus,
     header label:hover,
     header label:focus {
         background-color: #191919;
     }
-
     @media (min-width: 700px) {
-        .hamburger {
-            display: none;
-        }
-
         nav {
             background: transparent;
             float: right;
             border: 0 !important;
             max-height: none;
         }
-
         nav ul, nav li, nav li a {
             display: inline-block;
         }
-
         nav a {
             display: inline-block;
             padding: 15px 1em;
         }
+        a:hover {
+            text-decoration: none;
+        }
+        a.link {
+            color: #000000;
+        }
     }
-
 </style>
+
 <header>
     <label></label>
     <nav>
         <ul>
-            <li><a href="/personals" th:text="#{personals}"></a></li>
+            <li th:switch="${currentRole}">
+                <a href="#" th:case="${currentRole.ADMIN}"
+                   th:text="#{ADMIN}+' '+${lastName}+' '+${firstName}">administrator</a>
+                <a href="#" th:case="${currentRole.DOCTOR}"
+                   th:text="#{DOCTOR}+' '+${lastName}+' '+${firstName}">doctor</a>
+                <a href="#" th:case="${currentRole.NURSE}" th:text="#{NURSE}+' '+${lastName}+' '+${firstName}">nurse</a>
+                <a href="#" th:case="*">Unknown role</a>
+            </li>
+            <li><a href="/personals" th:text="#{menuPersonals}"></a></li>
             <li><a href="/addPersonal" th:text="#{menuAddPersonal}"></a></li>
-            <li><a href="/testPageAleksei">Test main page</a></li>
-            <li><a href="#" th:text="#{myProfile}"></a></li>
             <li><a href="/logout" th:text="#{menuLogout}"></a></li>
         </ul>
     </nav>
@@ -116,13 +132,12 @@
     <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
         <thead>
         <tr>
-            <th class="colHeadFirstTable"  th:text="#{columnId}">Id</th>
-            <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
-
-            <th  class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
+            <th class="FirstColumn" th:text="#{columnId}">Id</th>
+            <th class="colHeadFirstTable" th:text="#{columnLogin}">Id</th>
+            <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
             <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
             <th class="colHeadFirstTable" th:text="#{columnRole}">Role</th>
-            <th class="colHeadFirstTable" th:text="#{columnActive}">Active</th>
+            <th class="FirstColumn" th:text="#{columnActive}">Active</th>
             <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
         </tr>
         </thead>
@@ -143,9 +158,18 @@
                 </td>
                 <td th:text="${personal.deleted}">Неожиданно удален</td>
                 <td>
-                    <form name="Button" th:action="@{/personal/{id}(id=${personal.id})}" method="GET"
-                          style="display:inline">
-                        <input class="buttonFirstTable" type="submit" th:value="#{buttonOpenProfile}"/>
+
+                    <form style="display:inline">
+                        <button class="button3" type="submit">
+                            <a class="link" href="yourlink.com"
+                               th:href="@{/personal/{id}(id=${personal.id})}"
+                               th:text="#{buttonOpenProfile}">Link link</a></button>
+                    </form>
+                    <form style="display:inline">
+                        <button class="button3" type="submit">
+                            <a class="link" href="yourlink.com"
+                               th:href="@{/deletePersonalFromDB/{id}(id=${personal.id})}"
+                               th:text="#{buttonDeletePersonal}">Link link</a></button>
                     </form>
                 </td>
             </tr>

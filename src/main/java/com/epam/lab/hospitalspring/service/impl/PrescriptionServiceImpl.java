@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -51,10 +52,10 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     }
 
     @Override
-    public String findPrescriptionsForDiagnosisByDiagnosisIdOrderByIdAsc(Long diagnosisId) {
+    public String findPrescriptionsForDiagnosisByDiagnosisIdOrderByIdAsc(Long diagnosisId, Locale locale) {
         List<Prescription> prescriptions =
                 prescriptionRepository.findPrescriptionsForDiagnosisByDiagnosisIdOrderByIdAsc(diagnosisId);
-        Gson gson = GsonFactory.buildGson();
+        Gson gson = GsonFactory.buildGson(locale);
         return gson.toJson(prescriptions);
     }
 

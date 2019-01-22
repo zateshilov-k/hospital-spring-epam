@@ -17,25 +17,7 @@
 </head>
 <body style="background-color:powderblue">
 <style>
-button.button3 {
-    background: -moz-linear-gradient(#1daaa4, #EBFFFF);
-    background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
-    padding: 3px 7px;
-    color: #333;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-
-    border: 1px solid #666;
-
-}
-a.link {
-    color:#000000
-
-}
-a:hover { text-decoration: none;}
-input.buttonFirstTable {
+    button.button3 {
         background: -moz-linear-gradient(#1daaa4, #EBFFFF);
         background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
@@ -46,57 +28,28 @@ input.buttonFirstTable {
         border-radius: 5px;
         border: 1px solid #666;
     }
-
-    input.buttonSecondTable {
-        background: -moz-linear-gradient(#a50600, rgba(216, 200, 192, 0.7));
-        background: -webkit-gradient(linear, 0 0, 0 100%, from(#a50600), to(#d8c8c0));
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
-        padding: 3px 7px;
-        color: #333;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border-radius: 5px;
-        border: 1px solid #666;
-    }
-
     body {
         font-size: 1.5em; /* Размер текста */
     }
-
     table {
         width: 100%; /* Ширина таблицы */
-    }
-
-    td.col {
-        background: rgba(125, 6, 0, 0.51);
-        color: black;
-    }
-
-    th.col {
-        background: rgba(125, 6, 0, 0.51);
-        color: black;
     }
 
     th.colHeadFirstTable {
         background: rgba(22, 105, 99, 0.73);
         color: black;
+        width: 30%;
     }
-
-    th.colHeadSecondTable {
-        background: rgba(91, 6, 0, 0.76);
+    th.FirstColumn {
+        background: rgba(22, 105, 99, 0.73);
         color: black;
+        width: 10%;
     }
-
     header {
         width: 100%;
         display: inline-block;
         background-color: #404040;
     }
-
-    #deleted {
-        background-color: #4b4b4b;
-    }
-
     nav {
         background-color: #2b2b2b;
         margin: 0;
@@ -105,78 +58,80 @@ input.buttonFirstTable {
         clear: both;
         transition: max-height .3s cubic-bezier(0.63, 0, 0.25, 1);;
     }
-
     nav ul {
         margin: 0;
         padding: 0;
         list-style: none;
         display: block;
     }
-
     nav li {
         display: block;
         margin: 0;
         text-align: center;
     }
-
     nav a {
         color: white;
         display: block;
         padding: .4em;
     }
-
     header input[type="checkbox"]:checked ~ nav {
         max-height: 150px;
         border-bottom: #404040 5px solid;
     }
-
     header a:hover,
     header a:focus,
     header label:hover,
     header label:focus {
         background-color: #191919;
     }
-
     @media (min-width: 700px) {
-        .hamburger {
-            display: none;
-        }
-
         nav {
             background: transparent;
             float: right;
             border: 0 !important;
             max-height: none;
         }
-
         nav ul, nav li, nav li a {
             display: inline-block;
         }
-
         nav a {
             display: inline-block;
             padding: 15px 1em;
         }
+        a:hover {
+            text-decoration: none;
+        }
+        a.link {
+            color: #000000;
+        }
     }
-
 </style>
 <header>
     <label></label>
     <nav>
-        <li><a href="/patients" th:text="#{patients}"></a></li>
-        <li><a href="/addPatient" th:text="#{menuAddPatient}"></a></li>
-        <li><a href="/deletedPatients">Deleted Patients</a></li>
-        <li><a href="#" th:text="#{myProfile}"></a></li>
-        <li><a href="/logout" th:text="#{menuLogout}"></a></li>
+        <ul>
+            <li th:switch="${currentRole}">
+                <a href="#" th:case="${currentRole.ADMIN}"
+                   th:text="#{ADMIN}+' '+${lastName}+' '+${firstName}">administrator</a>
+                <a href="#" th:case="${currentRole.DOCTOR}"
+                   th:text="#{DOCTOR}+' '+${lastName}+' '+${firstName}">doctor</a>
+                <a href="#" th:case="${currentRole.NURSE}" th:text="#{NURSE}+' '+${lastName}+' '+${firstName}">nurse</a>
+                <a href="#" th:case="*">Unknown role</a>
+            </li>
+            <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/patients" th:text="#{menuPatients}"></a></li>
+            <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/addPatient" th:text="#{menuAddPatient}"></a>
+            </li>
+            <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/deletedPatients" th:text="#{menuDeletedPatients}">Deleted Patients</a></li>
+            <li><a href="/logout" th:text="#{menuLogout}"></a></li>
         </ul>
     </nav>
 </header>
 <h3 align="center" th:text="#{titlePatientsPage}"></h3>
 <div class="container-fluid">
-    <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
+    <table width="100%" id="example" class="table  table-bordered table-hover">
         <thead>
         <tr>
-            <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
+            <th class="FirstColumn"  th:text="#{columnId}">Id</th>
             <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
             <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
             <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
@@ -190,18 +145,17 @@ input.buttonFirstTable {
                 <td th:text="${patient.firstName}">first name</td>
                 <td th:text="${patient.lastName}">last name</td>
                 <td>
-                    <form name="Button" th:action="@{/patientDiagnosisCard/{id}(id=${patient.id})}" method="POST"
-                          style="display:inline">
-                        <input class="buttonFirstTable" type="submit" th:value="#{buttonOpenCard}"/>
+                    <form style="display:inline">
+                        <button class="button3" type="button">
+                            <a class="link" href="yourlink.com"
+                               th:href="@{/patientDiagnosisCard/{id}(id=${patient.id})}"
+                               th:text="#{buttonOpenCard}">Link link</a></button>
                     </form>
-                    <form th:if="${currentRole.toString() eq 'DOCTOR'}" name="Button"
-                          th:action="@{/patients/{id}(id=${patient.id})}" method="GET"
-                          style="display:inline">
-                        <input class="buttonFirstTable" type="submit" th:value="#{buttonPatientProfile}"/>
+                    <form th:if="${currentRole.toString() eq 'DOCTOR'}" style="display:inline">
+                        <button class="button3" type="button">
+                            <a class="link" href="yourlink.com" th:href="@{/patient/{id}(id=${patient.id})}"
+                               th:text="#{buttonPatientProfile}">Link link</a></button>
                     </form>
-
-                    <button class="button3" type="button"><a class="link" href="yourlink.com" th:href="@{/patient/{id}(id=${patient.id})}">Link link</a></button>
-
                 </td>
             </tr>
         </div>

@@ -21,6 +21,24 @@
 <body style="background-color:powderblue;">
 
 <style>
+    button.button3 {
+        background: -moz-linear-gradient(#1daaa4, #EBFFFF);
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
+        padding: 3px 7px;
+        color: #333;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        border: 1px solid #666;
+    }
+
+    th.colHeadFirstTable {
+        background: rgba(22, 105, 99, 0.73);
+        color: black;
+        width: 30%;
+    }
+
     table, tbody, thead {
         display: block;
     }
@@ -46,7 +64,13 @@
         display: inline-block;
         background-color: #404040;
     }
-
+    .hamburger {
+        height: 20px;
+        width: 20px;
+        padding: 20px;
+        float: right;
+        cursor: pointer;
+    }
     nav {
         background-color: #2b2b2b;
         margin: 0;
@@ -82,7 +106,9 @@
         background-color: #191919;
     }
     @media (min-width: 700px) {
-
+        .hamburger {
+            display: none;
+        }
         nav {
             background: transparent;
             float: right;
@@ -96,21 +122,6 @@
             display: inline-block;
             padding: 15px 1em;
         }
-        button.button3 {
-            background: -moz-linear-gradient(#1daaa4, #EBFFFF);
-            background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
-            padding: 3px 7px;
-            color: #333;
-            -moz-border-radius: 5px;
-            -webkit-border-radius: 5px;
-            border-radius: 5px;
-            border: 1px solid #666;
-        }
-        th.colHeadFirstTable {
-            background: rgba(22, 105, 99, 0.73);
-            color: black;
-        }
     }
 </style>
 
@@ -118,51 +129,48 @@
     <label></label>
     <nav>
         <ul>
-            <li><a href="/personals">Personals</a></li>
-            <li><a href="/testPageAleksei">Test main page</a></li>
-            <li><a href="#">My profile</a></li>
-            <li><a href="/logout">Logout</a></li>
+            <li><a href="/patients" th:text="#{patients}"></a></li>
+            <li><a href="/logout" th:text="#{menuLogout}">Logout</a></li>
         </ul>
     </nav>
 </header>
 
 <h3>
-    <div style="text-align:center; font-size:28px"> Карточка пациента:
+    <div style="text-align:center; font-size:28px" >
+        <a style="text-align:center;font-size:28px" th:text="#{currentPatientCard}"></a>
         <a style="text-align:center;font-size:28px" th:text="${patient.firstName}"></a>
         <a style="text-align:center;font-size:28px" th:text="${patient.lastName}"></a>
     </div>
 </h3>
 <br>
-<button class="button3" onclick="window.location.href='/patients'">Go list patients</button>
 <br><br>
 
 <fieldset>
-    <button class="button3" id="closeDiagnosisButton">Close diagnosis button</button>
-    <button class="button3" id="doPrescription" style="display:inline; float:right">Do prescription</button>
+    <button class="button3" id="closeDiagnosisButton" th:text="#{buttonCloseDiagnosis}">Close diagnosis button</button>
+    <button class="button3" id="doPrescription" style="display:inline; float:right" th:text="#{buttonDoPerscription}" >Do prescription</button>
     <br><br>
 
     <div>
         <table class="diagnosisList" id="diagnosis" style="display:inline; float:left" border="1">
-            <caption  style=" font-family: Arial, Helvetica, sans-serif;">Диагноз сообщение:</caption>
+            <caption  style="font-family: Arial, Helvetica, sans-serif;" th:text="#{diagnosises}" >Диагноз сообщение:</caption>
             <tr>
-                <th class="colHeadFirstTable">Id</th>
-                <th class="colHeadFirstTable">Description</th>
-                <th class="colHeadFirstTable">Time</th>
-                <th class="colHeadFirstTable">isOpened</th>
-
+                <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
+                <th class="colHeadFirstTable" th:text="#{columnDescription}">Description</th>
+                <th class="colHeadFirstTable" th:text="#{columnTime}">Time</th>
+                <th class="colHeadFirstTable" th:text="#{columnOpen}">isOpened</th>
             </tr>
         </table>
     </div>
 
     <div>
         <table class="prescriptionList" id="prescriptionsTable" style="display:inline; float:right" border="1">
-            <caption style=" font-family: Arial, Helvetica, sans-serif;" >Назначение сообщение:</caption>
-            <tr class="word">
-                <th class="colHeadFirstTable">Id</th>
-                <th class="colHeadFirstTable">Description</th>
-                <th class="colHeadFirstTable">Type of prescription</th>
-                <th class="colHeadFirstTable">Time</th>
-                <th class="colHeadFirstTable">Done</th>
+            <caption style=" font-family: Arial, Helvetica, sans-serif;" th:text="#{perscriptions}" >Назначение сообщение:</caption>
+            <tr>
+                <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
+                <th class="colHeadFirstTable" th:text="#{columnDescription}">Description</th>
+                <th class="colHeadFirstTable" th:text="#{columnTypeOfPerscription}">Type of prescription</th>
+                <th class="colHeadFirstTable" th:text="#{columnTime}">Time</th>
+                <th class="colHeadFirstTable" th:text="#{columnDone}">Done</th>
             </tr>
         </table>
     </div>
@@ -170,43 +178,38 @@
 
 <br>
 <fieldset style="float:left" id="diagnosisFieldSet">
-    <legend>Добавить диагноз</legend>
+    <legend th:text="#{addDiagnosis}">Добавить диагноз</legend>
     <br>
-    <caption>Описание диагноза:</caption>
+    <caption th:text="#{diagnosisDescription}">Описание диагноза:</caption>
     <p><textarea name="comment" id="diagnosisDescription"></textarea></p>
-    <button class="button3" id="diagnosisSubmit" value="Добавить">Добавить</button>
+    <button id="diagnosisSubmit" value="Добавить" th:text="#{addDiagnosis}">Добавить</button>
 </fieldset>
 
 <fieldset id="addPrescriptionFieldSet" style="display:none;">
-    <legend>Добавить назначение</legend>
+    <legend th:text="#{addPerscription}">Добавить назначение</legend>
     <form>
-        <caption>Тип назначения:</caption>
+        <caption th:text="#{columnTypeOfPerscription}">Тип назначения:</caption>
         <form>
             <select name="prescriptionType" id="prescriptionType">
-                <option value="PROCEDURE">Процедура</option>
-                <option value="OPERATION">Операция</option>
-                <option value="DRUG">Лекарство</option>
+                <option value="PROCEDURE" th:text="#{procedure}">Процедура</option>
+                <option value="OPERATION" th:text="#{operation}">Операция</option>
+                <option value="DRUG" th:text="#{drug}">Лекарство</option>
             </select>
         </form>
-        <caption>Описание назначения:</caption>
+        <caption th:text="#{perscriptionDescription}">Описание назначения:</caption>
         <p><textarea id="prescriptionDescription" name="comment"></textarea></p>
-        <button class="button3" id="prescriptionSubmit" value="Добавить">Добавить</button>
+        <button id="prescriptionSubmit" value="Добавить" th:text="#{addPerscription}">Добавить</button>
     </form>
 </fieldset>
 
 <script>
     var currentDiagnosisRow = 1;
     var currentPrescriptionRow = 1;
-    //var diagnosisIsOpened = '${diagnosisIsOpened_msg}';
-    var diagnosisIsOpened = 'true';
-    //var diagnosisIsNotOpened = '${diagnosisIsNotOpened_msg}';
-    var diagnosisIsNotOpened = 'false';
-    //var operation = '${operation_msg}';
-    var operation = 'OPERATION';
-    //var prescriptionIsDone = '${prescriptionIsDone_msg}';
-    //var prescriptionIsNotDone = '${prescriptionIsNotDone_msg}';
-    var prescriptionIsDone = 'true';
-    var prescriptionIsNotDone = 'false';
+    var diagnosisIsOpened = '[[#{diagnosisIsOpened}]]';
+    var diagnosisIsNotOpened = '[[#{diagnosisIsNotOpened}]]';
+    var operation = '[[#{operation}]]';
+    var prescriptionIsDone = '[[#{prescriptionIsDone}]]';
+    var prescriptionIsNotDone = '[[#{prescriptionIsNotDone}]]';
     var doPrescriptionButton = document.getElementById("doPrescription");
     doPrescriptionButton.addEventListener("click", prescriptionDoneListener);
     var closeDiagnosisButton = document.getElementById("closeDiagnosisButton");
@@ -219,7 +222,6 @@
     var diagnosis = toJson('[[${diagnoses}]]');
     var userRole = '[[${role}]]';
     if (diagnosis.length > 0) {
-        //updateDiagnosisTable(diagnosis, diagnosisTable);
         getAndUpdateDiagnosis();
     }
     function toJson(stringJson) {
@@ -234,9 +236,9 @@
         } else {
             $.post(window.location.href +
                 "/diagnosis/" + diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML +
-                "/addPrescription/" +
-                "description=" + prescriptionTextArea.value+
-                "/type=" + prescriptionTypeSelect.value, {}, function (response) {
+                "/addPrescription/",
+                {prescriptionDescription : prescriptionTextArea.value,
+                    prescriptionType: prescriptionTypeSelect.value}, function (response) {
                 updatePrescriptionsTable(diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML);
                 prescriptionTextArea.value = "";
             });
@@ -249,7 +251,7 @@
         if (diagnosisTextArea.value === "") {
             alert("Введите описание диагноза");
         } else {
-            $.post(window.location.href + "/addDiagnosis/descr="+diagnosisTextArea.value, {}, function (response) {
+            $.post(window.location.href + "/addDiagnosis/", {description:diagnosisTextArea.value}, function (response) {
                 diagnosisTextArea.value = "";
                 getAndUpdateDiagnosis();
             });
@@ -259,7 +261,7 @@
         var prescriptionTable = document.getElementById("prescriptionsTable");
         var diagnosisTable = document.getElementById("diagnosis");
         $.post(window.location.href + "/doPrescription/"+prescriptionTable.rows[currentPrescriptionRow].cells[0].innerHTML,
-            {prescriptionId : prescriptionTable.rows[currentPrescriptionRow].cells[0].innerHTML}, function () {
+            {}, function () {
                 updatePrescriptionsTable(diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML);
                 var doPrescriptionButton = document.getElementById("doPrescription");
                 doPrescriptionButton.style.display = "none";

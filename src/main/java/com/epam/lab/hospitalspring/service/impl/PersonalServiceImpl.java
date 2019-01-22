@@ -60,4 +60,8 @@ public class PersonalServiceImpl implements PersonalService {
         return personalRepository.findAll();
     }
 
+    @Override
+    public void deleteFromDB(Long id) {
+        personalRepository.deleteById(id);
+    }
 }

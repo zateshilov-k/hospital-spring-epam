@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class PatientController {
@@ -52,9 +53,15 @@ public class PatientController {
     public String getNotDeletedPatients(Model model, Authentication authentication) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role currentRole = personalDetailsService.getPersonal().getRole();
-        model.addAttribute("patients", patientService.getNotDeletedPatients());
-        model.addAttribute("currentRole", currentRole);
-        return "patients";
+        if (currentRole != Role.ADMIN) {
+            model.addAttribute("patients", patientService.getNotDeletedPatients());
+            model.addAttribute("currentRole", personalDetailsService.getPersonal().getRole());
+            model.addAttribute("firstName", personalDetailsService.getPersonal().getFirstName());
+            model.addAttribute("lastName", personalDetailsService.getPersonal().getLastName());
+            return "patients";
+        } else {
+            return "redirect:/error/errorMessage";
+        }
     }
 
     @GetMapping(value = "/deletedPatients")
@@ -63,26 +70,30 @@ public class PatientController {
         Role currentRole = personalDetailsService.getPersonal().getRole();
         model.addAttribute("patients", patientService.getDeletedPatients());
         if (currentRole == Role.DOCTOR) {
+            model.addAttribute("currentRole", personalDetailsService.getPersonal().getRole());
+            model.addAttribute("firstName", personalDetailsService.getPersonal().getFirstName());
+            model.addAttribute("lastName", personalDetailsService.getPersonal().getLastName());
             return "deletedPatients";
         } else {
             return "redirect:/error/errorMessage";
         }
     }
 
-    @PostMapping(value = "/patientDiagnosisCard/{id}")
-    public String getPatient(@PathVariable("id") Long id, Model model, Authentication authentication) {
-        Patient currentPatient= patientService.getPatientById(id);
-        model.addAttribute("patient", currentPatient);
-        Gson gson = GsonFactory.buildGson();
-        model.addAttribute("diagnoses",gson.toJson(currentPatient.getDiagnosisList()));
-//        model.addAttribute("prescriptions",gson.toJson(
-//                currentPatient.getDiagnosisList().get(0).getPrescriptions()));
-
-
+    @GetMapping(value = "/patientDiagnosisCard/{id}")
+    public String getPatient(@PathVariable("id") Long id, Model model, Authentication authentication, Locale locale) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
-        Role role = personalDetailsService.getPersonal().getRole();
-        model.addAttribute("role",role);
-        return "patientDiagnosisCard";
+        Role currentRole = personalDetailsService.getPersonal().getRole();
+
+        model.addAttribute("role", currentRole);
+        if (currentRole != Role.ADMIN) {
+            Patient currentPatient = patientService.getPatientById(id);
+            model.addAttribute("patient", currentPatient);
+            Gson gson = GsonFactory.buildGson(locale);
+            model.addAttribute("diagnoses", gson.toJson(currentPatient.getDiagnosisList()));
+            return "patientDiagnosisCard";
+        } else {
+            return "redirect:/error/errorMessage";
+        }
     }
 
     @GetMapping(value = "/addPatient")
@@ -101,7 +112,7 @@ public class PatientController {
         }
     }
 
-    @GetMapping(value = "/patients/{id}")
+    @GetMapping(value = "/patient/{id}")
     public String showPatientProfile(@PathVariable("id") Long id, Model model, Authentication authentication) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role currentRole = personalDetailsService.getPersonal().getRole();
@@ -113,7 +124,7 @@ public class PatientController {
         }
     }
 
-    @PostMapping(value="/patients/updatePatient/{id}")
+    @PostMapping(value = "/patients/updatePatient/{id}")
     public String updatePatientProfile(Patient patient) {
         patientService.updatePatient(patient);
         if (patient.getDeleted() == false) {

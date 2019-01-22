@@ -4,6 +4,7 @@ import com.epam.lab.hospitalspring.form.PatientForm;
 import com.epam.lab.hospitalspring.model.Patient;
 import com.epam.lab.hospitalspring.repository.PatientRepository;
 import com.epam.lab.hospitalspring.service.PatientService;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,9 @@ import java.util.List;
 
 @Service
 public class PatientServiceImpl implements PatientService {
+
+    @Autowired
+    private Logger log;
 
     @Autowired
     private PatientRepository patientRepository;
@@ -38,6 +42,11 @@ public class PatientServiceImpl implements PatientService {
                     .diagnosisList(null)
                     .build();
             patient = patientRepository.saveAndFlush(patient);
+            if(patient!=null){
+            log.info("LOG: Patient added " + patient);}
+            else {
+                log.info("LOG: Patient added");
+            }
         }
         return patient;
     }
