@@ -34,10 +34,16 @@
     table {
         width: 100%; /* Ширина таблицы */
     }
+
     th.colHeadFirstTable {
         background: rgba(22, 105, 99, 0.73);
         color: black;
-        width: 25%;
+        width: 30%;
+    }
+    th.FirstColumn {
+        background: rgba(22, 105, 99, 0.73);
+        color: black;
+        width: 10%;
     }
     header {
         width: 100%;
@@ -112,7 +118,7 @@
                 <a href="#" th:case="${currentRole.NURSE}" th:text="#{NURSE}+' '+${lastName}+' '+${firstName}">nurse</a>
                 <a href="#" th:case="*">Unknown role</a>
             </li>
-            <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/patients" th:text="#{patients}"></a></li>
+            <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/patients" th:text="#{menuPatients}"></a></li>
             <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/addPatient" th:text="#{menuAddPatient}"></a>
             </li>
             <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/deletedPatients" th:text="#{menuDeletedPatients}">Deleted Patients</a></li>
@@ -125,7 +131,7 @@
     <table width="100%" id="example" class="table  table-bordered table-hover">
         <thead>
         <tr>
-            <th class="colHeadFirstTable"  th:text="#{columnId}">Id</th>
+            <th class="FirstColumn"  th:text="#{columnId}">Id</th>
             <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
             <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
             <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>

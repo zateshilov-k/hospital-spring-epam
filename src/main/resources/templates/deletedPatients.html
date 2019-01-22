@@ -33,16 +33,31 @@
     body {
         font-size: 1.5em; /* Размер текста */
     }
+
     table {
         width: 100%; /* Ширина таблицы */
     }
 
-    td.col { background: rgba(125, 6, 0, 0.51); color: black; }
+    td.col {
+        background: rgba(125, 6, 0, 0.51);
+        color: black;
+    }
 
-    th.col { background: rgba(125, 6, 0, 0.51); color: black; }
+    th.col {
+        background: rgba(125, 6, 0, 0.51);
+        color: black;
+    }
 
-    th.colHeadFirstTable { background: rgba(91, 6, 0, 0.76); color: black;
-     width: 25%;}
+    th.colHeadFirstTable {
+        background: rgba(91, 6, 0, 0.76);
+        color: black;
+        width: 30%;
+    }
+    th.FirstColumn {
+        background: rgba(91, 6, 0, 0.76);
+        color: black;
+        width: 10%;
+    }
 
     header {
         width: 100%;
@@ -118,6 +133,7 @@
         a:hover {
             text-decoration: none;
         }
+
         a.link {
             color: #000000;
         }
@@ -144,39 +160,39 @@
 
 <div class="container-fluid">
 
-        <h3 align="center">Список удаленных пациентов</h3>
-        <table id="example" class="table table-bordered table-hover col1" cellspacing="0" width="100%">
-            <thead>
-            <tr>
-                <th class="colHeadFirstTable">Id</th>
-                <th class="colHeadFirstTable">FirstName</th>
-                <th class="colHeadFirstTable">LastName</th>
-                <th class="colHeadFirstTable">Action</th>
+    <h3 align="center">Список удаленных пациентов</h3>
+    <table id="example" class="table table-bordered table-hover col1" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th class="FirstColumn">Id</th>
+            <th class="colHeadFirstTable">FirstName</th>
+            <th class="colHeadFirstTable">LastName</th>
+            <th class="colHeadFirstTable">Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <div th:if="${patients} != null">
+            <tr th:each="patient : ${patients}">
+                <td class="col" th:text="${patient.id}">Неожиданный id</td>
+                <td class="col" th:text="${patient.firstName}">Неожиданное имя</td>
+                <td class="col" th:text="${patient.lastName}">Неожиданная фамилия</td>
+                <td class="col">
+
+                    <!--<form name="Button" th:action="@{/patients/{id}(id=${patient.id})}" method="GET"-->
+                    <!--style="display:inline">-->
+                    <!--<input class="buttonSecondTable" type="submit" name="button" value="Изменить данные пациента"/>-->
+                    <!--</form>-->
+                    <form th:if="${currentRole.toString() eq 'DOCTOR'}" style="display:inline">
+                        <button class="button3" type="button">
+                            <a class="link" href="yourlink.com" th:href="@{/patient/{id}(id=${patient.id})}"
+                               th:text="#{buttonPatientProfile}">Link link</a></button>
+                    </form>
+                </td>
             </tr>
-            </thead>
-
-            <tbody>
-            <div th:if="${patients} != null">
-                <tr th:each="patient : ${patients}">
-                        <td class="col" th:text="${patient.id}">Неожиданный id</td>
-                        <td class="col" th:text="${patient.firstName}">Неожиданное имя</td>
-                        <td class="col" th:text="${patient.lastName}">Неожиданная фамилия</td>
-                        <td class="col">
-
-                            <!--<form name="Button" th:action="@{/patients/{id}(id=${patient.id})}" method="GET"-->
-                                  <!--style="display:inline">-->
-                                <!--<input class="buttonSecondTable" type="submit" name="button" value="Изменить данные пациента"/>-->
-                            <!--</form>-->
-                            <form th:if="${currentRole.toString() eq 'DOCTOR'}" style="display:inline">
-                                <button class="button3" type="button">
-                                    <a class="link" href="yourlink.com" th:href="@{/patient/{id}(id=${patient.id})}"
-                                       th:text="#{buttonPatientProfile}">Link link</a></button>
-                            </form>
-                        </td>
-                </tr>
-            </div>
-            </tbody>
-        </table>
+        </div>
+        </tbody>
+    </table>
 </div>
 
 </div>

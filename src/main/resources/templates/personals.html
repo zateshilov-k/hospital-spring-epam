@@ -37,8 +37,16 @@
     th.colHeadFirstTable {
         background: rgba(22, 105, 99, 0.73);
         color: black;
-        width: 14%;
+        width: 15%;
     }
+
+    th.FirstColumn {
+        background: rgba(22, 105, 99, 0.73);
+        color: black;
+        width: 5%;
+    }
+
+
     header {
         width: 100%;
         display: inline-block;
@@ -124,12 +132,12 @@
     <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
         <thead>
         <tr>
-            <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
+            <th class="FirstColumn" th:text="#{columnId}">Id</th>
             <th class="colHeadFirstTable" th:text="#{columnLogin}">Id</th>
             <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
             <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
             <th class="colHeadFirstTable" th:text="#{columnRole}">Role</th>
-            <th class="colHeadFirstTable" th:text="#{columnActive}">Active</th>
+            <th class="FirstColumn" th:text="#{columnActive}">Active</th>
             <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
         </tr>
         </thead>
