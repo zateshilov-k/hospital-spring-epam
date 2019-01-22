@@ -112,7 +112,7 @@
                 <a href="#" th:case="${currentRole.NURSE}" th:text="#{NURSE}+' '+${lastName}+' '+${firstName}">nurse</a>
                 <a href="#" th:case="*">Unknown role</a>
             </li>
-            <li><a href="/personals" th:text="#{personals}"></a></li>
+            <li><a href="/personals" th:text="#{menuPersonals}"></a></li>
             <li><a href="/addPersonal" th:text="#{menuAddPersonal}"></a></li>
             <li><a href="/logout" th:text="#{menuLogout}"></a></li>
         </ul>
