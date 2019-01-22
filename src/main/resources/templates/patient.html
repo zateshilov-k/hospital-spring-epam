@@ -31,7 +31,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Page of sign up</div>
+                    <div class="card-header">Page of add pacient</div>
                     <div class="card-body">
                         <form th:action="@{/pacient}" method="post">
 
@@ -51,17 +51,10 @@
                                 </div>
                             </div>
 
-
-                            <div>
-                                <select name="role" id="role-id">
-                                    <option value="DOCTOR">Doctor</option>
-                                    <option value="NURSE">Nurse</option>
-                                </select>
-                            </div>
                             <div class="col-md-6 offset-md-4">
-                                <div><input type="submit" value="Sign Up"/></div>
+                                <div><input type="submit" value="Add patient"/>
 
-                                <a href="/login" class="btn btn-link" onclick="history.back()">Cancel</a>
+                                <a href="/login" class="btn btn-link" onclick="history.back()">Cancel</a></div>
                             </div>
                         </form>
                     </div>
