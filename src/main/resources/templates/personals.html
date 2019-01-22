@@ -17,18 +17,36 @@
 </head>
 <body style="background-color:powderblue">
 <style>
+    button.button3 {
+        background: -moz-linear-gradient(#1daaa4, #EBFFFF);
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
+        padding: 3px 7px;
+        color: #333;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        border: 1px solid #666;
+
+    }
+
+    body {
+        font-size: 1.5em; /* Размер текста */
+    }
+
+    table {
+        width: 100%; /* Ширина таблицы */
+    }
+
+    th.colHeadFirstTable {
+        background: rgba(22, 105, 99, 0.73);
+        color: black;
+    }
+
     header {
         width: 100%;
         display: inline-block;
         background-color: #404040;
-    }
-
-    .hamburger {
-        height: 20px;
-        width: 20px;
-        padding: 20px;
-        float: right;
-        cursor: pointer;
     }
 
     nav {
@@ -72,10 +90,6 @@
     }
 
     @media (min-width: 700px) {
-        .hamburger {
-            display: none;
-        }
-
         nav {
             background: transparent;
             float: right;
@@ -91,17 +105,32 @@
             display: inline-block;
             padding: 15px 1em;
         }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        a.link {
+            color: #000000;
+        }
     }
 
 </style>
+
 <header>
     <label></label>
     <nav>
         <ul>
+            <li th:switch="${currentRole}">
+                <a href="#" th:case="${currentRole.ADMIN}"
+                   th:text="#{ADMIN}+' '+${lastName}+' '+${firstName}">administrator</a>
+                <a href="#" th:case="${currentRole.DOCTOR}"
+                   th:text="#{DOCTOR}+' '+${lastName}+' '+${firstName}">doctor</a>
+                <a href="#" th:case="${currentRole.NURSE}" th:text="#{NURSE}+' '+${lastName}+' '+${firstName}">nurse</a>
+                <a href="#" th:case="*">Unknown role</a>
+            </li>
             <li><a href="/personals" th:text="#{personals}"></a></li>
             <li><a href="/addPersonal" th:text="#{menuAddPersonal}"></a></li>
-            <li><a href="/testPageAleksei">Test main page</a></li>
-            <li><a href="#" th:text="#{myProfile}"></a></li>
             <li><a href="/logout" th:text="#{menuLogout}"></a></li>
         </ul>
     </nav>
@@ -112,7 +141,7 @@
         <thead>
         <tr>
             <th th:text="#{columnId}">Id</th>
-            <th th:text="#{columnId}">Id</th>
+            <th th:text="#{columnLogin}">Id</th>
 
             <th th:text="#{columnFirstName}">FirstName</th>
             <th th:text="#{columnLastName}">LastName</th>
@@ -138,9 +167,18 @@
                 </td>
                 <td th:text="${personal.deleted}">Неожиданно удален</td>
                 <td>
-                    <form name="Button" th:action="@{/personal/{id}(id=${personal.id})}" method="GET"
-                          style="display:inline">
-                        <input type="submit" th:value="#{buttonOpenProfile}"/>
+
+                    <form style="display:inline">
+                        <button class="button3" type="submit">
+                            <a class="link" href="yourlink.com"
+                               th:href="@{/personal/{id}(id=${personal.id})}"
+                               th:text="#{buttonOpenProfile}">Link link</a></button>
+                    </form>
+                    <form style="display:inline">
+                        <button class="button3" type="submit">
+                            <a class="link" href="yourlink.com"
+                               th:href="@{/deletePersonalFromDB/{id}(id=${personal.id})}"
+                               th:text="#{buttonDeletePersonal}">Link link</a></button>
                     </form>
                 </td>
             </tr>

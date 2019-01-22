@@ -13,4 +13,6 @@ public interface PersonalService {
 
     List<Personal> getAll();
 
+    void deleteFromDB(Long id);
+
 }

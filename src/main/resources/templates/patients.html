@@ -17,8 +17,7 @@
 </head>
 <body style="background-color:powderblue">
 <style>
-
-    input.buttonFirstTable {
+    button.button3 {
         background: -moz-linear-gradient(#1daaa4, #EBFFFF);
         background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
@@ -28,18 +27,7 @@
         -webkit-border-radius: 5px;
         border-radius: 5px;
         border: 1px solid #666;
-    }
 
-    input.buttonSecondTable {
-        background: -moz-linear-gradient(#a50600, rgba(216, 200, 192, 0.7));
-        background: -webkit-gradient(linear, 0 0, 0 100%, from(#a50600), to(#d8c8c0));
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
-        padding: 3px 7px;
-        color: #333;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border-radius: 5px;
-        border: 1px solid #666;
     }
 
     body {
@@ -50,23 +38,8 @@
         width: 100%; /* Ширина таблицы */
     }
 
-    td.col {
-        background: rgba(125, 6, 0, 0.51);
-        color: black;
-    }
-
-    th.col {
-        background: rgba(125, 6, 0, 0.51);
-        color: black;
-    }
-
     th.colHeadFirstTable {
         background: rgba(22, 105, 99, 0.73);
-        color: black;
-    }
-
-    th.colHeadSecondTable {
-        background: rgba(91, 6, 0, 0.76);
         color: black;
     }
 
@@ -74,10 +47,6 @@
         width: 100%;
         display: inline-block;
         background-color: #404040;
-    }
-
-    #deleted {
-        background-color: #4b4b4b;
     }
 
     nav {
@@ -121,10 +90,6 @@
     }
 
     @media (min-width: 700px) {
-        .hamburger {
-            display: none;
-        }
-
         nav {
             background: transparent;
             float: right;
@@ -140,17 +105,34 @@
             display: inline-block;
             padding: 15px 1em;
         }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        a.link {
+            color: #000000;
+        }
     }
 
 </style>
 <header>
     <label></label>
     <nav>
-        <li><a href="/patients" th:text="#{patients}"></a></li>
-        <li><a href="/addPatient" th:text="#{menuAddPatient}"></a></li>
-        <li><a href="/deletedPatients">Deleted Patients</a></li>
-        <li><a href="#" th:text="#{myProfile}"></a></li>
-        <li><a href="/logout" th:text="#{menuLogout}"></a></li>
+        <ul>
+            <li th:switch="${currentRole}">
+                <a href="#" th:case="${currentRole.ADMIN}"
+                   th:text="#{ADMIN}+' '+${lastName}+' '+${firstName}">administrator</a>
+                <a href="#" th:case="${currentRole.DOCTOR}"
+                   th:text="#{DOCTOR}+' '+${lastName}+' '+${firstName}">doctor</a>
+                <a href="#" th:case="${currentRole.NURSE}" th:text="#{NURSE}+' '+${lastName}+' '+${firstName}">nurse</a>
+                <a href="#" th:case="*">Unknown role</a>
+            </li>
+            <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/patients" th:text="#{patients}"></a></li>
+            <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/addPatient" th:text="#{menuAddPatient}"></a>
+            </li>
+            <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/deletedPatients">Deleted Patients</a></li>
+            <li><a href="/logout" th:text="#{menuLogout}"></a></li>
         </ul>
     </nav>
 </header>
@@ -173,14 +155,16 @@
                 <td th:text="${patient.firstName}">first name</td>
                 <td th:text="${patient.lastName}">last name</td>
                 <td>
-                    <form name="Button" th:action="@{/patientDiagnosisCard/{id}(id=${patient.id})}" method="POST"
-                          style="display:inline">
-                        <input class="buttonFirstTable" type="submit" th:value="#{buttonOpenCard}"/>
+                    <form style="display:inline">
+                        <button class="button3" type="submit">
+                            <a class="link" href="yourlink.com"
+                               th:href="@{/patientDiagnosisCard/{id}(id=${patient.id})}"
+                               th:text="#{buttonOpenCard}">Link link</a></button>
                     </form>
-                    <form th:if="${currentRole.toString() eq 'DOCTOR'}" name="Button"
-                          th:action="@{/patients/{id}(id=${patient.id})}" method="GET"
-                          style="display:inline">
-                        <input class="buttonFirstTable" type="submit" th:value="#{buttonPatientProfile}"/>
+                    <form th:if="${currentRole.toString() eq 'DOCTOR'}" style="display:inline">
+                        <button class="button3" type="submit">
+                            <a class="link" href="yourlink.com" th:href="@{/patient/{id}(id=${patient.id})}"
+                               th:text="#{buttonPatientProfile}">Link link</a></button>
                     </form>
                 </td>
             </tr>
