@@ -37,6 +37,7 @@
     th.colHeadFirstTable {
         background: rgba(22, 105, 99, 0.73);
         color: black;
+        width: 25%;
     }
     header {
         width: 100%;
@@ -121,10 +122,10 @@
 </header>
 <h3 align="center" th:text="#{titlePatientsPage}"></h3>
 <div class="container-fluid">
-    <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
+    <table width="100%" id="example" class="table  table-bordered table-hover">
         <thead>
         <tr>
-            <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
+            <th class="colHeadFirstTable"  th:text="#{columnId}">Id</th>
             <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
             <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
             <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
