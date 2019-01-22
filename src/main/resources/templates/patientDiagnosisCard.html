@@ -46,13 +46,7 @@
         display: inline-block;
         background-color: #404040;
     }
-    .hamburger {
-        height: 20px;
-        width: 20px;
-        padding: 20px;
-        float: right;
-        cursor: pointer;
-    }
+
     nav {
         background-color: #2b2b2b;
         margin: 0;
@@ -88,9 +82,7 @@
         background-color: #191919;
     }
     @media (min-width: 700px) {
-        .hamburger {
-            display: none;
-        }
+
         nav {
             background: transparent;
             float: right;
@@ -103,6 +95,21 @@
         nav a {
             display: inline-block;
             padding: 15px 1em;
+        }
+        button.button3 {
+            background: -moz-linear-gradient(#1daaa4, #EBFFFF);
+            background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
+            padding: 3px 7px;
+            color: #333;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            border: 1px solid #666;
+        }
+        th.colHeadFirstTable {
+            background: rgba(22, 105, 99, 0.73);
+            color: black;
         }
     }
 </style>
@@ -126,22 +133,23 @@
     </div>
 </h3>
 <br>
-<button onclick="window.location.href='/patients'">Go list patients</button>
+<button class="button3" onclick="window.location.href='/patients'">Go list patients</button>
 <br><br>
 
 <fieldset>
-    <button id="closeDiagnosisButton">Close diagnosis button</button>
-    <button id="doPrescription" style="display:inline; float:right">Do prescription</button>
+    <button class="button3" id="closeDiagnosisButton">Close diagnosis button</button>
+    <button class="button3" id="doPrescription" style="display:inline; float:right">Do prescription</button>
     <br><br>
 
     <div>
         <table class="diagnosisList" id="diagnosis" style="display:inline; float:left" border="1">
             <caption  style=" font-family: Arial, Helvetica, sans-serif;">Диагноз сообщение:</caption>
             <tr>
-                <th>Id</th>
-                <th>Description</th>
-                <th>Time</th>
-                <th>isOpened</th>
+                <th class="colHeadFirstTable">Id</th>
+                <th class="colHeadFirstTable">Description</th>
+                <th class="colHeadFirstTable">Time</th>
+                <th class="colHeadFirstTable">isOpened</th>
+
             </tr>
         </table>
     </div>
@@ -149,12 +157,12 @@
     <div>
         <table class="prescriptionList" id="prescriptionsTable" style="display:inline; float:right" border="1">
             <caption style=" font-family: Arial, Helvetica, sans-serif;" >Назначение сообщение:</caption>
-            <tr>
-                <th>Id</th>
-                <th>Description</th>
-                <th>Type of prescription</th>
-                <th>Time</th>
-                <th>Done</th>
+            <tr class="word">
+                <th class="colHeadFirstTable">Id</th>
+                <th class="colHeadFirstTable">Description</th>
+                <th class="colHeadFirstTable">Type of prescription</th>
+                <th class="colHeadFirstTable">Time</th>
+                <th class="colHeadFirstTable">Done</th>
             </tr>
         </table>
     </div>
@@ -166,7 +174,7 @@
     <br>
     <caption>Описание диагноза:</caption>
     <p><textarea name="comment" id="diagnosisDescription"></textarea></p>
-    <button id="diagnosisSubmit" value="Добавить">Добавить</button>
+    <button class="button3" id="diagnosisSubmit" value="Добавить">Добавить</button>
 </fieldset>
 
 <fieldset id="addPrescriptionFieldSet" style="display:none;">
@@ -182,7 +190,7 @@
         </form>
         <caption>Описание назначения:</caption>
         <p><textarea id="prescriptionDescription" name="comment"></textarea></p>
-        <button id="prescriptionSubmit" value="Добавить">Добавить</button>
+        <button class="button3" id="prescriptionSubmit" value="Добавить">Добавить</button>
     </form>
 </fieldset>
 

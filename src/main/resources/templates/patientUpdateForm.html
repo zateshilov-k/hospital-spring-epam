@@ -23,6 +23,17 @@
 <body style="background-color:powderblue">
 
 <style>
+    input.buttonFirstTable {
+        background: -moz-linear-gradient(#1daaa4, #EBFFFF);
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
+        padding: 3px 7px;
+        color: #333;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        border: 1px solid #666;
+    }
 </style>
 
 <main class="login-form">
@@ -65,7 +76,7 @@
                             <button type="submit" class="btn btn-primary">
                                 Accept
                             </button>
-                            <input type="button" value="Cancel" onclick="history.back()">
+                            <input class="buttonFirstTable" type="button" value="Cancel" onclick="history.back()">
                         </div>
                     </form>
                 </div>
