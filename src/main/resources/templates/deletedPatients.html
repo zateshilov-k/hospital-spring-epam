@@ -53,6 +53,7 @@
         color: black;
         width: 30%;
     }
+
     th.FirstColumn {
         background: rgba(91, 6, 0, 0.76);
         color: black;
@@ -152,7 +153,7 @@
                 <a href="#" th:case="${currentRole.NURSE}" th:text="#{NURSE}+' '+${lastName}+' '+${firstName}">nurse</a>
                 <a href="#" th:case="*">Unknown role</a>
             </li>
-            <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/patients" th:text="#{patients}"></a></li>
+            <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/patients" th:text="#{menuPatients}"></a></li>
             <li><a href="/logout" th:text="#{menuLogout}"></a></li>
         </ul>
     </nav>

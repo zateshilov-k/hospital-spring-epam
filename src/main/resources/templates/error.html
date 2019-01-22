@@ -95,20 +95,17 @@
     }
 
 </style>
-<header>
-    <label></label>
-    <nav>
-        <ul>
-            <li><a href="/personals">Personals</a></li>
-            <li><a href="/addPatient">Add patient</a></li>
-            <li><a href="/testPageAleksei">Test main page</a></li>
-            <li><a href="#">My profile</a></li>
-            <li><a href="/logout">Logout</a></li>
-        </ul>
-    </nav>
-</header>
+
 <h3 align="center">Внезапная ошибка, кто бы мог подумать</h3>
 <p th:text="${errorMessage}">Здесь могла быть Ваша ошибка</p>
+
+<h4>Вернитесь назад</h4>
+
+<h1>
+<div class="col-md-6 offset-md-4">
+    <input type="button" value="Cancel" onclick="history.back()">
+</div>
+</h1>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

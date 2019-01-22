@@ -52,11 +52,16 @@ public class PatientController {
     @GetMapping(value = "/patients")
     public String getNotDeletedPatients(Model model, Authentication authentication) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
-        model.addAttribute("patients", patientService.getNotDeletedPatients());
-        model.addAttribute("currentRole", personalDetailsService.getPersonal().getRole());
-        model.addAttribute("firstName", personalDetailsService.getPersonal().getFirstName());
-        model.addAttribute("lastName", personalDetailsService.getPersonal().getLastName());
-        return "patients";
+        Role currentRole = personalDetailsService.getPersonal().getRole();
+        if (currentRole != Role.ADMIN) {
+            model.addAttribute("patients", patientService.getNotDeletedPatients());
+            model.addAttribute("currentRole", personalDetailsService.getPersonal().getRole());
+            model.addAttribute("firstName", personalDetailsService.getPersonal().getFirstName());
+            model.addAttribute("lastName", personalDetailsService.getPersonal().getLastName());
+            return "patients";
+        } else {
+            return "redirect:/error/errorMessage";
+        }
     }
 
     @GetMapping(value = "/deletedPatients")
@@ -75,15 +80,20 @@ public class PatientController {
     }
 
     @GetMapping(value = "/patientDiagnosisCard/{id}")
-    public String getPatient(@PathVariable("id") Long id, Model model, Authentication authentication,Locale locale) {
-        Patient currentPatient= patientService.getPatientById(id);
-        model.addAttribute("patient", currentPatient);
-        Gson gson = GsonFactory.buildGson(locale);
-        model.addAttribute("diagnoses",gson.toJson(currentPatient.getDiagnosisList()));
+    public String getPatient(@PathVariable("id") Long id, Model model, Authentication authentication, Locale locale) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
-        Role role = personalDetailsService.getPersonal().getRole();
-        model.addAttribute("role", role);
-        return "patientDiagnosisCard";
+        Role currentRole = personalDetailsService.getPersonal().getRole();
+
+        model.addAttribute("role", currentRole);
+        if (currentRole != Role.ADMIN) {
+            Patient currentPatient = patientService.getPatientById(id);
+            model.addAttribute("patient", currentPatient);
+            Gson gson = GsonFactory.buildGson(locale);
+            model.addAttribute("diagnoses", gson.toJson(currentPatient.getDiagnosisList()));
+            return "patientDiagnosisCard";
+        } else {
+            return "redirect:/error/errorMessage";
+        }
     }
 
     @GetMapping(value = "/addPatient")
