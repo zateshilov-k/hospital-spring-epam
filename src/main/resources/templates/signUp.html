@@ -14,58 +14,53 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
-    <!--<link rel="stylesheet" href="css/style.css">-->
 
-    <!--<link rel="icon" href="Favicon.png">-->
-
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
-    <title>Add personal</title>
+    <title>#{titleIndexPage}</title>
 </head>
 
-<body style="background-color:powderblue;overflow:hidden">
+<body style="background-color:powderblue">
 
 <main class="login-form">
-    <div class="cotainer">
+    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Page of sign up</div>
+                    <div class="card-header" th:text="#{titleAddPersonalPage}">Page of sign up</div>
                     <div class="card-body">
                         <form th:action="@{/signUp}" method="post">
 
                             <div class="form-group row">
-                                <label class="col-md-4 col-form-label text-md-right">User Name:</label>
+                                <label class="col-md-4 col-form-label text-md-right" th:text="#{loginField}">User
+                                    Name:</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="login" name="login" required/>
+                                    <input type="text" class="form-control" id="login" name="login"/>
                                 </div>
                             </div>
-
 
                             <div class="form-group row">
-                                <label class="col-md-4 col-form-label text-md-right">Password:</label>
+                                <label class="col-md-4 col-form-label text-md-right" th:text="#{passwordField}">Password:</label>
                                 <div class="col-md-6">
-                                    <input type="password" class="form-control" id="password" name="password" required/>
+                                    <input type="password" class="form-control" id="password" name="password"/>
                                 </div>
                             </div>
-
 
                             <div class="form-group row">
-                                <label class="col-md-4 col-form-label text-md-right">First name:</label>
+                                <label class="col-md-4 col-form-label text-md-right" th:text="#{firstNameField}">First
+                                    name:</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="firstname" name="firstName" required/>
+                                    <input type="text" class="form-control" id="firstname" name="firstName"/>
                                 </div>
                             </div>
-
 
                             <div class="form-group row">
-                                <label class="col-md-4 col-form-label text-md-right"> Last name:</label>
+                                <label class="col-md-4 col-form-label text-md-right" th:text="#{lastNameField}"> Last
+                                    name:</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="lastname:" name="lastName" required/>
+                                    <input type="text" class="form-control" id="lastname:" name="lastName"/>
                                 </div>
                             </div>
-
 
                             <div>
                                 <select name="role" id="role-id">
@@ -74,9 +69,9 @@
                                 </select>
                             </div>
                             <div class="col-md-6 offset-md-4">
-                                <div><input type="submit" value="Sign Up"/></div>
-
-                                <a href="/login" class="btn btn-link">Cancel</a>
+                                <button type="submit" class="btn btn-primary" th:text="#{buttonSave}">Save</button>
+                                <!--<a href="/login" th:text="#{buttonCancel}">Cancel</a>-->
+                                <input type="button" value="Cancel" onclick="history.back()">
                             </div>
                         </form>
                     </div>

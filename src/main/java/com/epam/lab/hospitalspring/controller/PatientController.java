@@ -65,6 +65,9 @@ public class PatientController {
         Role currentRole = personalDetailsService.getPersonal().getRole();
         model.addAttribute("patients", patientService.getDeletedPatients());
         if (currentRole == Role.DOCTOR) {
+            model.addAttribute("currentRole", personalDetailsService.getPersonal().getRole());
+            model.addAttribute("firstName", personalDetailsService.getPersonal().getFirstName());
+            model.addAttribute("lastName", personalDetailsService.getPersonal().getLastName());
             return "deletedPatients";
         } else {
             return "redirect:/error/errorMessage";
