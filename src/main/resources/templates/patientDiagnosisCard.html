@@ -21,6 +21,24 @@
 <body style="background-color:powderblue;">
 
 <style>
+    button.button3 {
+        background: -moz-linear-gradient(#1daaa4, #EBFFFF);
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
+        padding: 3px 7px;
+        color: #333;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        border: 1px solid #666;
+    }
+
+    th.colHeadFirstTable {
+        background: rgba(22, 105, 99, 0.73);
+        color: black;
+        width: 30%;
+    }
+
     table, tbody, thead {
         display: block;
     }
@@ -128,18 +146,18 @@
 <br><br>
 
 <fieldset>
-    <button id="closeDiagnosisButton" th:text="#{buttonCloseDiagnosis}">Close diagnosis button</button>
-    <button id="doPrescription" style="display:inline; float:right" th:text="#{buttonDoPerscription}" >Do prescription</button>
+    <button class="button3" id="closeDiagnosisButton" th:text="#{buttonCloseDiagnosis}">Close diagnosis button</button>
+    <button class="button3" id="doPrescription" style="display:inline; float:right" th:text="#{buttonDoPerscription}" >Do prescription</button>
     <br><br>
 
     <div>
         <table class="diagnosisList" id="diagnosis" style="display:inline; float:left" border="1">
             <caption  style="font-family: Arial, Helvetica, sans-serif;" th:text="#{diagnosises}" >Диагноз сообщение:</caption>
             <tr>
-                <th th:text="#{columnId}">Id</th>
-                <th th:text="#{columnDescription}">Description</th>
-                <th th:text="#{columnTime}">Time</th>
-                <th th:text="#{columnOpen}">isOpened</th>
+                <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
+                <th class="colHeadFirstTable" th:text="#{columnDescription}">Description</th>
+                <th class="colHeadFirstTable" th:text="#{columnTime}">Time</th>
+                <th class="colHeadFirstTable" th:text="#{columnOpen}">isOpened</th>
             </tr>
         </table>
     </div>
@@ -148,11 +166,11 @@
         <table class="prescriptionList" id="prescriptionsTable" style="display:inline; float:right" border="1">
             <caption style=" font-family: Arial, Helvetica, sans-serif;" th:text="#{perscriptions}" >Назначение сообщение:</caption>
             <tr>
-                <th th:text="#{columnId}">Id</th>
-                <th th:text="#{columnDescription}">Description</th>
-                <th th:text="#{columnTypeOfPerscription}">Type of prescription</th>
-                <th th:text="#{columnTime}">Time</th>
-                <th th:text="#{columnDone}">Done</th>
+                <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
+                <th class="colHeadFirstTable" th:text="#{columnDescription}">Description</th>
+                <th class="colHeadFirstTable" th:text="#{columnTypeOfPerscription}">Type of prescription</th>
+                <th class="colHeadFirstTable" th:text="#{columnTime}">Time</th>
+                <th class="colHeadFirstTable" th:text="#{columnDone}">Done</th>
             </tr>
         </table>
     </div>

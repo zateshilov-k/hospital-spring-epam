@@ -62,17 +62,23 @@
                                 </div>
                             </div>
 
-                            <div>
-                                <select name="role" id="role-id">
-                                    <option value="DOCTOR">Doctor</option>
-                                    <option value="NURSE">Nurse</option>
-                                </select>
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-md-right"
+                                       th:text="#{chooseRoleField}">Choose
+                                     role</label>
+                                <div class="col-md-6">
+                                    <!--<br>-->
+                                    <select name="role" id="role-id">
+                                        <option value="DOCTOR">Doctor</option>
+                                        <option value="NURSE">Nurse</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary" th:text="#{buttonSave}">Save</button>
-                                <!--<a href="/login" th:text="#{buttonCancel}">Cancel</a>-->
-                                <input type="button" value="Cancel" onclick="history.back()">
-                            </div>
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary" th:text="#{buttonSave}">Save</button>
+                                    <input type="button" value="Cancel" onclick="history.back()">
+                                </div>
+
                         </form>
                     </div>
                 </div>
