@@ -1,3 +1,6 @@
+
+ <--patientDiagnosisCard-->
+
  button.button3 {
         background: -moz-linear-gradient(#1daaa4, #EBFFFF);
         background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
@@ -56,19 +59,6 @@
 
     }
 
-    .hamburger {
-
-        height: 20px;
-
-        width: 20px;
-
-        padding: 20px;
-
-        float: right;
-
-        cursor: pointer;
-
-    }
 
     nav {
 
@@ -173,3 +163,12 @@
         }
 
     }
+
+
+<--personals-->
+        a:hover {
+            text-decoration: none;
+        }
+        a.link {
+            color: #000000;
+        }
