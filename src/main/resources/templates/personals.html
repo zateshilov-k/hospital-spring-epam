@@ -42,12 +42,12 @@
     <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
         <thead>
         <tr>
-            <th class="FirstColumn" th:text="#{columnId}">Id</th>
+            <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
             <th class="colHeadFirstTable" th:text="#{columnLogin}">Id</th>
             <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
             <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
             <th class="colHeadFirstTable" th:text="#{columnRole}">Role</th>
-            <th class="FirstColumn" th:text="#{columnActive}">Active</th>
+            <th class="colHeadFirstTable" th:text="#{columnActive}">Active</th>
             <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
         </tr>
         </thead>
@@ -68,7 +68,6 @@
                 </td>
                 <td th:text="${personal.deleted}">Неожиданно удален</td>
                 <td>
-
                     <form style="display:inline">
                         <button class="button3" type="submit">
                             <a class="link" href="yourlink.com"
