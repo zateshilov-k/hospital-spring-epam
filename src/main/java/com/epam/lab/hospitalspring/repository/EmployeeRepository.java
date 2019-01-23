@@ -11,5 +11,4 @@ import java.util.List;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Personal, Long>, PagingAndSortingRepository<Personal, Long> {
-//    Page<Personal> findAllByOrOrderByIdAsc(Pageable pageable);
 }
