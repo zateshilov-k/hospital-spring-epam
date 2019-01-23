@@ -16,8 +16,6 @@ import java.util.regex.Pattern;
 
 @Service
 public class PersonalServiceImpl implements PersonalService {
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     @Autowired
     private PersonalRepository personalRepository;
     @Autowired
@@ -28,13 +26,11 @@ public class PersonalServiceImpl implements PersonalService {
         boolean result = false;
         String login = personalForm.getLogin();
 
-        if (personalRepository.findOneByLogin(login).isPresent() && !personalRepository.findPersonalById(id).getLogin().equals(login)) {
+        if (personalRepository.findOneByLogin(login).isPresent() &&
+                !personalRepository.findPersonalById(id).getLogin().equals(login)) {
             return false;
         }
 
-        if (!VALID_EMAIL_ADDRESS_REGEX.matcher(personalForm.getLogin()).find()) {
-            return false;
-        }
         Optional<Personal> oPersonal = personalRepository.findById(id);
         if (oPersonal.isPresent()) {
             Personal personal = oPersonal.get();

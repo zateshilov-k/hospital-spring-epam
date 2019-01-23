@@ -30,7 +30,14 @@
                     <div class="card">
                         <div class="card-header" th:text="#{titleAddPersonalPage}">Add personal</div>
                         <div class="card-body">
-                            <form th:action="@{/updatePersonal/{id}(id=${personal.id})}" method="post">
+                            <form th:action="@{/personal/{id}(id=${personal.id})}" th:object="${personal}" method="post">
+
+                                <div id="errors" th:if="${(param.loginAleadyUsed != null)}">
+                                    <div class="alert alert-danger" role="alert">
+                                        <strong th:text="#{signUpErrorLoginAlreadyUsed}"></strong>
+                                    </div>
+                                </div>
+
                                 <div class="form-group row">
                                     <label for="field5"
                                            class="col-md-4 col-form-label text-md-right"
@@ -39,7 +46,8 @@
                                         login</label>
                                     <div class="col-md-6">
                                         <input type="text" id="field5" class="form-control" name="login"
-                                               autofocus th:value="${personal.login}">
+                                               autofocus th:value="${personal.login}" th:field="*{login}">
+                                        <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -49,7 +57,8 @@
                                         your pass</label>
                                     <div class="col-md-6">
                                         <input type="password" id="password" class="form-control"
-                                               name="password">
+                                               name="password" th:field="*{password}">
+                                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -59,7 +68,8 @@
                                         your name</label>
                                     <div class="col-md-6">
                                         <input type="text" id="field1" class="form-control" name="firstName"
-                                               autofocus th:value="${personal.firstName}">
+                                               autofocus th:value="${personal.firstName}" th:field="*{firstName}">
+                                        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -69,7 +79,8 @@
                                         your last name</label>
                                     <div class="col-md-6">
                                         <input type="text" id="field2" class="form-control" name="lastName"
-                                               autofocus th:value="${personal.lastName}">
+                                               autofocus th:value="${personal.lastName}" th:field="*{lastName}">
+                                        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
                                     </div>
                                 </div>
 

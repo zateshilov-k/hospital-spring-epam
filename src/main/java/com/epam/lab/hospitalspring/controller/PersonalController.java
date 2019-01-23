@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -32,32 +34,30 @@ public class PersonalController {
     }
 
     @GetMapping("/personal/{id}")
-    public String showPersonalPage(@PathVariable("id") Long id, Model model) {
+    public String showPersonalPage(Personal personal, @PathVariable("id") Long id, Model model) {
         model.addAttribute("personal", personalService.getById(id));
         return "/personal";
     }
 
+
     @GetMapping("/addPersonal")
-    public String showSignUpPage(PersonalForm personalForm) {
+    public String showSignUpPage(Personal personal) {
         return "signUp";
     }
 
 
-    @GetMapping("/updatePersonal/{id}")
-    public String getUpdatePersonal(Personal personal) {
-        return "personal";
-    }
-
-    @PostMapping("/updatePersonal/{id}")
-    public String updatePersonal(@PathVariable("id") Long id, PersonalForm personalForm) {
-        String goNextPage = null;
-        if (personalService.update(personalForm, id)) {
-            goNextPage = "redirect:/personals";
-        } else {
-            System.out.println("НЕ успешное обновление ");
+    @PostMapping("/personal/{id}")
+    public String updatePersonal(@Valid Personal personal, BindingResult bindingResult,
+                                 @PathVariable("id") Long id, PersonalForm personalForm) {
+        if (bindingResult.hasErrors()) {
+            return "/personal";
         }
-        return "redirect:/personals";
 
+        if (personalService.update(personalForm, id)) {
+            return "redirect:/personals";
+        } else {
+            return "redirect:/personal/"+id+"?loginAleadyUsed";
+        }
     }
 
     @GetMapping("/deletePersonalFromDB/{id}")
