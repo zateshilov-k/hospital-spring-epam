@@ -34,6 +34,7 @@
     }
 
     table {
+        table-layout: fixed;
         width: 100%; /* Ширина таблицы */
     }
 
@@ -47,6 +48,10 @@
         background: rgba(22, 105, 99, 0.73);
         color: black;
         width: 5%;
+    }
+
+    td {
+        word-wrap: break-word;
     }
 
     header {
@@ -141,6 +146,7 @@
     </nav>
 </header>
 <h3 align="center" th:text="#{titlePersonalsPage}"></h3>
+<input class="form-control" id="myInput" type="text" placeholder="Search..">
 <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
     <thead>
     <tr>
@@ -154,7 +160,7 @@
     </tr>
     </thead>
 
-    <tbody>
+    <tbody id="myTable">
     <div th:if="${totalElements}!=null">
         <tr th:each="personal : ${page.content}">
             <td th:text="${personal.id}">id</td>
@@ -203,5 +209,16 @@
         <a th:href="@{/employees(page=${page.number+1},size=${page.size})}">Next</a>
     </span>
 </div>
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
 </body>
 </html>
