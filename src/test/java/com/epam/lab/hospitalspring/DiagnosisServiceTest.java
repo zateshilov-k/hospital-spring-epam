@@ -8,7 +8,6 @@ import com.epam.lab.hospitalspring.repository.PatientRepository;
 import com.epam.lab.hospitalspring.repository.PersonalRepository;
 import com.epam.lab.hospitalspring.service.DiagnosisService;
 import com.epam.lab.hospitalspring.service.impl.DiagnosisServiceImpl;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -31,41 +30,39 @@ public class DiagnosisServiceTest {
     @MockBean
     private PatientRepository patientRepository;
 
-    @Before
-    public void setUp() {
-        Optional<Diagnosis> emptyDiagnosis = Optional.empty();
-        Diagnosis closedDiagnosis = new Diagnosis();
-        closedDiagnosis.setOpened(false);
-        Mockito.when(diagnosisRepository.findById(1l)).thenReturn(emptyDiagnosis);
-        Mockito.when(diagnosisRepository.findById(2l)).thenReturn(Optional.of(closedDiagnosis));
-
-        Mockito.when(patientRepository.findById(2l)).thenReturn(Optional.empty());
-        Personal personal = new Personal();
-        Mockito.when(personalRepository.findById(2l)).thenReturn(Optional.of(personal));
-
-        Mockito.when(personalRepository.findById(1l)).thenReturn(Optional.empty());
-        Patient patient = new Patient();
-        Mockito.when(patientRepository.findById(1l)).thenReturn(Optional.of(patient));
-
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void closeDiagnosisThatNotInDB() {
-        diagnosisService.closeDiagnosis(1l);
+        long emptyDiagnosisId = 1l;
+        Mockito.when(diagnosisRepository.findById(emptyDiagnosisId)).thenReturn(Optional.empty());
+
+        diagnosisService.closeDiagnosis(emptyDiagnosisId);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void closeDiagnosisThatAlreadyClosed() {
-        diagnosisService.closeDiagnosis(2l);
+        long closedDiagnosisId = 2l;
+        Diagnosis closedDiagnosis = new Diagnosis();
+        closedDiagnosis.setOpened(false);
+        Mockito.when(diagnosisRepository.findById(closedDiagnosisId)).thenReturn(Optional.of(closedDiagnosis));
+
+        diagnosisService.closeDiagnosis(closedDiagnosisId);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void addDiagnosisToPatientThatNotInDB() {
+        Mockito.when(patientRepository.findById(2l)).thenReturn(Optional.empty());
+        Personal personal = new Personal();
+        Mockito.when(personalRepository.findById(2l)).thenReturn(Optional.of(personal));
+
         diagnosisService.addDiagnosis(2l, 2l, "Decsription");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void addDiagnosisToPersonalThatNotInDB() {
+        Mockito.when(personalRepository.findById(1l)).thenReturn(Optional.empty());
+        Patient patient = new Patient();
+        Mockito.when(patientRepository.findById(1l)).thenReturn(Optional.of(patient));
+
         diagnosisService.addDiagnosis(1l, 1l, "Decsription");
     }
 
