@@ -91,7 +91,7 @@
                                         your role</label>
                                     <div class="col-md-6">
                                         <!--<br>-->
-                                        <select id="currentRole" name="role" value="t" th:value="${personal.role}">
+                                        <select id="currentRole" name="role" value="t">
                                             <option value="DOCTOR" th:text="#{DOCTOR}">doctor</option>
                                             <option value="NURSE" th:text="#{NURSE}">nurse</option>
                                             <option value="ADMIN" th:text="#{ADMIN}">admin</option>
@@ -124,5 +124,10 @@
 
     </main>
 </div>
+<script>
+    var role = '[[${personal.role}]]';
+    var currentRoleSelect = document.getElementById("currentRole");
+    currentRoleSelect.value = role;
+</script>
 </body>
 </html>

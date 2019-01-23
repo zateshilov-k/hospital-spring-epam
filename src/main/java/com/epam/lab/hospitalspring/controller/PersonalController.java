@@ -33,18 +33,16 @@ public class PersonalController {
         return "personals";
     }
 
-    @GetMapping("/personal/{id}")
-    public String showPersonalPage(Personal personal, @PathVariable("id") Long id, Model model) {
-        model.addAttribute("personal", personalService.getById(id));
-        return "/personal";
-    }
-
-
     @GetMapping("/addPersonal")
     public String showSignUpPage(Personal personal) {
         return "signUp";
     }
 
+    @GetMapping("/personal/{id}")
+    public String showPersonalPage(Personal personal, @PathVariable("id") Long id, Model model) {
+        model.addAttribute("personal", personalService.getById(id));
+        return "/personal";
+    }
 
     @PostMapping("/personal/{id}")
     public String updatePersonal(@Valid Personal personal, BindingResult bindingResult,
