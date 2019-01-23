@@ -9,12 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.regex.Pattern;
-
 @Service
 public class SignUpServiceImpl implements SignUpService {
     public static class LoginAlreadyUsed extends RuntimeException {
     }
+
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -24,7 +23,7 @@ public class SignUpServiceImpl implements SignUpService {
     @Override
     public void signUp(PersonalForm personalForm) throws LoginAlreadyUsed {
         String login = personalForm.getLogin();
-        if(personalRepository.findOneByLogin(login).isPresent()) {
+        if (personalRepository.findOneByLogin(login).isPresent()) {
             throw new LoginAlreadyUsed();
         }
         String passwordHash = passwordEncoder.encode(personalForm.getPassword());

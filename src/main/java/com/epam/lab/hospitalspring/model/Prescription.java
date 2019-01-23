@@ -15,23 +15,26 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table(name = "prescription")
 public class Prescription {
-
     @Expose
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Expose
     private String description;
+
     @Expose(serialize = false)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "diagnosis_id", nullable = false)
     private Diagnosis diagnosis;
+
     @Expose
     private Boolean done;
+
     @Expose
     private LocalDateTime time;
+
     @Expose
     @Enumerated(EnumType.STRING)
     private PrescriptionType type;
-
 }

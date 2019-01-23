@@ -1,10 +1,6 @@
 package com.epam.lab.hospitalspring.controller;
 
-import com.epam.lab.hospitalspring.form.PatientForm;
 import com.epam.lab.hospitalspring.model.Patient;
-import com.epam.lab.hospitalspring.model.enums.Role;
-import com.epam.lab.hospitalspring.model.Prescription;
-import com.epam.lab.hospitalspring.model.enums.PrescriptionType;
 import com.epam.lab.hospitalspring.model.enums.Role;
 import com.epam.lab.hospitalspring.repository.DiagnosisRepository;
 import com.epam.lab.hospitalspring.repository.PatientRepository;
@@ -13,23 +9,19 @@ import com.epam.lab.hospitalspring.security.details.PersonalDetailsImpl;
 import com.epam.lab.hospitalspring.service.DiagnosisService;
 import com.epam.lab.hospitalspring.service.PatientService;
 import com.epam.lab.hospitalspring.service.PrescriptionService;
-import com.epam.lab.hospitalspring.transfer.PersonalDto;
 import com.epam.lab.hospitalspring.util.GsonFactory;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.Authentication;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -50,9 +42,8 @@ public class PatientController {
 
     LocalDateTime today = LocalDateTime.now();
 
-
     @GetMapping(value = "/patients")
-    public String getNotDeletedPatients(Model model, Authentication authentication) {
+    public String getPatients(Model model, Authentication authentication) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role currentRole = personalDetailsService.getPersonal().getRole();
         if (currentRole != Role.ADMIN) {
@@ -82,7 +73,8 @@ public class PatientController {
     }
 
     @GetMapping(value = "/patientDiagnosisCard/{id}")
-    public String getPatient(@PathVariable("id") Long id, Model model, Authentication authentication, Locale locale) {
+    public String getPatientDiagnosisCard(@PathVariable("id") Long id,
+                                          Model model, Authentication authentication, Locale locale) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role currentRole = personalDetailsService.getPersonal().getRole();
 
@@ -105,7 +97,7 @@ public class PatientController {
 
     @PostMapping(value = "/addPatient")
     public String addPatient(@Valid Patient patient, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return "patient";
         }
         patientService.addPatient(patient);
@@ -125,14 +117,14 @@ public class PatientController {
     }
 
     @GetMapping(value = "/patients/updatePatient/{id}")
-    public String getPatientProfile(Patient patient) {
+    public String getPatientProfileForUpdate(Patient patient) {
         return "patientUpdateForm";
     }
 
 
     @PostMapping(value = "/patients/updatePatient/{id}")
     public String updatePatientProfile(@Valid Patient patient, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "patientUpdateForm";
         }
         patientService.updatePatient(patient);

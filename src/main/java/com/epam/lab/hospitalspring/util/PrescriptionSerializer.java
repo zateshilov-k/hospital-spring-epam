@@ -16,7 +16,8 @@ public class PrescriptionSerializer implements JsonSerializer<Prescription> {
     }
     String bundleName = "messages";
     @Override
-    public JsonElement serialize(Prescription prescription, Type type, JsonSerializationContext jsonSerializationContext) {
+    public JsonElement serialize(Prescription prescription, Type type,
+                                 JsonSerializationContext jsonSerializationContext) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.add("id",new JsonPrimitive(prescription.getId()));
         jsonObject.add("description",new JsonPrimitive(prescription.getDescription()));

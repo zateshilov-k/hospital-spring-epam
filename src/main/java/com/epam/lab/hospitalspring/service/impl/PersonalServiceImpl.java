@@ -5,14 +5,12 @@ import com.epam.lab.hospitalspring.model.Personal;
 import com.epam.lab.hospitalspring.model.enums.Role;
 import com.epam.lab.hospitalspring.repository.PersonalRepository;
 import com.epam.lab.hospitalspring.service.PersonalService;
-import com.epam.lab.hospitalspring.service.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 @Service
 public class PersonalServiceImpl implements PersonalService {

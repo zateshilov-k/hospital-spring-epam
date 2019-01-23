@@ -1,6 +1,5 @@
 package com.epam.lab.hospitalspring.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -28,14 +26,18 @@ public class Patient {
     @Expose
     @Column(name = "first_name")
     private String firstName;
+
     @NotBlank(message = "{lastName.not.blank}")
     @Expose
     @Column(name = "last_name")
     private String lastName;
+
     @Expose
     private Boolean discharged;
+
     @Expose
     private Boolean deleted = false;
+
     @Expose(serialize = false)
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     List<Diagnosis> diagnosisList;

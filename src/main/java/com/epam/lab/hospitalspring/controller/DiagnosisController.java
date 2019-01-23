@@ -4,7 +4,6 @@ import com.epam.lab.hospitalspring.model.Personal;
 import com.epam.lab.hospitalspring.security.details.PersonalDetailsImpl;
 import com.epam.lab.hospitalspring.service.DiagnosisService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +24,7 @@ public class DiagnosisController {
 
     @ResponseBody
     @PostMapping("/patientDiagnosisCard/{patientId}/closeDiagnosis/{diagnosisId}")
-    void closeDiagnosis(@PathVariable("diagnosisId") long diagnosisId){
+    void closeDiagnosis(@PathVariable("diagnosisId") long diagnosisId) {
         diagnosisService.closeDiagnosis(diagnosisId);
     }
 
@@ -38,6 +37,6 @@ public class DiagnosisController {
         Personal personal = personalDetailsService.getPersonal();
         Long personalId = personal.getId();
 
-        diagnosisService.addDiagnosis(patientId,personalId,description);
+        diagnosisService.addDiagnosis(patientId, personalId, description);
     }
 }

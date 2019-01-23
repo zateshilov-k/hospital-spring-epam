@@ -76,8 +76,8 @@ public class DiagnosisServiceImpl implements DiagnosisService {
         Optional<Patient> patient = patientRepository.findById(patientId);
         personal.orElseThrow(IllegalArgumentException::new);
         patient.orElseThrow(IllegalArgumentException::new);
-        Diagnosis diagnosis = new Diagnosis(null, description, personal.get(), patient.get(),
-                true, LocalDateTime.now(), null);
+        Diagnosis diagnosis = new Diagnosis(null,null,description,personal.get(),patient.get(),
+                true,LocalDateTime.now());
         diagnosisRepository.saveAndFlush(diagnosis);
     }
 }
