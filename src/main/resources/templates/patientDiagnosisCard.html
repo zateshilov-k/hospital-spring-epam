@@ -3,126 +3,13 @@
 
 <html lang="en">
 <head>
-    <!--<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"-->
-    <!--id="bootstrap-css">-->
-    <!--<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>-->
-    <!--&lt;!&ndash;&#45;&#45;&#45;&#45; Include the above in your HEAD tag &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-    <!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">-->
-    <!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>-->
-
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>-->
-    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>-->
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="/css/main.css">
     <title>Patient Page</title>
 </head>
 <body style="background-color:powderblue;">
 
 <style>
-    button.button3 {
-        background: -moz-linear-gradient(#1daaa4, #EBFFFF);
-        background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
-        padding: 3px 7px;
-        color: #333;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border-radius: 5px;
-        border: 1px solid #666;
-    }
-
-    th.colHeadFirstTable {
-        background: rgba(22, 105, 99, 0.73);
-        color: black;
-        width: 30%;
-    }
-
-    table, tbody, thead {
-        display: block;
-    }
-    tbody {
-        height: 280px;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-    table, th, td {
-        padding: 11px;
-        border: 3px solid rgb(230, 230, 230);
-        border-collapse: collapse;
-    }
-    d {
-        padding: 5px;
-        text-align: left;
-    }
-    tr:hover {
-        background-color: rgb(255, 255, 255);
-    }
-    header {
-        width: 100%;
-        display: inline-block;
-        background-color: #404040;
-    }
-    .hamburger {
-        height: 20px;
-        width: 20px;
-        padding: 20px;
-        float: right;
-        cursor: pointer;
-    }
-    nav {
-        background-color: #2b2b2b;
-        margin: 0;
-        max-height: 0;
-        overflow: hidden;
-        clear: both;
-        transition: max-height .3s cubic-bezier(0.63, 0, 0.25, 1);;
-    }
-    nav ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: block;
-    }
-    nav li {
-        display: block;
-        margin: 0;
-        text-align: center;
-    }
-    nav a {
-        color: white;
-        display: block;
-        padding: .4em;
-    }
-    header input[type="checkbox"]:checked ~ nav {
-        max-height: 150px;
-        border-bottom: #404040 5px solid;
-    }
-    header a:hover,
-    header a:focus,
-    header label:hover,
-    header label:focus {
-        background-color: #191919;
-    }
-    @media (min-width: 700px) {
-        .hamburger {
-            display: none;
-        }
-        nav {
-            background: transparent;
-            float: right;
-            border: 0 !important;
-            max-height: none;
-        }
-        nav ul, nav li, nav li a {
-            display: inline-block;
-        }
-        nav a {
-            display: inline-block;
-            padding: 15px 1em;
-        }
-    }
 </style>
 
 <header>
@@ -182,7 +69,7 @@
     <br>
     <caption th:text="#{diagnosisDescription}">Описание диагноза:</caption>
     <p><textarea name="comment" id="diagnosisDescription"></textarea></p>
-    <button id="diagnosisSubmit" value="Добавить" th:text="#{addDiagnosis}">Добавить</button>
+    <button class="button3" id="diagnosisSubmit" value="Добавить" th:text="#{addDiagnosis}">Добавить</button>
 </fieldset>
 
 <fieldset id="addPrescriptionFieldSet" style="display:none;">
@@ -198,7 +85,7 @@
         </form>
         <caption th:text="#{perscriptionDescription}">Описание назначения:</caption>
         <p><textarea id="prescriptionDescription" name="comment"></textarea></p>
-        <button id="prescriptionSubmit" value="Добавить" th:text="#{addPerscription}">Добавить</button>
+        <button class="button3" id="prescriptionSubmit" value="Добавить" th:text="#{addPerscription}">Добавить</button>
     </form>
 </fieldset>
 
