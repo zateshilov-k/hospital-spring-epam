@@ -10,7 +10,7 @@ public interface DiagnosisService {
 
     Diagnosis addDiagnosis(Diagnosis diagnosis);
 
-    void update(Diagnosis diagnosis); // for update and mark as deleted
+    void update(Diagnosis diagnosis);
 
     Diagnosis getById(Long id);
 
