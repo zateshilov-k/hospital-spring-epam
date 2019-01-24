@@ -2,9 +2,6 @@ package com.epam.lab.hospitalspring.controller;
 
 import com.epam.lab.hospitalspring.model.Patient;
 import com.epam.lab.hospitalspring.model.enums.Role;
-import com.epam.lab.hospitalspring.repository.DiagnosisRepository;
-import com.epam.lab.hospitalspring.repository.PatientRepository;
-import com.epam.lab.hospitalspring.repository.PrescriptionRepository;
 import com.epam.lab.hospitalspring.security.details.PersonalDetailsImpl;
 import com.epam.lab.hospitalspring.service.DiagnosisService;
 import com.epam.lab.hospitalspring.service.PatientService;
@@ -33,12 +30,6 @@ public class PatientController {
     DiagnosisService diagnosisService;
     @Autowired
     PrescriptionService prescriptionService;
-    @Autowired
-    PatientRepository patientRepository;
-    @Autowired
-    DiagnosisRepository diagnosisRepository;
-    @Autowired
-    PrescriptionRepository prescriptionRepository;
 
     LocalDateTime today = LocalDateTime.now();
 
