@@ -42,7 +42,7 @@
     <table width="100%" id="example" class="table  table-bordered table-hover">
         <thead>
         <tr>
-            <th class="FirstColumn"  th:text="#{columnId}">Id</th>
+            <th class="colHeadFirstTable"  th:text="#{columnId}">Id</th>
             <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
             <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
             <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
@@ -57,8 +57,8 @@
                 <td th:text="${patient.lastName}">last name</td>
                 <td>
                     <form style="display:inline">
-                        <button class="button3" type="button">
-                            <a class="link" href="yourlink.com"
+                        <button id="cardofpatients" class="button3" type="button">
+                            <a  class="link" href="yourlink.com"
                                th:href="@{/patientDiagnosisCard/{id}(id=${patient.id})}"
                                th:text="#{buttonOpenCard}">Link link</a></button>
                     </form>
