@@ -35,9 +35,13 @@
     }
 
     table {
+        table-layout: fixed;
         width: 100%; /* Ширина таблицы */
     }
 
+    td {
+        word-wrap: break-word;
+    }
     td.col {
         background: rgba(125, 6, 0, 0.51);
         color: black;
@@ -161,14 +165,14 @@
 
 <div class="container-fluid">
 
-    <h3 align="center">Список удаленных пациентов</h3>
+    <h3 align="center" th:text="#{titleDeletedPatients}">Список удаленных пациентов</h3>
     <table id="example" class="table table-bordered table-hover col1" cellspacing="0" width="100%">
         <thead>
         <tr>
-            <th class="FirstColumn">Id</th>
-            <th class="colHeadFirstTable">FirstName</th>
-            <th class="colHeadFirstTable">LastName</th>
-            <th class="colHeadFirstTable">Action</th>
+            <th class="FirstColumn"  th:text="#{columnId}">Id</th>
+            <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
+            <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
+            <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
         </tr>
         </thead>
 
