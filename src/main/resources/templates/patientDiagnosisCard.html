@@ -38,7 +38,7 @@
     <br><br>
 
     <div>
-        <table class="diagnosisList" id="diagnosis" style="display:inline; float:left" border="1">
+        <table bgcolor="white" class="diagnosisList" id="diagnosis" style="display:inline; float:left" border="1">
             <caption  style="font-family: Arial, Helvetica, sans-serif;" th:text="#{diagnosises}" >Диагноз сообщение:</caption>
             <tr>
                 <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
@@ -50,7 +50,7 @@
     </div>
 
     <div>
-        <table class="prescriptionList" id="prescriptionsTable" style="display:inline; float:right" border="1">
+        <table bgcolor="white" class="prescriptionList" id="prescriptionsTable" style="display:inline; float:right" border="1">
             <caption style=" font-family: Arial, Helvetica, sans-serif;" th:text="#{perscriptions}" >Назначение сообщение:</caption>
             <tr>
                 <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
@@ -62,7 +62,6 @@
         </table>
     </div>
 </fieldset>
-
 <br>
 <fieldset style="float:left" id="diagnosisFieldSet">
     <legend th:text="#{addDiagnosis}">Добавить диагноз</legend>
@@ -71,7 +70,6 @@
     <p><textarea name="comment" id="diagnosisDescription"></textarea></p>
     <button class="button3" id="diagnosisSubmit" value="Добавить" th:text="#{addDiagnosis}">Добавить</button>
 </fieldset>
-
 <fieldset id="addPrescriptionFieldSet" style="display:none;">
     <legend th:text="#{addPerscription}">Добавить назначение</legend>
     <form>
@@ -206,10 +204,12 @@
         }
     }
     function setSpecialStyle(row) {
-        row.style.color = "red";
+        //row.style.color = "red";
+        row.style.backgroundColor = "whitesmoke";
     }
     function setDefaultStyle(row) {
-        row.style.color = "black";
+        row.style.backgroundColor = "white";
+        //row.style.color = "black";
     }
     function diagnosisClick() {
         var prescriptionTable = document.getElementById("prescriptionsTable");
