@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 /**
  * Test service for pagination (/employees page)
  */
@@ -27,9 +29,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Page<Personal> finder(String firstName, String lastName, String login, Pageable pageable) {
-        return employeeRepository.findPersonalByFirstNameAfterOrLastNameOrLogin(firstName, lastName, login, pageable);
+    public Page<Personal> newFinder(String searchString, Pageable pageable) {
+//        return employeeRepository.findPersonalByFirstNameContainsOrLastNameContainsOrLoginContains(searchString, pageable);
+//        return employeeRepository.findPersonalByFirstNameContains(searchString, pageable); // работает поиск по имени
+//        return employeeRepository.findPersonalByFirstNameContainsOrLastNameContains(searchString, pageable); // не работает поиск
+//        return employeeRepository.findPersonalByFirstNameIsContainingOrLastNameIsContaining(searchString, pageable); // не работает поиск
+//        return employeeRepository.findPersonalByFirstNameIsContainingOrLastNameIsContaining(searchString,searchString, pageable);
+//        return employeeRepository.findByParameter(searchString, pageable);
+        return employeeRepository.findAllPersonalsWithPagination(searchString, pageable);
     }
-
-
 }

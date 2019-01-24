@@ -8,5 +8,6 @@ public interface EmployeeService {
 
     Page<Personal> getAll(Pageable pageable);
 
-    Page<Personal> finder(String firstName, String lastName, String login, Pageable pageable);
+    Page<Personal> newFinder(String searchString, Pageable pageable);
+
 }

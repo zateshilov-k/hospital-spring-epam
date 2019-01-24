@@ -41,7 +41,7 @@ public class EmployeeController {
     @PostMapping("/employees")
     public String search(Model model, Authentication authentication, String search, @PageableDefault(size = 2) Pageable pageable){
 
-        Page<Personal> page = employeeService.finder(search, search, search, pageable);
+        Page<Personal> page = employeeService.newFinder(search, pageable);
         Long totalElements = page.getTotalElements();
         model.addAttribute("page", page);
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
