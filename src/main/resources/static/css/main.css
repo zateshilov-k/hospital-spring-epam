@@ -115,6 +115,7 @@
         display: block;
 
         padding: .4em;
+        text-decoration: none;
 
     }
 
@@ -133,9 +134,7 @@
     header label:hover,
 
     header label:focus {
-
         background-color: #191919;
-
     }
 
     @media (min-width: 700px) {
