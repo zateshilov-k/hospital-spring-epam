@@ -10,17 +10,12 @@
 <body style="background-color:powderblue;">
 
 <style>
+    table{
+        width: 50%;
+    }
     body  {
         margin: 0px auto;
     }
-
-    /*a:hover {*/
-        /*text-decoration: none;*/
-    /*}*/
-    /*a.link {*/
-        /*color: #000000;*/
-    /*}*/
-
 </style>
 
 <header>
@@ -184,7 +179,13 @@
                 if (j === 0) {
                     newCell.innerHTML = diagnosis[i]['id'];
                 } else if (j === 1) {
-                    newCell.innerHTML = diagnosis[i]['description'];
+                    //newCell.innerHTML = diagnosis[i]['description'];
+                    for (var k = 0; k < diagnosis[i]['description'].length; ++k) {
+                        newCell.innerHTML += diagnosis[i]['description'][k];
+                        if (k % 10 == 0) {
+                            newCell.innerHTML += '<wbr>';
+                        }
+                    }
                 } else if (j === 2) {
                     newCell.innerHTML = diagnosis[i]['time'];
                 } else if (j === 3) {
@@ -259,7 +260,13 @@
                     if (j === 0) {
                         newCell.innerHTML = prescriptions[i]['id'];
                     } else if (j === 1) {
-                        newCell.innerHTML = prescriptions[i]['description'];
+                        //newCell.innerHTML = prescriptions[i]['description'];
+                        for (var k = 0; k < prescriptions[i]['description'].length; ++k) {
+                            newCell.innerHTML += prescriptions[i]['description'][k];
+                            if (k % 10 == 0) {
+                                newCell.innerHTML += '<wbr>';
+                            }
+                        }
                     } else if (j === 2) {
                         newCell.innerHTML = prescriptions[i]['type'];
                     } else if (j === 3) {
