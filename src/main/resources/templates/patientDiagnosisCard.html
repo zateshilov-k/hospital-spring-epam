@@ -108,6 +108,9 @@
     var diagnosisTable = document.getElementById("diagnosis");
     var diagnosis = toJson('[[${diagnoses}]]');
     var userRole = '[[${role}]]';
+    var enterPrescriptionMessage = '[[#{enterPrescriptionMessage}]]';
+    var enterDiagnosisMessage = '[[#{enterDiagnosisMessage}]]';
+    var closeDiagnosisMessage = '[[#{closeDiagnosisMessage}]]';
     if (diagnosis.length > 0) {
         getAndUpdateDiagnosis();
     }
@@ -119,7 +122,7 @@
         var prescriptionTypeSelect = document.getElementById("prescriptionType");
         var diagnosisTable = document.getElementById("diagnosis");
         if (prescriptionTextArea.value === "") {
-            alert("Введите описание назначения");
+            alert(enterPrescriptionMessage);
         } else {
             $.post(window.location.href +
                 "/diagnosis/" + diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML +
@@ -136,7 +139,7 @@
         var diagnosisTable = document.getElementById("diagnosis");
         var prescriptionFieldSet = document.getElementById("addPrescriptionFieldSet");
         if (diagnosisTextArea.value === "") {
-            alert("Введите описание диагноза");
+            alert(enterDiagnosisMessage);
         } else {
             $.post(window.location.href + "/addDiagnosis/", {description:diagnosisTextArea.value}, function (response) {
                 diagnosisTextArea.value = "";
@@ -285,9 +288,11 @@
     }
     function closeDiagnosisButtonListener() {
         var diagnosisTable = document.getElementById("diagnosis");
-        $.post(window.location.href+"/closeDiagnosis/"+diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML,
-            {}, function () {
+        var jqxhr = $.post(window.location.href+"/closeDiagnosis/"+diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML,
+            {}, function (data, status) {
             getAndUpdateDiagnosis();
+        }).fail(function () {
+            alert(closeDiagnosisMessage);
         });
     }
     function getAndUpdateDiagnosis() {
