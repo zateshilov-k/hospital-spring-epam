@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 
 /**
@@ -35,5 +36,22 @@ public class EmployeeController {
         model.addAttribute("lastName", personalDetailsService.getPersonal().getLastName());
         model.addAttribute("totalElements", totalElements);
         return "employee-page";
+    }
+
+    @PostMapping("/employees")
+    public String search(Model model, Authentication authentication, String search, @PageableDefault(size = 2) Pageable pageable){
+
+        Page<Personal> page = employeeService.finder(search, search, search, pageable);
+        Long totalElements = page.getTotalElements();
+        model.addAttribute("page", page);
+        PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
+        model.addAttribute("currentRole", personalDetailsService.getPersonal().getRole());
+        model.addAttribute("firstName", personalDetailsService.getPersonal().getFirstName());
+        model.addAttribute("lastName", personalDetailsService.getPersonal().getLastName());
+        model.addAttribute("totalElements", totalElements);
+        return "employee-page";
+
+
+
     }
 }

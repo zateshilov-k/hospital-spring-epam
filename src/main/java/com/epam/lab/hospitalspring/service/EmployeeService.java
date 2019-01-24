@@ -7,4 +7,6 @@ import org.springframework.data.domain.Pageable;
 public interface EmployeeService {
 
     Page<Personal> getAll(Pageable pageable);
+
+    Page<Personal> finder(String firstName, String lastName, String login, Pageable pageable);
 }

@@ -146,7 +146,15 @@
     </nav>
 </header>
 <h3 align="center" th:text="#{titlePersonalsPage}"></h3>
+
+<form action="/employees" th:object="${search}" method="post">
+    First name: <input type="text" name="search" ><br>
+    <input type="submit" value="Submit">
+</form>
+<form>
+    <input type="hidden" >
 <input class="form-control" id="myInput" type="text" placeholder="Search..">
+</form>
 <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
     <thead>
     <tr>
