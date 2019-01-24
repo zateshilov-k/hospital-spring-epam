@@ -30,7 +30,7 @@ public class PatientController {
     DiagnosisService diagnosisService;
     @Autowired
     PrescriptionService prescriptionService;
-    
+
     LocalDateTime today = LocalDateTime.now();
 
     @GetMapping(value = "/patients")
