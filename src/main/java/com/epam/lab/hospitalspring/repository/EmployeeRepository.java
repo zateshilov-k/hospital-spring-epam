@@ -28,9 +28,22 @@ public interface EmployeeRepository extends JpaRepository<Personal, Long>, Pagin
 //    Page<Personal> findByParameter(@Param("word") String word, Pageable pageable);
 
 //    @Query(value = "SELECT * FROM personal WHERE first_name LIKE '%сер%' ORDER BY id \n-- #pageable\n", nativeQuery = true) //работает
-    @Query(value = "SELECT * FROM personal WHERE first_name LIKE '%'+:word+'%' OR last_name LIKE '%'+:word+'%' ORDER BY id \n-- #pageable\n",
-            countQuery = "SELECT count(*) FROM personal WHERE first_name LIKE '%'+:word+'%' OR last_name LIKE '%'+:word+'%'",
-            nativeQuery = true)
-    Page<Personal> findAllPersonalsWithPagination(@Param("word") String word, Pageable pageable);
+//    @Query(value = "SELECT * FROM personal WHERE first_name LIKE '%'+:word+'%' OR last_name LIKE '%'+:word+'%' ORDER BY id \n-- #pageable\n",
+//            countQuery = "SELECT count(*) FROM personal WHERE first_name LIKE '%'+:word+'%' OR last_name LIKE '%'+:word+'%'",
+//            nativeQuery = true)
+//    Page<Personal> findAllPersonalsWithPagination(@Param("word") String word, Pageable pageable);
+
+
+//    @Query(value = "SELECT * FROM personal WHERE first_name LIKE '%':word'%' ORDER BY id \n-- #pageable\n", nativeQuery = true)
+//    Page<Personal> findPersonalByFirstNameContains(@Param("word") String word, Pageable pageable);
+
+//    Page<Personal> findPersonalByFirstNameLikeOrLastNameLike(String word, Pageable pageable);
+//    @Query("select p from Personal p where p.firstName like %?1%")
+    Page<Personal> findPersonalsByFirstNameContainsOrLastNameContains(String firstName, String lastName,Pageable pageable);
+
+    default Page<Personal> returnPage (String firstName, Pageable pageable){
+        Page<Personal> page = findPersonalsByFirstNameContainsOrLastNameContains(firstName, firstName, pageable);
+        return page;
+    }
 
 }
