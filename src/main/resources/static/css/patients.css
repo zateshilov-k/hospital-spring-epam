@@ -19,13 +19,9 @@
     th.colHeadFirstTable {
         background: rgba(22, 105, 99, 0.73);
         color: black;
-        width: 30%;
+
     }
-    th.FirstColumn {
-        background: rgba(22, 105, 99, 0.73);
-        color: black;
-        width: 10%;
-    }
+
     header {
         width: 100%;
         display: inline-block;

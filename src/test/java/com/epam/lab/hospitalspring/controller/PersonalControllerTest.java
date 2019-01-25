@@ -52,16 +52,16 @@ public class PersonalControllerTest {
         driver.findElement(By.id("field2")).clear();
         driver.findElement(By.id("field2")).sendKeys("Avdeeva");
 
-        driver.findElement(By.id("saveProfile")).submit();
+        driver.findElement(By.id("saveProfile")).click();
 
-//       <--deleted-->
-        WebElement personalTable2 = driver.findElement(By.id("example"));
-        List<WebElement> rows2 = personalTable2.findElements(By.tagName("tr"));
-        rows2.get(4).click();
-
-        driver.findElement(By.id("buttondel")).submit();
-//        <--exit-->
-        driver.findElement(By.id("exit")).submit();
+////       <--deleted-->
+//        WebElement personalTable2 = driver.findElement(By.id("example"));
+//        List<WebElement> rows2 = personalTable2.findElements(By.tagName("tr"));
+//        rows2.get(4).click();
+//
+//        driver.findElement(By.id("buttondel")).submit();
+////        <--exit-->
+//        driver.findElement(By.id("exit")).submit();
     }
 
 //@Test

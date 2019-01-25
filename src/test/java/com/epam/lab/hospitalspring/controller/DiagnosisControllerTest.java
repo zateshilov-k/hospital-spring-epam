@@ -9,11 +9,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.List;
 
-public class PatientsTest {
+public class DiagnosisControllerTest {
 
     public WebDriver driver;
+
     @Before
-    public  void setUpAdmin() {
+    public  void setUpDoctor() {
         System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
         driver = new ChromeDriver();
         System.out.println("test start.");
@@ -28,16 +29,26 @@ public class PatientsTest {
         passwordInput.sendKeys("doctor");
         driver.findElement(By.id("enter")).submit();
     }
+
     @Test
-    public void testUpdatePatient() {
+    public void testAddDiagnosis() {
         System.out.println("Page title is: " + driver.getTitle());
 
         WebElement personalTable = driver.findElement(By.id("example"));
         List<WebElement> rows = personalTable.findElements(By.tagName("tr"));
-        rows.get(2).click();
+        rows.get(5).click();
 
         driver.findElement(By.id("cardofpatients")).click();
 
+        WebElement diagnosisDescription = driver.findElement(By.id("diagnosisDescription"));
+        diagnosisDescription.sendKeys("Test diagnosis description");
+        driver.findElement(By.id("diagnosisSubmit")).click();
+
+        WebElement addPrescription = driver.findElement(By.id("prescriptionDescription"));
+        addPrescription.sendKeys("Test prescription3");
+        driver.findElement(By.id("prescriptionSubmit")).click();
+
+        driver.findElement(By.id("doPrescription")).click();
+        driver.findElement(By.id("closeDiagnosisButton")).click();
     }
 }
-
