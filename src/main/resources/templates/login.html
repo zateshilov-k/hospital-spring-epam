@@ -24,7 +24,7 @@
 </head>
 <body style="background-color:powderblue">
 
-<main class="login-form">
+<main id="loginswindow" class="login-form">
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -32,7 +32,7 @@
                     <div class="card-header" th:text="#{titleIndexPage}"></div>
                     <form th:action="@{/login}" method="post">
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right" th:text="#{loginField}"></label>
+                            <label  class="col-md-4 col-form-label text-md-right" th:text="#{loginField}"></label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" id="username" name="username"/>
                             </div>
@@ -47,8 +47,8 @@
                         </div>
 
                         <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-primary" th:text="#{buttonEnter}">Enter</button>
-                            <a href="/signUp" th:text="#{ButtonSignUp}">Sign Up</a>
+                            <button id="enter" type="submit" class="btn btn-primary" th:text="#{buttonEnter}">Enter</button>
+                            <a id="signup" href="/signUp" th:text="#{ButtonSignUp}">Sign Up</a>
                         </div>
 
                         <!--local-->

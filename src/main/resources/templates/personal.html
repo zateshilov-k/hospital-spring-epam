@@ -34,9 +34,7 @@
                                 <div class="form-group row">
                                     <label for="field5"
                                            class="col-md-4 col-form-label text-md-right"
-                                           th:text="#{loginField}">Enter
-                                        your
-                                        login</label>
+                                           th:text="#{loginField}">Enter your login</label>
                                     <div class="col-md-6">
                                         <input type="text" id="field5" class="form-control" name="login"
                                                autofocus th:value="${personal.login}">
@@ -45,8 +43,7 @@
                                 <div class="form-group row">
                                     <label for="password"
                                            class="col-md-4 col-form-label text-md-right"
-                                           th:text="#{passwordField}">Enter
-                                        your pass</label>
+                                           th:text="#{passwordField}">Enter your pass</label>
                                     <div class="col-md-6">
                                         <input type="password" id="password" class="form-control"
                                                name="password">
@@ -55,8 +52,7 @@
                                 <div class="form-group row">
                                     <label for="field1"
                                            class="col-md-4 col-form-label text-md-right"
-                                           th:text="#{firstNameField}">Enter
-                                        your name</label>
+                                           th:text="#{firstNameField}">Enter your name</label>
                                     <div class="col-md-6">
                                         <input type="text" id="field1" class="form-control" name="firstName"
                                                autofocus th:value="${personal.firstName}">
@@ -65,8 +61,7 @@
                                 <div class="form-group row">
                                     <label for="field2"
                                            class="col-md-4 col-form-label text-md-right"
-                                           th:text="#{lastNameField}">Enter
-                                        your last name</label>
+                                           th:text="#{lastNameField}">Enter your last name</label>
                                     <div class="col-md-6">
                                         <input type="text" id="field2" class="form-control" name="lastName"
                                                autofocus th:value="${personal.lastName}">
@@ -101,8 +96,8 @@
                                 <!--</div>-->
 
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary" th:text="#{buttonSave}">Save</button>
-                                    <a href="/personals" class="btn btn-link" th:text="#{buttonCancel}">Cancel</a>
+                                    <button id="saveProfile" type="submit" class="btn btn-primary" th:text="#{buttonSave}">Save</button>
+                                    <a id="back" href="/personals" class="btn btn-link" th:text="#{buttonCancel}">Cancel</a>
                                 </div>
                             </form>
                         </div>
