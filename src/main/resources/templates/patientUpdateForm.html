@@ -63,7 +63,11 @@
 
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary" th:text="#{buttonSave}"></button>
-                                <input type="button" value="Cancel" th:value="#{buttonCancel}" onclick="location.href='/patients';">
+                                <button type="button"
+                                        class="btn btn-secondary" onclick="location.href='/patients';" th:text="#{buttonCancel}"> Cancel </button>
+
+
+                                <!--<input type="button" value="Cancel" th:value="#{buttonCancel}" onclick="location.href='/patients';">-->
                             </div>
                         </form>
                     </div>
