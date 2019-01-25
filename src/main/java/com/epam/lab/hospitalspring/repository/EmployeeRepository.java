@@ -18,31 +18,22 @@ import java.util.Set;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Personal, Long>, PagingAndSortingRepository<Personal, Long> {
 
-    //    Page<Personal> findPersonalByFirstNameContainsOrLastNameContainsOrLoginContains(String firstName, Pageable pageable);
-//    Page<Personal> findPersonalByFirstNameContains(String firstName, Pageable pageable); // работает поиск по имени
-//    Page<Personal> findPersonalByFirstNameContainsOrLastNameContains(String firstName, Pageable pageable); // не работает
-//    Page<Personal> findPersonalByFirstNameIsContainingOrLastNameIsContaining(String firstName, Pageable pageable); // не работает поиск
-//    Page<Personal> findPersonalByFirstNameIsContainingOrLastNameIsContaining(String firstName, String lastName, Pageable pageable); // не работает поиск
+//    Page<Personal> findPersonalsByFirstNameContainsOrLastNameContains(String firstName, String lastName,Pageable pageable);
+//
+//    default Page<Personal> returnPage (String firstName, Pageable pageable){
+//        Page<Personal> page = findPersonalsByFirstNameContainsOrLastNameContains(firstName, firstName, pageable);
+//        return page;
+//    }
 
-//    @Query(nativeQuery = true, value = "select * from personal where first_name like '%:word%'  or last_name like '%:word%'")
-//    Page<Personal> findByParameter(@Param("word") String word, Pageable pageable);
+    // код выше работает.
+    /*
+    но в MySQL регитронезависимо работает, а в H2 - регистрозависимо
+     */
 
-//    @Query(value = "SELECT * FROM personal WHERE first_name LIKE '%сер%' ORDER BY id \n-- #pageable\n", nativeQuery = true) //работает
-//    @Query(value = "SELECT * FROM personal WHERE first_name LIKE '%'+:word+'%' OR last_name LIKE '%'+:word+'%' ORDER BY id \n-- #pageable\n",
-//            countQuery = "SELECT count(*) FROM personal WHERE first_name LIKE '%'+:word+'%' OR last_name LIKE '%'+:word+'%'",
-//            nativeQuery = true)
-//    Page<Personal> findAllPersonalsWithPagination(@Param("word") String word, Pageable pageable);
-
-
-//    @Query(value = "SELECT * FROM personal WHERE first_name LIKE '%':word'%' ORDER BY id \n-- #pageable\n", nativeQuery = true)
-//    Page<Personal> findPersonalByFirstNameContains(@Param("word") String word, Pageable pageable);
-
-//    Page<Personal> findPersonalByFirstNameLikeOrLastNameLike(String word, Pageable pageable);
-//    @Query("select p from Personal p where p.firstName like %?1%")
-    Page<Personal> findPersonalsByFirstNameContainsOrLastNameContains(String firstName, String lastName,Pageable pageable);
+    Page<Personal> findPersonalsByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(String firstName, String lastName,Pageable pageable);
 
     default Page<Personal> returnPage (String firstName, Pageable pageable){
-        Page<Personal> page = findPersonalsByFirstNameContainsOrLastNameContains(firstName, firstName, pageable);
+        Page<Personal> page = findPersonalsByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(firstName, firstName, pageable);
         return page;
     }
 

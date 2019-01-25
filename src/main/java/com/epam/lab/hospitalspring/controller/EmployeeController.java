@@ -39,7 +39,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/employees")
-    public String search(Model model, Authentication authentication, String search, @PageableDefault(size = 20) Pageable pageable){
+    public String search(Model model, Authentication authentication, String search, @PageableDefault(size = 2) Pageable pageable){
 
         Page<Personal> page = employeeService.newFinder(search, pageable);
         Long totalElements = page.getTotalElements();
