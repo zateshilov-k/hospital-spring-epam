@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -104,8 +105,8 @@ public class PatientController {
         return "redirect:/patients";
     }
 
-    @GetMapping(value = "/patient/{id}")
-    public String showPatientProfile(@PathVariable("id") Long id, Model model, Authentication authentication) {
+    @GetMapping(value = "/patients/{id}")
+    public String showPatientProfile(Patient patient, @PathVariable("id") Long id, Model model, Authentication authentication) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role currentRole = personalDetailsService.getPersonal().getRole();
         model.addAttribute("patient", patientService.getPatientById(id));
@@ -116,13 +117,13 @@ public class PatientController {
         }
     }
 
-    @GetMapping(value = "/patients/updatePatient/{id}")
-    public String getPatientProfileForUpdate(Patient patient) {
-        return "patientUpdateForm";
-    }
+//    @GetMapping(value = "/patients/updatePatient/{id}")
+//    public String getPatientProfileForUpdate(Patient patient) {
+//        return "patientUpdateForm";
+//    }
 
 
-    @PostMapping(value = "/patients/updatePatient/{id}")
+    @PutMapping(value = "/patients/{id}")
     public String updatePatientProfile(@Valid Patient patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "patientUpdateForm";

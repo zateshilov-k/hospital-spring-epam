@@ -152,7 +152,7 @@
                     </form>
                     <form th:if="${currentRole.toString() eq 'DOCTOR'}" style="display:inline">
                         <button class="button3" type="button">
-                            <a class="link" href="yourlink.com" th:href="@{/patient/{id}(id=${patient.id})}"
+                            <a class="link" href="yourlink.com" th:href="@{/patients/{id}(id=${patient.id})}"
                                th:text="#{buttonPatientProfile}">Link link</a></button>
                     </form>
                 </td>

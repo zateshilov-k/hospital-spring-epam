@@ -122,7 +122,8 @@
                 <a href="#" th:case="*">Unknown role</a>
             </li>
             <li><a href="/personals" th:text="#{menuPersonals}"></a></li>
-            <li><a href="/addPersonal" th:text="#{menuAddPersonal}"></a></li>
+            <!--<li><a href="/addPersonal" th:text="#{menuAddPersonal}"></a></li>-->
+            <li><a href="/signUp" th:text="#{menuAddPersonal}"></a></li>
             <li><a href="/logout" th:text="#{menuLogout}"></a></li>
         </ul>
     </nav>
@@ -162,14 +163,12 @@
                     <form style="display:inline">
                         <button class="button3" type="button">
                             <a class="link" href="yourlink.com"
-                               th:href="@{/personal/{id}(id=${personal.id})}"
+                               th:href="@{/personals/{id}(id=${personal.id})}"
                                th:text="#{buttonOpenProfile}">Link link</a></button>
                     </form>
-                    <form style="display:inline">
-                        <button class="button3" type="button">
-                            <a class="link" href="yourlink.com"
-                               th:href="@{/deletePersonalFromDB/{id}(id=${personal.id})}"
-                               th:text="#{buttonDeletePersonal}">Link link</a></button>
+                    <form style="display:inline" th:action="@{/personals/{id}(id=${personal.id})}" th:method="delete">
+                        <button class="button3" type="submit" th:text="#{buttonDeletePersonal}">
+                        </button>
                     </form>
                 </td>
             </tr>

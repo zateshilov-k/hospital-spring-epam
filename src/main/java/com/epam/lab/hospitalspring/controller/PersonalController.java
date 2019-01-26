@@ -9,9 +9,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -32,34 +33,28 @@ public class PersonalController {
         return "personals";
     }
 
-    @GetMapping("/addPersonal")
-    public String getAddPersonalPage(Personal personal) {
-        return "signUp";
-    }
-
-    @GetMapping("/personal/{id}")
+    @GetMapping("/personals/{id}")
     public String getPersonalPage(Personal personal, @PathVariable("id") Long id, Model model) {
         model.addAttribute("personal", personalService.getById(id));
         return "/personal";
     }
 
-    @PostMapping("/personal/{id}")
+    @PutMapping("/personals/{id}")
     public String updatePersonal(@Valid Personal personal, BindingResult bindingResult,
                                  @PathVariable("id") Long id, PersonalForm personalForm) {
         if (bindingResult.hasErrors()) {
             return "/personal";
         }
-
         if (personalService.update(personalForm, id)) {
             return "redirect:/personals";
         } else {
-            return "redirect:/personal/" + id + "?loginAleadyUsed";
+            return "redirect:/personals/" + id + "?loginAleadyUsed";
         }
     }
 
-    @GetMapping("/deletePersonalFromDB/{id}")
-    public String deletePersonalFromDB(@PathVariable("id") Long id) {
-        personalService.deleteFromDB(id);
+    @DeleteMapping("/personals/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        personalService.delete(id);
         return "redirect:/personals";
     }
 }
