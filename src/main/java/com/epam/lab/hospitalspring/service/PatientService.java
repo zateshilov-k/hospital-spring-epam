@@ -8,7 +8,7 @@ import java.util.List;
 public interface PatientService {
     boolean validateData(PatientForm patientForm);
 
-    Patient addPatient(PatientForm patientForm);
+    void addPatient(Patient patient);
 
     void updatePatient(Patient patient);
 

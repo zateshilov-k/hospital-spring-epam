@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,29 +30,23 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient addPatient(PatientForm patientForm) {
-        Patient patient = null;
-        if (validateData(patientForm)) {
-            patient = Patient.builder()
-                    .firstName(patientForm.getFirstName())
-                    .lastName(patientForm.getLastName())
-                    .deleted(false)
-                    .discharged(false)
-                    .diagnosisList(null)
-                    .build();
-            patient = patientRepository.saveAndFlush(patient);
-            if(patient!=null){
-            log.info("LOG: Patient added " + patient);}
-            else {
-                log.info("LOG: Patient added");
-            }
+    public void addPatient(Patient patient) {
+        Patient currentPatient = Patient.builder()
+                .firstName(patient.getFirstName())
+                .lastName(patient.getLastName())
+                .deleted(false)
+                .discharged(false)
+                .diagnosisList(null)
+                .build();
+        Patient result = patientRepository.saveAndFlush(currentPatient);
+        if (result != null) {
+            log.info("LOG: Patient added " + patient);
         }
-        return patient;
     }
 
     @Override
     public void updatePatient(Patient patient) {
-        patientRepository.save(patient);
+        patientRepository.saveAndFlush(patient);
     }
 
     @Override

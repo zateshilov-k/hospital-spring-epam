@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/css/personals.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>#{titlePersonalsPage}</title>
+    <title th:text="#{titlePersonalsPage}">#{titlePersonalsPage}</title>
 </head>
 <body style="background-color:powderblue">
 
@@ -66,16 +66,18 @@
                     <p th:case="${personal.role.NURSE}" th:text="#{NURSE}">nurse</p>
                     <p th:case="*">Unknown role</p>
                 </td>
-                <td th:text="${personal.deleted}">Неожиданно удален</td>
+                <td th:if="${personal.deleted.toString() eq 'false'}"><p th:text="#{personalNotDeleted}">Неожиданно удален</p></td>
+                <td th:if="${personal.deleted.toString() eq 'true'}"><p th:text="#{personalDeleted}">Неожиданно удален</p></td>
                 <td>
+
                     <form style="display:inline">
-                        <button id="openProfile" class="button3" type="submit">
+                        <button class="button3" type="button">
                             <a class="link" href="yourlink.com"
                                th:href="@{/personal/{id}(id=${personal.id})}"
                                th:text="#{buttonOpenProfile}">Link link</a></button>
                     </form>
                     <form style="display:inline">
-                        <button id="buttondel" class="button3" type="submit">
+                        <button class="button3" type="button">
                             <a class="link" href="yourlink.com"
                                th:href="@{/deletePersonalFromDB/{id}(id=${personal.id})}"
                                th:text="#{buttonDeletePersonal}">Link link</a></button>

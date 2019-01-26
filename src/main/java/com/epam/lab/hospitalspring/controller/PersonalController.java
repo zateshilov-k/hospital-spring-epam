@@ -2,18 +2,19 @@ package com.epam.lab.hospitalspring.controller;
 
 import com.epam.lab.hospitalspring.form.PersonalForm;
 import com.epam.lab.hospitalspring.model.Personal;
-import com.epam.lab.hospitalspring.model.enums.Role;
 import com.epam.lab.hospitalspring.security.details.PersonalDetailsImpl;
 import com.epam.lab.hospitalspring.service.PersonalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 public class PersonalController {
@@ -21,7 +22,7 @@ public class PersonalController {
     PersonalService personalService;
 
     @GetMapping("/personals")
-    public String showPersonalsList(Model model, Authentication authentication) {
+    public String getPersonals(Model model, Authentication authentication) {
         List<Personal> personals = personalService.getAll();
         model.addAttribute("personals", personals);
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
@@ -31,28 +32,29 @@ public class PersonalController {
         return "personals";
     }
 
+    @GetMapping("/addPersonal")
+    public String getAddPersonalPage(Personal personal) {
+        return "signUp";
+    }
+
     @GetMapping("/personal/{id}")
-    public String showPersonalPage(@PathVariable("id") Long id, Model model) {
+    public String getPersonalPage(Personal personal, @PathVariable("id") Long id, Model model) {
         model.addAttribute("personal", personalService.getById(id));
         return "/personal";
     }
 
-    @GetMapping("/addPersonal")
-    public String showSignUpPage(PersonalForm personalForm) {
-        return "signUp";
-    }
-
-    @PostMapping("/updatePersonal/{id}")
-    public String updatePersonal(@PathVariable("id") Long id, PersonalForm personalForm) {
-        String goNextPage = null;
-        if (personalService.update(personalForm, id)) {
-            goNextPage = "redirect:/personals";
-        } else {
-            System.out.println("НЕ успешное обновление ");
-//TODO вернуться на предыдущую страницу /personal/id с ошибкой
+    @PostMapping("/personal/{id}")
+    public String updatePersonal(@Valid Personal personal, BindingResult bindingResult,
+                                 @PathVariable("id") Long id, PersonalForm personalForm) {
+        if (bindingResult.hasErrors()) {
+            return "/personal";
         }
-        return "redirect:/personals";
 
+        if (personalService.update(personalForm, id)) {
+            return "redirect:/personals";
+        } else {
+            return "redirect:/personal/" + id + "?loginAleadyUsed";
+        }
     }
 
     @GetMapping("/deletePersonalFromDB/{id}")

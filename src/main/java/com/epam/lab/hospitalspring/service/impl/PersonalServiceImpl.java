@@ -5,19 +5,15 @@ import com.epam.lab.hospitalspring.model.Personal;
 import com.epam.lab.hospitalspring.model.enums.Role;
 import com.epam.lab.hospitalspring.repository.PersonalRepository;
 import com.epam.lab.hospitalspring.service.PersonalService;
-import com.epam.lab.hospitalspring.service.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 @Service
 public class PersonalServiceImpl implements PersonalService {
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     @Autowired
     private PersonalRepository personalRepository;
     @Autowired
@@ -26,16 +22,13 @@ public class PersonalServiceImpl implements PersonalService {
     @Override
     public boolean update(PersonalForm personalForm, Long id) {
         boolean result = false;
-        System.out.println("дошли до update в PersonalServiceImpl");
         String login = personalForm.getLogin();
 
-        if (personalRepository.findOneByLogin(login).isPresent() && !personalRepository.findPersonalById(id).getLogin().equals(login)) {
+        if (personalRepository.findOneByLogin(login).isPresent() &&
+                !personalRepository.findPersonalById(id).getLogin().equals(login)) {
             return false;
         }
 
-        if (!VALID_EMAIL_ADDRESS_REGEX.matcher(personalForm.getLogin()).find()) {
-            return false;
-        }
         Optional<Personal> oPersonal = personalRepository.findById(id);
         if (oPersonal.isPresent()) {
             Personal personal = oPersonal.get();

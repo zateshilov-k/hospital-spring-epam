@@ -1,33 +1,24 @@
 package com.epam.lab.hospitalspring.controller;
 
-import com.epam.lab.hospitalspring.form.PatientForm;
 import com.epam.lab.hospitalspring.model.Patient;
 import com.epam.lab.hospitalspring.model.enums.Role;
-import com.epam.lab.hospitalspring.model.Prescription;
-import com.epam.lab.hospitalspring.model.enums.PrescriptionType;
-import com.epam.lab.hospitalspring.model.enums.Role;
-import com.epam.lab.hospitalspring.repository.DiagnosisRepository;
-import com.epam.lab.hospitalspring.repository.PatientRepository;
-import com.epam.lab.hospitalspring.repository.PrescriptionRepository;
 import com.epam.lab.hospitalspring.security.details.PersonalDetailsImpl;
 import com.epam.lab.hospitalspring.service.DiagnosisService;
 import com.epam.lab.hospitalspring.service.PatientService;
 import com.epam.lab.hospitalspring.service.PrescriptionService;
-import com.epam.lab.hospitalspring.transfer.PersonalDto;
 import com.epam.lab.hospitalspring.util.GsonFactory;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.Authentication;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -39,18 +30,11 @@ public class PatientController {
     DiagnosisService diagnosisService;
     @Autowired
     PrescriptionService prescriptionService;
-    @Autowired
-    PatientRepository patientRepository;
-    @Autowired
-    DiagnosisRepository diagnosisRepository;
-    @Autowired
-    PrescriptionRepository prescriptionRepository;
 
     LocalDateTime today = LocalDateTime.now();
 
-
     @GetMapping(value = "/patients")
-    public String getNotDeletedPatients(Model model, Authentication authentication) {
+    public String getPatients(Model model, Authentication authentication) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role currentRole = personalDetailsService.getPersonal().getRole();
         if (currentRole != Role.ADMIN) {
@@ -80,7 +64,8 @@ public class PatientController {
     }
 
     @GetMapping(value = "/patientDiagnosisCard/{id}")
-    public String getPatient(@PathVariable("id") Long id, Model model, Authentication authentication, Locale locale) {
+    public String getPatientDiagnosisCard(@PathVariable("id") Long id,
+                                          Model model, Authentication authentication, Locale locale) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role currentRole = personalDetailsService.getPersonal().getRole();
 
@@ -97,19 +82,17 @@ public class PatientController {
     }
 
     @GetMapping(value = "/addPatient")
-    public String getAddPatientPage() {
+    public String getAddPatientPage(Patient patient) {
         return "patient";
     }
 
     @PostMapping(value = "/addPatient")
-    public String addPatient(PatientForm patientForm, Model model) {
-        Patient patient = patientService.addPatient(patientForm);
-        patientService.updatePatient(patient);
-        if (patient != null) {
-            return "redirect:/patients";
-        } else {
-            return "redirect:/error/errorMessage";
+    public String addPatient(@Valid Patient patient, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "patient";
         }
+        patientService.addPatient(patient);
+        return "redirect:/patients";
     }
 
     @GetMapping(value = "/patient/{id}")
@@ -124,10 +107,19 @@ public class PatientController {
         }
     }
 
+    @GetMapping(value = "/patients/updatePatient/{id}")
+    public String getPatientProfileForUpdate(Patient patient) {
+        return "patientUpdateForm";
+    }
+
+
     @PostMapping(value = "/patients/updatePatient/{id}")
-    public String updatePatientProfile(Patient patient) {
+    public String updatePatientProfile(@Valid Patient patient, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "patientUpdateForm";
+        }
         patientService.updatePatient(patient);
-        if (patient.getDeleted() == false) {
+        if (!patient.getDeleted()) {
             return "redirect:/patients";
         } else {
             return "redirect:/deletedPatients";

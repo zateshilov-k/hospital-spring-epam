@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="#{title}"></title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -17,7 +16,7 @@
 
     <!--&lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <title>#{titleAddPersonalPage}</title>
+    <title th:text="#{titleUpdatePersonalPage}"></title>
 </head>
 <body style="background-color:powderblue">
 
@@ -28,43 +27,59 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header" th:text="#{titleAddPersonalPage}">Add personal</div>
+                        <div class="card-header" th:text="#{titleUpdatePersonalPage}">Update personal</div>
                         <div class="card-body">
-                            <form th:action="@{/updatePersonal/{id}(id=${personal.id})}" method="post">
+                            <form th:action="@{/personal/{id}(id=${personal.id})}" th:object="${personal}" method="post">
+
+                                <div id="errors" th:if="${(param.loginAleadyUsed != null)}">
+                                    <div class="alert alert-danger" role="alert">
+                                        <strong th:text="#{signUpErrorLoginAlreadyUsed}"></strong>
+                                    </div>
+                                </div>
+
                                 <div class="form-group row">
                                     <label for="field5"
                                            class="col-md-4 col-form-label text-md-right"
-                                           th:text="#{loginField}">Enter your login</label>
+                                           th:text="#{loginField}">Enter
+                                        your
+                                        login</label>
                                     <div class="col-md-6">
                                         <input type="text" id="field5" class="form-control" name="login"
-                                               autofocus th:value="${personal.login}">
+                                               autofocus th:value="${personal.login}" th:field="*{login}">
+                                        <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="password"
                                            class="col-md-4 col-form-label text-md-right"
-                                           th:text="#{passwordField}">Enter your pass</label>
+                                           th:text="#{passwordField}">Enter
+                                        your pass</label>
                                     <div class="col-md-6">
                                         <input type="password" id="password" class="form-control"
-                                               name="password">
+                                               name="password" th:field="*{password}">
+                                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="field1"
                                            class="col-md-4 col-form-label text-md-right"
-                                           th:text="#{firstNameField}">Enter your name</label>
+                                           th:text="#{firstNameField}">Enter
+                                        your name</label>
                                     <div class="col-md-6">
                                         <input type="text" id="field1" class="form-control" name="firstName"
-                                               autofocus th:value="${personal.firstName}">
+                                               autofocus th:value="${personal.firstName}" th:field="*{firstName}">
+                                        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="field2"
                                            class="col-md-4 col-form-label text-md-right"
-                                           th:text="#{lastNameField}">Enter your last name</label>
+                                           th:text="#{lastNameField}">Enter
+                                        your last name</label>
                                     <div class="col-md-6">
                                         <input type="text" id="field2" class="form-control" name="lastName"
-                                               autofocus th:value="${personal.lastName}">
+                                               autofocus th:value="${personal.lastName}" th:field="*{lastName}">
+                                        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
                                     </div>
                                 </div>
 
@@ -75,29 +90,17 @@
                                         your role</label>
                                     <div class="col-md-6">
                                         <!--<br>-->
-                                        <select id="currentRole" name="role" value="t" th:value="${personal.role}">
+                                        <select id="currentRole" name="role" value="t">
                                             <option value="DOCTOR" th:text="#{DOCTOR}">doctor</option>
                                             <option value="NURSE" th:text="#{NURSE}">nurse</option>
                                             <option value="ADMIN" th:text="#{ADMIN}">admin</option>
                                         </select>
                                     </div>
                                 </div>
-                                <!--<div class="form-group row" align="center">-->
-                                <!--<c:if test="${!empty requestScope.loginError}">-->
-                                <!--<p><font color="red"><span class="error">${personalError}</span></font>-->
-                                <!--</p>-->
-                                <!--</c:if>-->
-                                <!--</div>-->
-                                <!--<div class="form-group row" align="center">-->
-                                <!--<c:if test="${!empty requestScope.createPersonalError}">-->
-                                <!--<p><font color="red"><span class="error">${createPersonalError}</span></font>-->
-                                <!--</p>-->
-                                <!--</c:if>-->
-                                <!--</div>-->
-
                                 <div class="col-md-6 offset-md-4">
-                                    <button id="saveProfile" type="submit" class="btn btn-primary" th:text="#{buttonSave}">Save</button>
-                                    <a id="back" href="/personals" class="btn btn-link" th:text="#{buttonCancel}">Cancel</a>
+                                    <button type="submit" class="btn btn-primary" th:text="#{buttonSave}">Save</button>
+                                    <button type="button"
+                                            class="btn btn-secondary" onclick="location.href='/personals';" th:text="#{buttonCancel}"> Cancel </button>
                                 </div>
                             </form>
                         </div>
@@ -108,5 +111,10 @@
 
     </main>
 </div>
+<script>
+    var role = '[[${personal.role}]]';
+    var currentRoleSelect = document.getElementById("currentRole");
+    currentRoleSelect.value = role;
+</script>
 </body>
 </html>

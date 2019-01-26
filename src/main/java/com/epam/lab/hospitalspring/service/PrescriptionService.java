@@ -8,7 +8,7 @@ import java.util.Locale;
 public interface PrescriptionService {
     Prescription addPrescription(Prescription prescription);
 
-    void update(Prescription prescription); // for update and mark as deleted
+    void update(Prescription prescription);
 
     Prescription getById(Long id);
 

@@ -3,9 +3,11 @@ package com.epam.lab.hospitalspring.service.impl;
 import com.epam.lab.hospitalspring.model.Diagnosis;
 import com.epam.lab.hospitalspring.model.Patient;
 import com.epam.lab.hospitalspring.model.Personal;
+import com.epam.lab.hospitalspring.model.Prescription;
 import com.epam.lab.hospitalspring.repository.DiagnosisRepository;
 import com.epam.lab.hospitalspring.repository.PatientRepository;
 import com.epam.lab.hospitalspring.repository.PersonalRepository;
+import com.epam.lab.hospitalspring.repository.PrescriptionRepository;
 import com.epam.lab.hospitalspring.service.DiagnosisService;
 import com.epam.lab.hospitalspring.util.GsonFactory;
 import com.google.gson.Gson;
@@ -24,9 +26,10 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     private PersonalRepository personalRepository;
     @Autowired
     private PatientRepository patientRepository;
-
     @Autowired
     private DiagnosisRepository diagnosisRepository;
+    @Autowired
+    private PrescriptionRepository prescriptionRepository;
 
     @Override
     public Diagnosis addDiagnosis(Diagnosis diagnosis) {
@@ -56,38 +59,37 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     }
 
     @Override
-    public void closeDiagnosis(Long diagnosisId) {
+    public boolean closeDiagnosis(Long diagnosisId) {
         Optional<Diagnosis> currentDiagnosis = diagnosisRepository.findById(diagnosisId);
-        try{
-            currentDiagnosis.ifPresent(diagnosis -> {
-                if (diagnosis.getOpened()) {
-                    diagnosis.setOpened(false);
-                    diagnosisRepository.saveAndFlush(diagnosis);
-                } else {
-                    throw new IllegalArgumentException("Trying to close diagnosis that " +
-                            "already closed");
+        if (currentDiagnosis.isPresent()) {
+            Diagnosis diagnosis = currentDiagnosis.get();
+            if (diagnosis.getOpened()) {
+                List<Prescription> prescriptions =
+                        prescriptionRepository.findPrescriptionsForDiagnosisByDiagnosisId(diagnosis.getId());
+                for (Prescription prescription : prescriptions) {
+                    if(!prescription.getDone()) {
+                        return false;
+                    }
                 }
-            });
-            currentDiagnosis.orElseThrow(IllegalArgumentException::new);
-        } catch (Exception e) {
-            // TODO: Log
-            throw new RuntimeException(e);
+                diagnosis.setOpened(false);
+                diagnosisRepository.saveAndFlush(diagnosis);
+            } else {
+                throw new IllegalArgumentException("Trying to close diagnosis that " +
+                        "already closed");
+            }
         }
+        currentDiagnosis.orElseThrow(IllegalArgumentException::new);
+        return true;
     }
 
     @Override
     public void addDiagnosis(Long patientId, Long personalId, String description) {
-        Optional<Personal> personal= personalRepository.findById(personalId);
+        Optional<Personal> personal = personalRepository.findById(personalId);
         Optional<Patient> patient = patientRepository.findById(patientId);
-        try {
-            personal.orElseThrow(IllegalArgumentException::new);
-            patient.orElseThrow(IllegalArgumentException::new);
-        } catch (Exception e){
-            //TODO LOG
-            throw new RuntimeException(e);
-        }
-        Diagnosis diagnosis = new Diagnosis(null,description,personal.get(),patient.get(),
-                true,LocalDateTime.now(),null);
+        personal.orElseThrow(IllegalArgumentException::new);
+        patient.orElseThrow(IllegalArgumentException::new);
+        Diagnosis diagnosis = new Diagnosis(null,null,description,personal.get(),patient.get(),
+                true,LocalDateTime.now());
         diagnosisRepository.saveAndFlush(diagnosis);
     }
 }

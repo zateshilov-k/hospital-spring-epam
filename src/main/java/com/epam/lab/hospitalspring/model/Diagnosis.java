@@ -15,6 +15,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Diagnosis {
+    @Expose(serialize = false)
+    @OneToMany(mappedBy = "diagnosis", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    List<Prescription> prescriptions;
     @Expose
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,9 +36,6 @@ public class Diagnosis {
     private Boolean opened;
     @Expose
     private LocalDateTime time;
-    @Expose(serialize = false)
-    @OneToMany(mappedBy = "diagnosis", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<Prescription> prescriptions;
 
 
 }

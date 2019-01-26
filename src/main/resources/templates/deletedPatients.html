@@ -37,7 +37,7 @@
 
 <div class="container-fluid">
 
-    <h3 align="center">Список удаленных пациентов</h3>
+    <h3 align="center" th:text="#{titleDeletedPatients}">Список удаленных пациентов</h3>
     <table id="example" class="table table-bordered table-hover col1" cellspacing="0" width="100%">
         <thead>
         <tr>
@@ -55,11 +55,6 @@
                 <td class="col" th:text="${patient.firstName}">Неожиданное имя</td>
                 <td class="col" th:text="${patient.lastName}">Неожиданная фамилия</td>
                 <td class="col">
-
-                    <!--<form name="Button" th:action="@{/patients/{id}(id=${patient.id})}" method="GET"-->
-                    <!--style="display:inline">-->
-                    <!--<input class="buttonSecondTable" type="submit" name="button" value="Изменить данные пациента"/>-->
-                    <!--</form>-->
                     <form th:if="${currentRole.toString() eq 'DOCTOR'}" style="display:inline">
                         <button class="button3" type="button">
                             <a class="link" href="yourlink.com" th:href="@{/patient/{id}(id=${patient.id})}"

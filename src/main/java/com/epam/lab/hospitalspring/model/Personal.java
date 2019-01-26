@@ -8,7 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -16,25 +18,33 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Builder
-@Table(name = "personal") // table name in DB
+@Table(name = "personal")
 
 public class Personal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String login; // it's like email
 
-    @JsonIgnore // does not include in json
+    @Email(message = "{email.validation}")
+    private String login;
+
+    @Size(min = 7, message = "{password.length}")
+    @JsonIgnore
     private String password;
 
-    @Column(name = "first_name") // uses if the column name is differ
+    @NotBlank(message = "{firstName.not.blank}")
+    @Column(name = "first_name")
     private String firstName;
 
+    @NotBlank(message = "{lastName.not.blank}")
     @Column(name = "last_name")
     private String lastName;
+
     private Boolean deleted;
+
     @Enumerated(EnumType.STRING)
     private Role role;
+
     @OneToMany(mappedBy = "personal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Diagnosis> diagnosisList;
 }

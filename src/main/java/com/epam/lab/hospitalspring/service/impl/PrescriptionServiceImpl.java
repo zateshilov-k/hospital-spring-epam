@@ -62,37 +62,24 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public void doPrescription(Long prescriptionId) {
         Optional<Prescription> currentPrescription = prescriptionRepository.findById(prescriptionId);
-        try {
-            currentPrescription.ifPresent(prescription -> {
-                if (!prescription.getDone()) {
-                    prescription.setDone(true);
-                    prescriptionRepository.saveAndFlush(prescription);
-                    System.out.println("Do prescription");
-                } else {
-                    throw new IllegalArgumentException("Trying to do prescription that already done");
-                }
-            });
-            currentPrescription.orElseThrow(IllegalArgumentException::new);
-        } catch (Exception e) {
-            // TODO: add log
-            System.err.println(e.getMessage());
-            throw new RuntimeException(e);
-        }
+        currentPrescription.ifPresent(prescription -> {
+            if (!prescription.getDone()) {
+                prescription.setDone(true);
+                prescriptionRepository.saveAndFlush(prescription);
+            } else {
+                throw new IllegalArgumentException("Trying to do prescription that already done");
+            }
+        });
+        currentPrescription.orElseThrow(IllegalArgumentException::new);
     }
 
     @Override
     public void addPrescription(long diagnosisId, String prescriptionDescription, String prescriptionType) {
-
-        try {
-            Optional<Diagnosis> diagnosis = diagnosisRepository.findById(diagnosisId);
-            diagnosis.orElseThrow(IllegalArgumentException::new);
-            PrescriptionType type = PrescriptionType.valueOf(prescriptionType);
-            Prescription prescription = new Prescription(null,prescriptionDescription,
-                    diagnosis.get(),false,LocalDateTime.now(),type);
-            prescriptionRepository.saveAndFlush(prescription);
-        } catch (Exception e) {
-            //TODO Log
-            throw new RuntimeException(e);
-        }
+        Optional<Diagnosis> diagnosis = diagnosisRepository.findById(diagnosisId);
+        diagnosis.orElseThrow(IllegalArgumentException::new);
+        PrescriptionType type = PrescriptionType.valueOf(prescriptionType);
+        Prescription prescription = new Prescription(null, prescriptionDescription,
+                diagnosis.get(), false, LocalDateTime.now(), type);
+        prescriptionRepository.saveAndFlush(prescription);
     }
 }

@@ -11,8 +11,8 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>#{titlePatientsPage}</title>
-    <link rel="stylesheet" href="/css/patients.css">
+    <title th:text="#{titlePatientsPage}">#{titlePatientsPage}</title>
+    <!--<link rel="stylesheet" href="/css/main.css">-->
 </head>
 <body style="background-color:powderblue">
 
@@ -36,7 +36,6 @@
         </ul>
     </nav>
 </header>
-
 <h3 align="center" th:text="#{titlePatientsPage}"></h3>
 <div class="container-fluid">
     <table width="100%" id="example" class="table  table-bordered table-hover">
@@ -57,8 +56,8 @@
                 <td th:text="${patient.lastName}">last name</td>
                 <td>
                     <form style="display:inline">
-                        <button id="cardofpatients" class="button3" type="button">
-                            <a  class="link" href="yourlink.com"
+                        <button class="button3" type="button">
+                            <a class="link" href="yourlink.com"
                                th:href="@{/patientDiagnosisCard/{id}(id=${patient.id})}"
                                th:text="#{buttonOpenCard}">Link link</a></button>
                     </form>

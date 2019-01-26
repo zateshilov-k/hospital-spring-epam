@@ -10,7 +10,7 @@ public interface DiagnosisService {
 
     Diagnosis addDiagnosis(Diagnosis diagnosis);
 
-    void update(Diagnosis diagnosis); // for update and mark as deleted
+    void update(Diagnosis diagnosis);
 
     Diagnosis getById(Long id);
 
@@ -18,7 +18,7 @@ public interface DiagnosisService {
 
     String findDiagnosisByPatientId(Long id, Locale locale);
 
-    void closeDiagnosis(Long diagnosisId);
+    boolean closeDiagnosis(Long diagnosisId);
 
     void addDiagnosis(Long patientId, Long personalId, String description);
 }
