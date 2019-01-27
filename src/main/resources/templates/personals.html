@@ -13,7 +13,7 @@
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>#{titlePersonalsPage}</title>
+    <title th:text="#{titlePersonalsPage}">#{titlePersonalsPage}</title>
 </head>
 <body style="background-color:powderblue">
 <style>
@@ -28,12 +28,21 @@
         border-radius: 5px;
         border: 1px solid #666;
     }
+
     body {
         font-size: 1.5em; /* Размер текста */
     }
+
     table {
+        background-color:white;
+        table-layout: fixed;
         width: 100%; /* Ширина таблицы */
     }
+
+    td {
+        word-wrap: break-word;
+    }
+
     th.colHeadFirstTable {
         background: rgba(22, 105, 99, 0.73);
         color: black;
@@ -46,12 +55,12 @@
         width: 5%;
     }
 
-
     header {
         width: 100%;
         display: inline-block;
         background-color: #404040;
     }
+
     nav {
         background-color: #2b2b2b;
         margin: 0;
@@ -60,32 +69,38 @@
         clear: both;
         transition: max-height .3s cubic-bezier(0.63, 0, 0.25, 1);;
     }
+
     nav ul {
         margin: 0;
         padding: 0;
         list-style: none;
         display: block;
     }
+
     nav li {
         display: block;
         margin: 0;
         text-align: center;
     }
+
     nav a {
         color: white;
         display: block;
         padding: .4em;
     }
+
     header input[type="checkbox"]:checked ~ nav {
         max-height: 150px;
         border-bottom: #404040 5px solid;
     }
+
     header a:hover,
     header a:focus,
     header label:hover,
     header label:focus {
         background-color: #191919;
     }
+
     @media (min-width: 700px) {
         nav {
             background: transparent;
@@ -93,16 +108,20 @@
             border: 0 !important;
             max-height: none;
         }
+
         nav ul, nav li, nav li a {
             display: inline-block;
         }
+
         nav a {
             display: inline-block;
             padding: 15px 1em;
         }
+
         a:hover {
             text-decoration: none;
         }
+
         a.link {
             color: #000000;
         }
@@ -129,14 +148,15 @@
     </nav>
 </header>
 <h3 align="center" th:text="#{titlePersonalsPage}"></h3>
+
 <div class="container-fluid">
     <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
         <thead>
         <tr>
             <th class="FirstColumn" th:text="#{columnId}">Id</th>
             <th class="colHeadFirstTable" th:text="#{columnLogin}">Id</th>
-            <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
             <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
+            <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
             <th class="colHeadFirstTable" th:text="#{columnRole}">Role</th>
             <th class="FirstColumn" th:text="#{columnActive}">Active</th>
             <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
@@ -148,8 +168,8 @@
             <tr th:each="personal : ${personals}">
                 <td th:text="${personal.id}">id</td>
                 <td th:text="${personal.login}">login</td>
-                <td th:text="${personal.firstName}">firstname</td>
                 <td th:text="${personal.lastName}">lastname</td>
+                <td th:text="${personal.firstName}">firstname</td>
 
                 <td th:switch="${personal.role}">
                     <p th:case="${personal.role.ADMIN}" th:text="#{ADMIN}">administrator</p>
@@ -157,7 +177,8 @@
                     <p th:case="${personal.role.NURSE}" th:text="#{NURSE}">nurse</p>
                     <p th:case="*">Unknown role</p>
                 </td>
-                <td th:text="${personal.deleted}">Неожиданно удален</td>
+                <td th:if="${personal.deleted.toString() eq 'false'}"><p th:text="#{personalNotDeleted}">Неожиданно удален</p></td>
+                <td th:if="${personal.deleted.toString() eq 'true'}"><p th:text="#{personalDeleted}">Неожиданно удален</p></td>
                 <td>
 
                     <form style="display:inline">
@@ -176,6 +197,7 @@
         </tbody>
     </table>
 </div>
+
 <script>
     $(document).ready(function () {
         $('#example').DataTable();

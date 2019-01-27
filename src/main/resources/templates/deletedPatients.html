@@ -35,16 +35,22 @@
     }
 
     table {
+        background-color:white;
+        table-layout: fixed;
         width: 100%; /* Ширина таблицы */
     }
 
+    td {
+        word-wrap: break-word;
+    }
+
     td.col {
-        background: rgba(125, 6, 0, 0.51);
+        background: white;
         color: black;
     }
 
     th.col {
-        background: rgba(125, 6, 0, 0.51);
+        background: white;
         color: black;
     }
 
@@ -161,14 +167,15 @@
 
 <div class="container-fluid">
 
-    <h3 align="center">Список удаленных пациентов</h3>
+    <h3 align="center" th:text="#{titleDeletedPatients}">Список удаленных пациентов</h3>
     <table id="example" class="table table-bordered table-hover col1" cellspacing="0" width="100%">
         <thead>
         <tr>
-            <th class="FirstColumn">Id</th>
-            <th class="colHeadFirstTable">FirstName</th>
-            <th class="colHeadFirstTable">LastName</th>
-            <th class="colHeadFirstTable">Action</th>
+            <th class="FirstColumn" th:text="#{columnId}">Id</th>
+            <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
+            <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
+            <th class="colHeadFirstTable" th:text="#{columnDischarged}">Discharged</th>
+            <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
         </tr>
         </thead>
 
@@ -176,8 +183,14 @@
         <div th:if="${patients} != null">
             <tr th:each="patient : ${patients}">
                 <td class="col" th:text="${patient.id}">Неожиданный id</td>
-                <td class="col" th:text="${patient.firstName}">Неожиданное имя</td>
                 <td class="col" th:text="${patient.lastName}">Неожиданная фамилия</td>
+                <td class="col" th:text="${patient.firstName}">Неожиданное имя</td>
+                <td class="col" th:switch="${patient.discharged}">
+                    <div th:case="true" th:text="#{isDischargedTrue}">111</div>
+                    <div th:case="false" th:text="#{isDischargedFalse}">222</div>
+                    <div th:case="*">Unknown value</div>
+                </td>
+
                 <td class="col">
                     <form th:if="${currentRole.toString() eq 'DOCTOR'}" style="display:inline">
                         <button class="button3" type="button">

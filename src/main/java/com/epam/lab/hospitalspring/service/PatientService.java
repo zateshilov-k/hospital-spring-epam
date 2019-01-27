@@ -2,6 +2,7 @@ package com.epam.lab.hospitalspring.service;
 
 import com.epam.lab.hospitalspring.form.PatientForm;
 import com.epam.lab.hospitalspring.model.Patient;
+import com.epam.lab.hospitalspring.model.Personal;
 
 import java.util.List;
 
@@ -20,4 +21,5 @@ public interface PatientService {
 
     List<Patient> getDeletedPatients();
 
+    boolean discharge(Personal personal, Long id);
 }

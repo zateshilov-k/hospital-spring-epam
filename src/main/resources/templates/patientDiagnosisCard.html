@@ -13,6 +13,9 @@
     table{
         width: 40%;
     }
+    body  {
+        margin: 0px auto;
+    }
 </style>
 
 <header>
@@ -33,15 +36,16 @@
     </div>
 </h3>
 <br>
-<br><br>
 
 <fieldset>
+
+    <button class="button3" id="dischargeButton" th:text="#{buttonDischargePatient}">Discharge patient</button>
     <button class="button3" id="closeDiagnosisButton" th:text="#{buttonCloseDiagnosis}">Close diagnosis button</button>
     <button class="button3" id="doPrescription" style="display:inline; float:right" th:text="#{buttonDoPerscription}" >Do prescription</button>
     <br><br>
 
     <div>
-        <table class="diagnosisList" id="diagnosis" style="display:inline; float:left" border="1">
+        <table bgcolor="white" class="diagnosisList" id="diagnosis" style="display:inline; float:left" border="1" width="100%">
             <caption  style="font-family: Arial, Helvetica, sans-serif;" th:text="#{diagnosises}" >Диагноз сообщение:</caption>
             <tr>
                 <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
@@ -53,7 +57,7 @@
     </div>
 
     <div>
-        <table class="prescriptionList" id="prescriptionsTable" style="display:inline; float:right" border="1">
+        <table bgcolor="white" class="prescriptionList" id="prescriptionsTable" style="display:inline; float:right" border="1">
             <caption style=" font-family: Arial, Helvetica, sans-serif;" th:text="#{perscriptions}" >Назначение сообщение:</caption>
             <tr>
                 <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
@@ -65,7 +69,6 @@
         </table>
     </div>
 </fieldset>
-
 <br>
 <fieldset style="float:left" id="diagnosisFieldSet">
     <legend th:text="#{addDiagnosis}">Добавить диагноз</legend>
@@ -74,7 +77,6 @@
     <p><textarea name="comment" id="diagnosisDescription"></textarea></p>
     <button class="button3" id="diagnosisSubmit" value="Добавить" th:text="#{addDiagnosis}">Добавить</button>
 </fieldset>
-
 <fieldset id="addPrescriptionFieldSet" style="display:none;">
     <legend th:text="#{addPerscription}">Добавить назначение</legend>
     <form>
@@ -108,17 +110,29 @@
     diagnosisSubmitButton.addEventListener("click", diagnosisSubmitButtonListener);
     var prescriptionSubmitButton = document.getElementById("prescriptionSubmit");
     prescriptionSubmitButton.addEventListener("click", prescriptionSubmitButtonListener);
+
+    var dischargePatientButton = document.getElementById("dischargeButton");
+    dischargePatientButton.addEventListener("click", dischargePatientButtonListener);
     var diagnosisTable = document.getElementById("diagnosis");
     var diagnosis = toJson('[[${diagnoses}]]');
     var userRole = '[[${role}]]';
     var enterPrescriptionMessage = '[[#{enterPrescriptionMessage}]]';
     var enterDiagnosisMessage = '[[#{enterDiagnosisMessage}]]';
     var closeDiagnosisMessage = '[[#{closeDiagnosisMessage}]]';
+    var dischargePatientMessage = '[[#{dischargePatientMessage}]]';
+    var patientId = '[[${patient.id}]]';
     if (diagnosis.length > 0) {
         getAndUpdateDiagnosis();
     }
     function toJson(stringJson) {
         return JSON.parse(stringJson.replace(/&quot;/g, "\""));
+    }
+    function dischargePatientButtonListener() {
+        var jqxhr = $.post("/patients/"+patientId+"/discharge",{},function (response) {
+            window.location.replace("/deletedPatients");
+        }).fail(function () {
+            alert(dischargePatientMessage);
+        })
     }
     function prescriptionSubmitButtonListener() {
         var prescriptionTextArea = document.getElementById("prescriptionDescription");
@@ -215,10 +229,12 @@
         }
     }
     function setSpecialStyle(row) {
-        row.style.color = "red";
+        //row.style.color = "red";
+        row.style.backgroundColor = "whitesmoke";
     }
     function setDefaultStyle(row) {
-        row.style.color = "black";
+        row.style.backgroundColor = "white";
+        //row.style.color = "black";
     }
     function diagnosisClick() {
         var prescriptionTable = document.getElementById("prescriptionsTable");
@@ -258,8 +274,8 @@
                         newCell.innerHTML = prescriptions[i]['id'];
                     } else if (j === 1) {
                         //newCell.innerHTML = prescriptions[i]['description'];
-                        for (var k = 0; k < diagnosis[i]['description'].length; ++k) {
-                            newCell.innerHTML += diagnosis[i]['description'][k];
+                        for (var k = 0; k < prescriptions[i]['description'].length; ++k) {
+                            newCell.innerHTML += prescriptions[i]['description'][k];
                             if (k % 10 == 0) {
                                 newCell.innerHTML += '<wbr>';
                             }

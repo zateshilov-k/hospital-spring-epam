@@ -34,7 +34,7 @@
                         <form th:action="@{/patients/{id}(id=${patient.id})}" th:object="${patient}" th:method="put">
                             <div class="form-group row">
                                 <label
-                                        class="col-md-4 col-form-label text-md-right">Input firstName</label>
+                                        class="col-md-4 col-form-label text-md-right" th:text="#{firstNameField}">Input firstName</label>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" name="firstName"
                                            autofocus th:value="${patient.firstName}" th:field="*{firstName}">
@@ -44,7 +44,7 @@
 
                             <div class="form-group row">
                                 <label
-                                        class="col-md-4 col-form-label text-md-right"> Input lastName</label>
+                                        class="col-md-4 col-form-label text-md-right" th:text="#{lastNameField}"> Input lastName</label>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" name="lastName"
                                            autofocus th:value="${patient.lastName}" th:field="*{lastName}">
@@ -54,7 +54,7 @@
 
                             <div class="form-group row">
                                 <label
-                                        class="col-md-4 col-form-label text-md-right">Deleted</label>
+                                        class="col-md-4 col-form-label text-md-right" th:text="#{patientDeleted}">Deleted</label>
                                 <div class="col-md-6">
                                     <input type="checkbox" class="form-control" name="deleted"
                                            th:checked="${patient.deleted}">
@@ -62,11 +62,9 @@
                             </div>
 
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Accept
-                                </button>
-                                <!--<input type="button" value="Cancel" onclick="history.back()">-->
-                                <input type="button" value="Cancel" onclick="location.href='/patients';">
+                                <button type="submit" class="btn btn-primary" th:text="#{buttonSave}"></button>
+                                <button type="button"
+                                        class="btn btn-secondary" onclick="location.href='/patients';" th:text="#{buttonCancel}"> Cancel </button>
                             </div>
                         </form>
                     </div>

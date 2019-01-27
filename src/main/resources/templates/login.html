@@ -20,7 +20,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <title>#{titleIndexPage}</title>
+    <title th:text="#{titleIndexPage}">#{titleIndexPage}</title>
 </head>
 <body style="background-color:powderblue">
 
@@ -36,8 +36,7 @@
                                 <strong th:text="#{loginErrorMsg}"></strong>
                             </div>
                         </div>
-
-
+                        <br>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label text-md-right" th:text="#{loginField}"></label>
                             <div class="col-md-6">

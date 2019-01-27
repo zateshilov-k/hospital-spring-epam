@@ -11,7 +11,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>#{titlePatientsPage}</title>
+    <title th:text="#{titlePatientsPage}">#{titlePatientsPage}</title>
     <!--<link rel="stylesheet" href="/css/main.css">-->
 </head>
 <body style="background-color:powderblue">
@@ -31,9 +31,14 @@
         font-size: 1.5em; /* Размер текста */
     }
     table {
+        background-color:white;
+        table-layout: fixed;
         width: 100%; /* Ширина таблицы */
     }
 
+    td {
+        word-wrap: break-word;
+    }
     th.colHeadFirstTable {
         background: rgba(22, 105, 99, 0.73);
         color: black;
@@ -131,8 +136,9 @@
         <thead>
         <tr>
             <th class="FirstColumn"  th:text="#{columnId}">Id</th>
-            <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
             <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
+            <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
+            <th class="colHeadFirstTable" th:text="#{columnDischarged}">Discharged</th>
             <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
         </tr>
         </thead>
@@ -141,8 +147,15 @@
         <div th:if="${patients} != null">
             <tr th:each="patient : ${patients}">
                 <td th:text="${patient.id}">id</td>
-                <td th:text="${patient.firstName}">first name</td>
                 <td th:text="${patient.lastName}">last name</td>
+                <td th:text="${patient.firstName}">first name</td>
+                <!--<td th:text="${patient.discharged}">discharged</td>-->
+                <td th:switch="${patient.discharged}">
+                    <div th:case="true" th:text="#{isDischargedTrue}">111</div>
+                    <div th:case="false" th:text="#{isDischargedFalse}">222</div>
+                    <div th:case="*">Unknown value</div>
+                </td>
+
                 <td>
                     <form style="display:inline">
                         <button class="button3" type="button">

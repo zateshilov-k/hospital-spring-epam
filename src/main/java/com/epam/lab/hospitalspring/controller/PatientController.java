@@ -2,9 +2,6 @@ package com.epam.lab.hospitalspring.controller;
 
 import com.epam.lab.hospitalspring.model.Patient;
 import com.epam.lab.hospitalspring.model.enums.Role;
-import com.epam.lab.hospitalspring.repository.DiagnosisRepository;
-import com.epam.lab.hospitalspring.repository.PatientRepository;
-import com.epam.lab.hospitalspring.repository.PrescriptionRepository;
 import com.epam.lab.hospitalspring.security.details.PersonalDetailsImpl;
 import com.epam.lab.hospitalspring.service.DiagnosisService;
 import com.epam.lab.hospitalspring.service.PatientService;
@@ -12,6 +9,8 @@ import com.epam.lab.hospitalspring.service.PrescriptionService;
 import com.epam.lab.hospitalspring.util.GsonFactory;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,12 +33,6 @@ public class PatientController {
     DiagnosisService diagnosisService;
     @Autowired
     PrescriptionService prescriptionService;
-    @Autowired
-    PatientRepository patientRepository;
-    @Autowired
-    DiagnosisRepository diagnosisRepository;
-    @Autowired
-    PrescriptionRepository prescriptionRepository;
 
     LocalDateTime today = LocalDateTime.now();
 
@@ -136,4 +129,14 @@ public class PatientController {
         }
     }
 
+    @PostMapping(value = "/patients/{id}/discharge")
+    public ResponseEntity dischargePatient(@PathVariable("id") Long id, Authentication authentication) {
+        PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
+        if (patientService.discharge(personalDetailsService.getPersonal(), id)) {
+            return new ResponseEntity(HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+
+    }
 }
