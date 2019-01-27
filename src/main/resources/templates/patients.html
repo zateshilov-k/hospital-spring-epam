@@ -30,9 +30,11 @@
                 <a href="#" th:case="*">Unknown role</a>
             </li>
             <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/patients" th:text="#{menuPatients}"></a></li>
-            <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/addPatient" th:text="#{menuAddPatient}"></a>
+            <li id="addpatient" th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/addPatient" th:text="#{menuAddPatient}"></a>
             </li>
-            <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/deletedPatients" th:text="#{menuDeletedPatients}">Deleted Patients</a></li>
+            <li id="deletedpatients" th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/deletedPatients"
+                                                                                      th:text="#{menuDeletedPatients}">Deleted
+                Patients</a></li>
             <li><a href="/logout" th:text="#{menuLogout}"></a></li>
         </ul>
     </nav>
@@ -42,7 +44,7 @@
     <table width="100%" id="example" class="table  table-bordered table-hover">
         <thead>
         <tr>
-            <th class="colHeadFirstTable"  th:text="#{columnId}">Id</th>
+            <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
             <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
             <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
             <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
@@ -63,7 +65,7 @@
                                th:text="#{buttonOpenCard}">Link link</a></button>
                     </form>
                     <form th:if="${currentRole.toString() eq 'DOCTOR'}" style="display:inline">
-                        <button class="button3" type="button">
+                        <button id="patientprofile" class="button3" type="button">
                             <a class="link" href="yourlink.com" th:href="@{/patient/{id}(id=${patient.id})}"
                                th:text="#{buttonPatientProfile}">Link link</a></button>
                     </form>

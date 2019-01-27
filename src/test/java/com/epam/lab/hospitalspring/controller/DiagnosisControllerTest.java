@@ -20,6 +20,8 @@ public class DiagnosisControllerTest {
 
 //        driver.findElement(By.id("doPrescription")).click();
 //        driver.findElement(By.id("closeDiagnosisButton")).click();
+
+        // TO-DO!!!
     }
 
 }
