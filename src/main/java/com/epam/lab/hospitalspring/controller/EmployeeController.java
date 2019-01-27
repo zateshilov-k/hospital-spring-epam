@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -19,15 +20,21 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class EmployeeController {
-
+    private String filter = null;
     @Autowired
     EmployeeService employeeService;
 
-
+    // выдает страницы с сотрудниками
     @GetMapping("/employees")
     public String getEmployees(@PageableDefault(size = 2) Pageable pageable,
                                Model model, Authentication authentication) {
-        Page<Personal> page = employeeService.findAll(pageable);
+        Page<Personal> page = null;
+        if (filter == null || filter =="") {
+            page = employeeService.findAll(pageable);
+
+        } else {
+            page = employeeService.newFinder(filter, pageable);
+        }
         Long totalElements = page.getTotalElements();
         model.addAttribute("page", page);
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
@@ -38,9 +45,10 @@ public class EmployeeController {
         return "employee-page";
     }
 
+    //отрабатывает поиск по вхождению search в поле имя или фамилия
     @PostMapping("/employees")
-    public String search(Model model, Authentication authentication, String search, @PageableDefault(size = 2) Pageable pageable){
-
+    public String search(Model model, Authentication authentication, String search, @PageableDefault(size = 2) Pageable pageable) {
+        filter = search;
         Page<Personal> page = employeeService.newFinder(search, pageable);
         Long totalElements = page.getTotalElements();
         model.addAttribute("page", page);
@@ -51,7 +59,6 @@ public class EmployeeController {
         model.addAttribute("totalElements", totalElements);
         return "employee-page";
 
-
-
     }
+
 }
