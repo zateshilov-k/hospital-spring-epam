@@ -6,10 +6,11 @@ import com.epam.lab.hospitalspring.model.enums.Role;
 import com.epam.lab.hospitalspring.repository.PersonalRepository;
 import com.epam.lab.hospitalspring.service.PersonalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -49,12 +50,20 @@ public class PersonalServiceImpl implements PersonalService {
     }
 
     @Override
-    public List<Personal> getAll() {
-        return personalRepository.findAll();
+    public Page<Personal> findAll(Pageable pageable) {
+        return personalRepository.findAll(pageable);
     }
 
     @Override
     public void deleteFromDB(Long id) {
         personalRepository.deleteById(id);
     }
+
+    @Override
+    public Page<Personal> newFinder(String searchString, Pageable pageable) {
+        Page<Personal> page;
+        page = personalRepository.returnPage(searchString, pageable);
+        return page;
+    }
+
 }

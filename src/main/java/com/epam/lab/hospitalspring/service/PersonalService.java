@@ -2,8 +2,8 @@ package com.epam.lab.hospitalspring.service;
 
 import com.epam.lab.hospitalspring.form.PersonalForm;
 import com.epam.lab.hospitalspring.model.Personal;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface PersonalService {
 
@@ -11,7 +11,9 @@ public interface PersonalService {
 
     Personal getById(Long id);
 
-    List<Personal> getAll();
+    Page<Personal> newFinder(String searchString, Pageable pageable);
+
+    Page<Personal> findAll(Pageable pageable);
 
     void deleteFromDB(Long id);
 
