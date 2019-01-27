@@ -74,7 +74,7 @@
                                 <label class="col-md-4 col-form-label text-md-right" th:text="#{lastNameField}"> Last
                                     name:</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="lastname:" name="lastName" th:field="*{lastName}"/>
+                                    <input type="text" class="form-control" id="lastname" name="lastName" th:field="*{lastName}"/>
                                     <span class="err" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@
                             </div>
 
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary" th:text="#{buttonSave}">Save</button>
+                                <button id="addpersonal" type="submit" class="btn btn-primary" th:text="#{buttonSave}">Save</button>
                                 <!--<a href="/login" th:text="#{buttonCancel}">Cancel</a>-->
                                 <button type="button"
                                         class="btn btn-secondary" onclick="location.href='/login';" th:text="#{buttonCancel}"> Cancel </button>

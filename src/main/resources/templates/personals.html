@@ -69,7 +69,6 @@
                 <td th:if="${personal.deleted.toString() eq 'false'}"><p th:text="#{personalNotDeleted}">Неожиданно удален</p></td>
                 <td th:if="${personal.deleted.toString() eq 'true'}"><p th:text="#{personalDeleted}">Неожиданно удален</p></td>
                 <td>
-
                     <form style="display:inline">
                         <button id="openprofile" class="button3" type="button">
                             <a class="link" href="yourlink.com"
@@ -77,7 +76,7 @@
                                th:text="#{buttonOpenProfile}">Link link</a></button>
                     </form>
                     <form style="display:inline">
-                        <button class="button3" type="button">
+                        <button id="deletepersonalDB" class="button3" type="button">
                             <a class="link" href="yourlink.com"
                                th:href="@{/deletePersonalFromDB/{id}(id=${personal.id})}"
                                th:text="#{buttonDeletePersonal}">Link link</a></button>
