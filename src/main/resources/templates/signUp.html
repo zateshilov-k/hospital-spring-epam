@@ -21,6 +21,11 @@
 </head>
 
 <body style="background-color:powderblue">
+<style>
+    span{
+        color:red;
+    }
+</style>
 
 <main class="login-form">
     <div class="container-fluid">
@@ -42,7 +47,7 @@
                                     Name:</label>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="login" name="login" th:field="*{login}"/>
-                                    <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
+                                    <span class="err" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
                                 </div>
                             </div>
 
@@ -50,7 +55,7 @@
                                 <label class="col-md-4 col-form-label text-md-right" th:text="#{passwordField}">Password:</label>
                                 <div class="col-md-6">
                                     <input type="password" class="form-control" id="password" name="password" th:field="*{password}"/>
-                                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                                    <span class="err" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                                 </div>
                             </div>
 
@@ -59,7 +64,7 @@
                                     name:</label>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="firstname" name="firstName" th:field="*{firstName}"/>
-                                    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+                                    <span class="err" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
                                 </div>
                             </div>
 
@@ -70,7 +75,7 @@
                                     name:</label>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="lastname:" name="lastName" th:field="*{lastName}"/>
-                                    <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+                                    <span class="err" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
                                 </div>
                             </div>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <html lang="en">
 <head>
@@ -10,8 +10,13 @@
 <body style="background-color:powderblue;">
 
 <style>
-    table{
-        width: 40%;
+    table.diagnosisList{
+        width: 47.9%;
+
+    }
+   table.prescriptionList{
+        width: 47.9%;
+
     }
     body  {
         margin: 0px auto;
@@ -38,31 +43,33 @@
 <br>
 
 <fieldset>
+    <br>
     <button class="button3" id="closeDiagnosisButton" th:text="#{buttonCloseDiagnosis}">Close diagnosis button</button>
     <button class="button3" id="doPrescription" style="display:inline; float:right" th:text="#{buttonDoPerscription}" >Do prescription</button>
-    <br><br>
+    <br>
 
-    <div>
-        <table bgcolor="white" class="diagnosisList" id="diagnosis" style="display:inline; float:left" border="1" width="100%">
+    <div width="100%">
+        <table bgcolor="powderblue" class="diagnosisList" id="diagnosis" style="display:inline; float:left "border="1" width="100%" >
             <caption  style="font-family: Arial, Helvetica, sans-serif;" th:text="#{diagnosises}" >Диагноз сообщение:</caption>
             <tr>
-                <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
-                <th class="colHeadFirstTable" th:text="#{columnDescription}">Description</th>
-                <th class="colHeadFirstTable" th:text="#{columnTime}">Time</th>
-                <th class="colHeadFirstTable" th:text="#{columnOpen}">isOpened</th>
+                <th style="width:11%" class="colHeadFirstTable" th:text="#{columnId}">Id</th>
+                <th style="width:40%" class="colHeadFirstTable" th:text="#{columnDescription}">Description</th>
+                <th style="width:45%" class="colHeadFirstTable" th:text="#{columnTime}">Time</th>
+                <th style="width:52%" class="colHeadFirstTable" th:text="#{columnOpen}">isOpened</th>
             </tr>
         </table>
+
     </div>
 
     <div>
-        <table bgcolor="white" class="prescriptionList" id="prescriptionsTable" style="display:inline; float:right" border="1">
+        <table bgcolor="powderblue" class="prescriptionList" id="prescriptionsTable" style="display:inline; float:right" border="1">
             <caption style=" font-family: Arial, Helvetica, sans-serif;" th:text="#{perscriptions}" >Назначение сообщение:</caption>
             <tr>
-                <th class="colHeadFirstTable" th:text="#{columnId}">Id</th>
-                <th class="colHeadFirstTable" th:text="#{columnDescription}">Description</th>
-                <th class="colHeadFirstTable" th:text="#{columnTypeOfPerscription}">Type of prescription</th>
-                <th class="colHeadFirstTable" th:text="#{columnTime}">Time</th>
-                <th class="colHeadFirstTable" th:text="#{columnDone}">Done</th>
+                <th style="width:10%" class="colHeadFirstTable" th:text="#{columnId}">Id</th>
+                <th style="width:25%" class="colHeadFirstTable" th:text="#{columnDescription}">Description</th>
+                <th style="width:12%" class="colHeadFirstTable" th:text="#{columnTypeOfPerscription}">Type of prescription</th>
+                <th style="width:30%" class="colHeadFirstTable" th:text="#{columnTime}">Time</th>
+                <th style="width:25%" class="colHeadFirstTable" th:text="#{columnDone}">Done</th>
             </tr>
         </table>
     </div>
