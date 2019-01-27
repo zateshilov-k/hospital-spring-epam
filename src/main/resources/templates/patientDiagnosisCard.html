@@ -61,7 +61,7 @@
 
     </div>
 
-    <div>
+    <div >
         <table bgcolor="powderblue" class="prescriptionList" id="prescriptionsTable" style="display:inline; float:right" border="1">
             <caption style=" font-family: Arial, Helvetica, sans-serif;" th:text="#{perscriptions}" >Назначение сообщение:</caption>
             <tr>
@@ -77,9 +77,15 @@
 <br>
 <fieldset style="float:left" id="diagnosisFieldSet">
     <legend th:text="#{addDiagnosis}">Добавить диагноз</legend>
-    <br>
+
+<br>
     <caption th:text="#{diagnosisDescription}">Описание диагноза:</caption>
     <p><textarea name="comment" id="diagnosisDescription"></textarea></p>
+
+
+    <font size="3.5" color="#f91d1d" face="Arial"><p style="text-align: center" id="emptyField" ></p></font>
+
+
     <button class="button3" id="diagnosisSubmit" value="Добавить" th:text="#{addDiagnosis}">Добавить</button>
 </fieldset>
 <fieldset id="addPrescriptionFieldSet" style="display:none;">
@@ -95,11 +101,18 @@
         </form>
         <caption th:text="#{perscriptionDescription}">Описание назначения:</caption>
         <p><textarea id="prescriptionDescription" name="comment"></textarea></p>
+
+        <font size="3.5" color="#f91d1d" face="Arial"><p style="text-align: center" id="emptyField2" ></p></font>
+
+
         <button class="button3" id="prescriptionSubmit" value="Добавить" th:text="#{addPerscription}">Добавить</button>
     </form>
 </fieldset>
 
 <script>
+
+
+
     var currentDiagnosisRow = 1;
     var currentPrescriptionRow = 1;
     var diagnosisIsOpened = '[[#{diagnosisIsOpened}]]';
@@ -132,13 +145,14 @@
         var prescriptionTypeSelect = document.getElementById("prescriptionType");
         var diagnosisTable = document.getElementById("diagnosis");
         if (prescriptionTextArea.value === "") {
-            alert(enterPrescriptionMessage);
+            document.getElementById("emptyField2").textContent = "Please, Input the field";
         } else {
             $.post(window.location.href +
                 "/diagnosis/" + diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML +
                 "/addPrescription/",
                 {prescriptionDescription : prescriptionTextArea.value,
                     prescriptionType: prescriptionTypeSelect.value}, function (response) {
+                    document.getElementById("emptyField2").textContent = "";
                 updatePrescriptionsTable(diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML);
                 prescriptionTextArea.value = "";
             });
@@ -149,10 +163,10 @@
         var diagnosisTable = document.getElementById("diagnosis");
         var prescriptionFieldSet = document.getElementById("addPrescriptionFieldSet");
         if (diagnosisTextArea.value === "") {
-            alert(enterDiagnosisMessage);
+            document.getElementById("emptyField").textContent = "Please, Input the field";
         } else {
             $.post(window.location.href + "/addDiagnosis/", {description:diagnosisTextArea.value}, function (response) {
-                diagnosisTextArea.value = "";
+                document.getElementById("emptyField").textContent = "";
                 getAndUpdateDiagnosis();
             });
         }

@@ -35,7 +35,7 @@ public class PersonalControllerTest {
 
         WebElement personalTable = driver.findElement(By.id("example"));
         List<WebElement> rows = personalTable.findElements(By.tagName("tr"));
-        rows.get(1).click();
+        rows.get(3).click();
 
         driver.findElement(By.id("openProfile")).click();
 
@@ -54,22 +54,6 @@ public class PersonalControllerTest {
 
         driver.findElement(By.id("saveProfile")).click();
 
-////       <--deleted-->
-//        WebElement personalTable2 = driver.findElement(By.id("example"));
-//        List<WebElement> rows2 = personalTable2.findElements(By.tagName("tr"));
-//        rows2.get(4).click();
-//
-//        driver.findElement(By.id("buttondel")).submit();
-////        <--exit-->
-//        driver.findElement(By.id("exit")).submit();
     }
 
-//@Test
-//public void testDeletePersonalFromDB(){
-//    driver.findElement(By.id("personalDeleted")).submit();
-//}
-//    @Test
-//    public void testExitFromAdmin() {
-//        driver.findElement(By.id("exit")).submit();
-//    }
 }
