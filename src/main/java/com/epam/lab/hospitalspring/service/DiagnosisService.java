@@ -18,7 +18,7 @@ public interface DiagnosisService {
 
     String findDiagnosisByPatientId(Long id, Locale locale);
 
-    void closeDiagnosis(Long diagnosisId);
+    boolean closeDiagnosis(Long diagnosisId);
 
     void addDiagnosis(Long patientId, Long personalId, String description);
 }
