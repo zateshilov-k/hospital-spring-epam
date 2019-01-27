@@ -12,39 +12,24 @@ import java.util.List;
 public class PersonalControllerTest {
 
     public WebDriver driver;
-    @Before
-    public  void setUpAdmin() {
-        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
-        driver = new ChromeDriver();
-        System.out.println("test start.");
-        driver.get("http://localhost:8080/");
-
-        System.out.println("Page title is: " + driver.getTitle());
-
-        WebElement emailInput = driver.findElement(By.id("username"));
-        WebElement passwordInput = driver.findElement(By.id("password"));
-
-        emailInput.sendKeys("admin@epam.com");
-        passwordInput.sendKeys("admin");
-        driver.findElement(By.id("enter")).submit();
-    }
 
     @Test
     public void testUpdatePersonal() {
+        driver = InitRoles.initAdmin();
         System.out.println("Page title is: " + driver.getTitle());
 
         WebElement personalTable = driver.findElement(By.id("example"));
         List<WebElement> rows = personalTable.findElements(By.tagName("tr"));
         rows.get(1).click();
 
-        driver.findElement(By.id("openProfile")).click();
+        driver.findElement(By.id("openprofile")).click();
 
 //        <--updatePersonal-->
         driver.findElement(By.id("field5")).clear();
         driver.findElement(By.id("field5")).sendKeys("Marina@epam.com");
 
         driver.findElement(By.id("password")).clear();
-        driver.findElement(By.id("password")).sendKeys("12345");
+        driver.findElement(By.id("password")).sendKeys("123456qwe");
 
         driver.findElement(By.id("field1")).clear();
         driver.findElement(By.id("field1")).sendKeys("Marina");
@@ -52,7 +37,7 @@ public class PersonalControllerTest {
         driver.findElement(By.id("field2")).clear();
         driver.findElement(By.id("field2")).sendKeys("Avdeeva");
 
-        driver.findElement(By.id("saveProfile")).click();
+        driver.findElement(By.id("saveprofile")).click();
 
 ////       <--deleted-->
 //        WebElement personalTable2 = driver.findElement(By.id("example"));
