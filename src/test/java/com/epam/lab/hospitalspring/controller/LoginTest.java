@@ -12,7 +12,11 @@ public class LoginTest {
 
     @Before
     public  void setUpAdmin() {
-        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
+        init();
+    }
+
+    public void init() {
+        System.setProperty("webdriver.chrome.driver", "F:\\chromedriver.exe");
         driver = new ChromeDriver();
         System.out.println("test start.");
         driver.get("http://localhost:8080/");

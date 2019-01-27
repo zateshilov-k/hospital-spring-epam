@@ -79,7 +79,7 @@
 <fieldset style="float:left" id="diagnosisFieldSet">
     <legend th:text="#{addDiagnosis}">Добавить диагноз</legend>
 
-    <font size="3" color="#670000" face="Arial"><p id="emptyField" style="height: 50px; background: #b4726f;"></p></font>
+    <font size="3" color="#670000" face="Arial"><p id="emptyField" style="background: #b4726f"></p></font>
 
     <caption th:text="#{diagnosisDescription}">Описание диагноза:</caption>
     <p><textarea name="comment" id="diagnosisDescription"></textarea></p>
@@ -103,9 +103,6 @@
 </fieldset>
 
 <script>
-    function test() {
-        document.getElementById("emptyField").textContent = "Input field";
-    }
 
     var currentDiagnosisRow = 1;
     var currentPrescriptionRow = 1;
@@ -156,10 +153,10 @@
         var diagnosisTable = document.getElementById("diagnosis");
         var prescriptionFieldSet = document.getElementById("addPrescriptionFieldSet");
         if (diagnosisTextArea.value === "") {
-            test();
+            document.getElementById("emptyField").textContent = "Input field";
         } else {
             $.post(window.location.href + "/addDiagnosis/", {description:diagnosisTextArea.value}, function (response) {
-                diagnosisTextArea.value = "";
+                document.getElementById("emptyField").textContent = "";
                 getAndUpdateDiagnosis();
             });
         }
