@@ -77,7 +77,10 @@
 <br>
 <fieldset style="float:left" id="diagnosisFieldSet">
     <legend th:text="#{addDiagnosis}">Добавить диагноз</legend>
-    <br>
+
+
+    <font size="3" color="red" face="Arial"><p id="emptyField"></p></font>
+
     <caption th:text="#{diagnosisDescription}">Описание диагноза:</caption>
     <p><textarea name="comment" id="diagnosisDescription"></textarea></p>
     <button class="button3" id="diagnosisSubmit" value="Добавить" th:text="#{addDiagnosis}">Добавить</button>
@@ -100,6 +103,11 @@
 </fieldset>
 
 <script>
+
+    function test() {
+        document.getElementById("emptyField").textContent = "Input field";
+    }
+
     var currentDiagnosisRow = 1;
     var currentPrescriptionRow = 1;
     var diagnosisIsOpened = '[[#{diagnosisIsOpened}]]';
@@ -149,7 +157,7 @@
         var diagnosisTable = document.getElementById("diagnosis");
         var prescriptionFieldSet = document.getElementById("addPrescriptionFieldSet");
         if (diagnosisTextArea.value === "") {
-            alert(enterDiagnosisMessage);
+            test();
         } else {
             $.post(window.location.href + "/addDiagnosis/", {description:diagnosisTextArea.value}, function (response) {
                 diagnosisTextArea.value = "";
