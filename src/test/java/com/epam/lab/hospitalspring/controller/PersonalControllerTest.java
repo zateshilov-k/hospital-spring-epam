@@ -1,18 +1,13 @@
 package com.epam.lab.hospitalspring.controller;
 
-import com.epam.lab.hospitalspring.service.PersonalService;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class PersonalControllerTest {
 
     public WebDriver driver = InitRoles.initAdmin();
-
-    @Autowired
-    PersonalService personalService;
 
     @Test
     public void testGetPersonals() {
@@ -31,8 +26,7 @@ public class PersonalControllerTest {
 
     @Test
     public void testUpdatePersonal() {
-        WebElement personalTable = driver.findElement(By.id("example"));
-        personalTable.findElements(By.tagName("tr")).get(10).findElement(By.id("openprofile")).click();
+        driver.findElement(By.id("example")).findElements(By.tagName("tr")).get(10).findElement(By.id("openprofile")).click();
         driver.findElement(By.id("field5")).clear();
         driver.findElement(By.id("field5")).sendKeys("Marina@epam.com");
         driver.findElement(By.id("password")).clear();
