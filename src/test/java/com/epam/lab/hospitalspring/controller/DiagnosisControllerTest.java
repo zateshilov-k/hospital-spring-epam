@@ -15,7 +15,7 @@ public class DiagnosisControllerTest {
 
     @Before
     public  void setUpDoctor() {
-        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "F:\\chromedriver.exe");
         driver = new ChromeDriver();
         System.out.println("test start.");
         driver.get("http://localhost:8080/");
