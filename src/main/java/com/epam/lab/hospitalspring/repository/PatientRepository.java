@@ -13,15 +13,15 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
 
     List<Patient> findPatientsByDeletedIsTrue();
 
-    Page<Patient> findPatientsByDeletedIsFalse(Pageable pageable);
+    Page<Patient> findPatientsByDeletedIsFalseOrderByLastName(Pageable pageable);
 
-    Page<Patient> findPatientsByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseAndDeletedFalse(
+    Page<Patient> findPatientsByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseAndDeletedFalseOrderByLastName(
             String firstName,
             String lastName,
             Pageable pageable);
 
     default Page<Patient> returnPage(String searchString, Pageable pageable) {
-        Page<Patient> page = findPatientsByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseAndDeletedFalse(
+        Page<Patient> page = findPatientsByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseAndDeletedFalseOrderByLastName(
                 searchString,
                 searchString,
                 pageable);

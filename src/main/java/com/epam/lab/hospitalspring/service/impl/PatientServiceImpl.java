@@ -68,7 +68,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Page<Patient> getNotDeletedPatients(Pageable pageable) {
-        return patientRepository.findPatientsByDeletedIsFalse(pageable);
+        return patientRepository.findPatientsByDeletedIsFalseOrderByLastName(pageable);
     }
 
     @Override
