@@ -27,7 +27,7 @@ button.button3 {
     }
 
     table {
-
+        table-layout: fixed;
         width: 100%;
         word-wrap: break-word;
     }
