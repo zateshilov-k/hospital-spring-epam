@@ -9,6 +9,8 @@ import com.epam.lab.hospitalspring.repository.PatientRepository;
 import com.epam.lab.hospitalspring.service.PatientService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -65,17 +67,19 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public List<Patient> getAllPatients() {
-        return patientRepository.findAll();
+    public Page<Patient> getNotDeletedPatients(Pageable pageable) {
+        return patientRepository.findPatientsByDeletedIsFalse(pageable);
     }
 
     @Override
-    public List<Patient> getNotDeletedPatients() {
-        return patientRepository.findPatientsByDeleted(false);
+    public Page<Patient> newFinder(String searchString, Pageable pageable) {
+        Page<Patient> page;
+        page = patientRepository.returnPage(searchString, pageable);
+        return page;
     }
 
     public List<Patient> getDeletedPatients() {
-        return patientRepository.findPatientsByDeleted(true);
+        return patientRepository.findPatientsByDeletedIsTrue();
     }
 
     @Override
@@ -85,9 +89,6 @@ public class PatientServiceImpl implements PatientService {
         Patient patient = currentPatient.orElseThrow(() ->
            new IllegalArgumentException("Can't discharge patient that is not exists")
         );
-        /*if (patient.getDischarged()) {
-            throw new IllegalArgumentException("Can't discharge patient that is already discharged");
-        }*/
         for (Diagnosis diagnosis : diagnoses) {
             if(diagnosis.getOpened()) {
                 return false;

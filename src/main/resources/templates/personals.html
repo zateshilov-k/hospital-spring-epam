@@ -1,17 +1,16 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <!--styles for table-->
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
           id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <!------ Include the above in your HEAD tag ---------->
 
+    <!--styles for menu-->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <title th:text="#{titlePersonalsPage}">#{titlePersonalsPage}</title>
 </head>
@@ -30,13 +29,13 @@
     }
 
     body {
-        font-size: 1.5em; /* Размер текста */
+        font-size: 1.5em;
     }
 
     table {
         background-color:white;
         table-layout: fixed;
-        width: 100%; /* Ширина таблицы */
+        width: 100%;
     }
 
     td {
@@ -149,6 +148,13 @@
 </header>
 <h3 align="center" th:text="#{titlePersonalsPage}"></h3>
 
+<nav class="navbar navbar-light bg-light">
+    <form class="form-inline" action="/personals" th:object="${search}" method="post">
+        <input class="form-control mr-sm-2" type="text" aria-label="Search" name="search" th:attr="placeholder=#{searchField}"/>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" th:text="#{buttonSearch}">Search</button>
+    </form>
+</nav>
+
 <div class="container-fluid">
     <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
         <thead>
@@ -158,14 +164,14 @@
             <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
             <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
             <th class="colHeadFirstTable" th:text="#{columnRole}">Role</th>
-            <th class="FirstColumn" th:text="#{columnActive}">Active</th>
+            <!--<th class="FirstColumn" th:text="#{columnActive}">Active</th>-->
             <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
         </tr>
         </thead>
 
         <tbody>
-        <div th:if="${personals}!=null">
-            <tr th:each="personal : ${personals}">
+        <div th:if="${totalElements}!=null">
+            <tr th:each="personal : ${page.content}">
                 <td th:text="${personal.id}">id</td>
                 <td th:text="${personal.login}">login</td>
                 <td th:text="${personal.lastName}">lastname</td>
@@ -177,8 +183,8 @@
                     <p th:case="${personal.role.NURSE}" th:text="#{NURSE}">nurse</p>
                     <p th:case="*">Unknown role</p>
                 </td>
-                <td th:if="${personal.deleted.toString() eq 'false'}"><p th:text="#{personalNotDeleted}">Неожиданно удален</p></td>
-                <td th:if="${personal.deleted.toString() eq 'true'}"><p th:text="#{personalDeleted}">Неожиданно удален</p></td>
+                <!--<td th:if="${personal.deleted.toString() eq 'false'}"><p th:text="#{personalNotDeleted}">Неожиданно удален</p></td>-->
+                <!--<td th:if="${personal.deleted.toString() eq 'true'}"><p th:text="#{personalDeleted}">Неожиданно удален</p></td>-->
                 <td>
 
                     <form style="display:inline">
@@ -198,20 +204,20 @@
     </table>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
-</script>
+<div class="pagination-div">
+    <span th:if="${page.hasPrevious()}">
+        <a th:href="@{/personals(page=${page.number-1},size=${page.size})}">Previous</a>
+    </span>
+    <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
+        <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>
+        <span th:unless="${page.number == i}">
+             <a th:href="@{/personals(page=${i},size=${page.size})}">[[${i}+1]]</a>
+        </span>
+    </th:block>
+    <span th:if="${page.hasNext()}">
+        <a th:href="@{/personals(page=${page.number+1},size=${page.size})}">Next</a>
+    </span>
+</div>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-<!-- JavaScript for table-->
-<script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-<script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<script src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>
