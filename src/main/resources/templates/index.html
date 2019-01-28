@@ -1,0 +1,121 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <title>Title</title>
+</head>
+<body style="background-color:powderblue">
+<style>
+    header {
+        width: 100%;
+        display: inline-block;
+        background-color: #404040;
+    }
+
+    .hamburger {
+        height: 20px;
+        width: 20px;
+        padding: 20px;
+        float: right;
+        cursor: pointer;
+    }
+
+    nav {
+        background-color: #2b2b2b;
+        margin: 0;
+        max-height: 0;
+        overflow: hidden;
+        clear:both;
+        transition: max-height .3s cubic-bezier(0.63, 0, 0.25, 1);;
+    }
+
+    nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: block;
+    }
+
+    nav li {
+        display: block;
+        margin: 0;
+        text-align: center;
+    }
+
+    nav a {
+        color: white;
+        display: block;
+        padding: .4em;
+    }
+
+    header input[type="checkbox"]:checked ~ nav {
+        max-height: 150px;
+        border-bottom: #404040 5px solid;
+    }
+
+    header a:hover,
+    header a:focus,
+    header label:hover,
+    header label:focus {
+        background-color: #191919;
+    }
+
+    @media (min-width: 700px) {
+        .hamburger {
+            display: none;
+        }
+        nav {
+            background: transparent;
+            float: right;
+            border: 0 !important;
+            max-height: none;
+        }
+        nav ul, nav li, nav li a {
+            display: inline-block;
+        }
+        nav a {
+            display: inline-block;
+            padding: 15px 1em;
+        }
+    }
+
+</style>
+<header>
+    <label ></label>
+    <nav>
+        <ul>
+            <li><a href="/personals"><p th:text="#{personals}"></p></a></li>
+            <li><a href="/patients" method><p th:text="#{patients}"></a></li>
+            <li><a href="/testPageAleksei">Test main page</a></li>
+            <li><a href="#"><p th:text="#{myprofile}"></a></li>
+            <li><a href="/logout"><p th:text="#{logout}"></a></li>
+        </ul>
+    </nav>
+</header>
+<h3 align="center">INDEX.HTML</h3>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+<h3>This is test page. If you see this text, you are the best!!!</h3>
+<h2>Если мы успешно прошли авторизацию из коробки Spring, то нас перекидывает на страницу по умолчанию index.html</h2>
+<h2>В дальнейшем мы можем это изменить.</h2>
+<h3> Текущий пользователь: </h3>
+<!--<h3 th:text="${personal.firstName}"> </h3>-->
+<!--<h3 th:text="${personal.lastName}"> </h3>-->

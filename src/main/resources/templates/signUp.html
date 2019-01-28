@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <title th:text="#{titleAddPersonalPage}">#{titleIndexPage}</title>
+</head>
+
+<body style="background-color:powderblue">
+<style>
+    span{
+        color:red;
+    }
+</style>
+
+<main class="login-form">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header" th:text="#{titleAddPersonalPage}">Page of sign up</div>
+                    <div class="card-body">
+                        <form th:action="@{/signUp}" th:object="${personal}" method="post">
+
+                            <div id="errors" th:if="${(param.loginAleadyUsed != null)}">
+                                <div class="alert alert-danger" role="alert">
+                                    <strong th:text="#{signUpErrorLoginAlreadyUsed}"></strong>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-md-right" th:text="#{loginField}">User
+                                    Name:</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="login" name="login" th:field="*{login}"/>
+                                    <span class="err" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-md-right" th:text="#{passwordField}">Password:</label>
+                                <div class="col-md-6">
+                                    <input type="password" class="form-control" id="password" name="password" th:field="*{password}"/>
+                                    <span class="err" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-md-right" th:text="#{firstNameField}">First
+                                    name:</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="firstname" name="firstName" th:field="*{firstName}"/>
+                                    <span class="err" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-md-right" th:text="#{lastNameField}"> Last
+                                    name:</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="lastname:" name="lastName" th:field="*{lastName}"/>
+                                    <span class="err" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-4 col-form-label text-md-right" th:text="#{chooseRoleField}">
+                                    Role:
+                                </div>
+                                <div class="col-md-6">
+                                    <select name="role" id="role-id" class="custom-select" style="width:auto;">
+                                        <option value="DOCTOR" th:text="#{doctorField}">Doctor</option>
+                                        <option value="NURSE" th:text="#{nurseField}">Nurse</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary" th:text="#{buttonSave}">Save</button>
+                                <!--<a href="/login" th:text="#{buttonCancel}">Cancel</a>-->
+                                <button type="button"
+                                        class="btn btn-secondary" onclick="location.href='/login';" th:text="#{buttonCancel}"> Cancel </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

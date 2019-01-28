@@ -1,0 +1,85 @@
+    button.button3 {
+        background: -moz-linear-gradient(#1daaa4, #EBFFFF);
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
+        padding: 3px 7px;
+        color: #333;
+         -moz-border-radius: 5px;
+         -webkit-border-radius: 5px;
+        border-radius: 5px;
+        border: 1px solid #666;
+    }
+    body {
+        font-size: 1.5em; /* Размер текста */
+    }
+    table {
+        width: 100%; /* Ширина таблицы */
+    }
+
+    th.colHeadFirstTable {
+        background: rgba(22, 105, 99, 0.73);
+        color: black;
+        width: 25%;
+
+    }
+
+    header {
+        width: 100%;
+        display: inline-block;
+        background-color: #404040;
+    }
+    nav {
+        background-color: #2b2b2b;
+        margin: 0;
+        max-height: 0;
+        overflow: hidden;
+        clear: both;
+        transition: max-height .3s cubic-bezier(0.63, 0, 0.25, 1);;
+    }
+    nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: block;
+    }
+    nav li {
+        display: block;
+        margin: 0;
+        text-align: center;
+    }
+    nav a {
+        color: white;
+        display: block;
+        padding: .4em;
+    }
+    header input[type="checkbox"]:checked ~ nav {
+        max-height: 150px;
+        border-bottom: #404040 5px solid;
+    }
+    header a:hover,
+    header a:focus,
+    header label:hover,
+    header label:focus {
+        background-color: #191919;
+    }
+    @media (min-width: 700px) {
+        nav {
+            background: transparent;
+            float: right;
+            border: 0 !important;
+            max-height: none;
+        }
+        nav ul, nav li, nav li a {
+            display: inline-block;
+        }
+        nav a {
+            display: inline-block;
+            padding: 15px 1em;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+        a.link {
+            color: #000000;
+        }
+    }

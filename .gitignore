@@ -22,6 +22,14 @@
 # Log file
 *.log
 
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+
 # Package Files #
 *.jar
 *.war
@@ -30,3 +38,9 @@
 *.zip
 *.tar.gz
 *.rar
+
+application-mysql.properties
+application-h2.properties
+
+target/*
+

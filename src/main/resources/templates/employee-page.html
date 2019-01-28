@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <title>#{titlePersonalsPage}</title>
+</head>
+<body style="background-color:powderblue">
+<style>
+    button.button3 {
+        background: -moz-linear-gradient(#1daaa4, #EBFFFF);
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(#1daaa4), to(#EBFFFF));
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
+        padding: 3px 7px;
+        color: #333;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        border: 1px solid #666;
+    }
+
+    body {
+        font-size: 1.5em; /* Размер текста */
+    }
+
+    table {
+        table-layout: fixed;
+        width: 100%; /* Ширина таблицы */
+    }
+
+    th.colHeadFirstTable {
+        background: rgba(22, 105, 99, 0.73);
+        color: black;
+        width: 15%;
+    }
+
+    th.FirstColumn {
+        background: rgba(22, 105, 99, 0.73);
+        color: black;
+        width: 5%;
+    }
+
+    td {
+        word-wrap: break-word;
+    }
+
+    header {
+        width: 100%;
+        display: inline-block;
+        background-color: #404040;
+    }
+
+    nav {
+        background-color: #2b2b2b;
+        margin: 0;
+        max-height: 0;
+        overflow: hidden;
+        clear: both;
+        transition: max-height .3s cubic-bezier(0.63, 0, 0.25, 1);;
+    }
+
+    nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: block;
+    }
+
+    nav li {
+        display: block;
+        margin: 0;
+        text-align: center;
+    }
+
+    nav a {
+        color: white;
+        display: block;
+        padding: .4em;
+    }
+
+    header input[type="checkbox"]:checked ~ nav {
+        max-height: 150px;
+        border-bottom: #404040 5px solid;
+    }
+
+    header a:hover,
+    header a:focus,
+    header label:hover,
+    header label:focus {
+        background-color: #191919;
+    }
+
+    @media (min-width: 700px) {
+        nav {
+            background: transparent;
+            float: right;
+            border: 0 !important;
+            max-height: none;
+        }
+
+        nav ul, nav li, nav li a {
+            display: inline-block;
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 15px 1em;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        a.link {
+            color: #000000;
+        }
+    }
+</style>
+
+<header>
+    <label></label>
+    <nav>
+        <ul>
+            <li th:switch="${currentRole}">
+                <a href="#" th:case="${currentRole.ADMIN}"
+                   th:text="#{ADMIN}+' '+${lastName}+' '+${firstName}">administrator</a>
+                <a href="#" th:case="${currentRole.DOCTOR}"
+                   th:text="#{DOCTOR}+' '+${lastName}+' '+${firstName}">doctor</a>
+                <a href="#" th:case="${currentRole.NURSE}" th:text="#{NURSE}+' '+${lastName}+' '+${firstName}">nurse</a>
+                <a href="#" th:case="*">Unknown role</a>
+            </li>
+            <li><a href="/personals" th:text="#{menuPersonals}"></a></li>
+            <li><a href="/addPersonal" th:text="#{menuAddPersonal}"></a></li>
+            <li><a href="/logout" th:text="#{menuLogout}"></a></li>
+        </ul>
+    </nav>
+</header>
+<h3 align="center" th:text="#{titlePersonalsPage}"></h3>
+<input class="form-control" id="myInput" type="text" placeholder="Search..">
+<table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        <th class="FirstColumn" th:text="#{columnId}">Id</th>
+        <th class="colHeadFirstTable" th:text="#{columnLogin}">Id</th>
+        <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
+        <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
+        <th class="colHeadFirstTable" th:text="#{columnRole}">Role</th>
+        <th class="FirstColumn" th:text="#{columnActive}">Active</th>
+        <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
+    </tr>
+    </thead>
+
+    <tbody id="myTable">
+    <div th:if="${totalElements}!=null">
+        <tr th:each="personal : ${page.content}">
+            <td th:text="${personal.id}">id</td>
+            <td th:text="${personal.login}">login</td>
+            <td th:text="${personal.firstName}">firstname</td>
+            <td th:text="${personal.lastName}">lastname</td>
+
+            <td th:switch="${personal.role}">
+                <p th:case="${personal.role.ADMIN}" th:text="#{ADMIN}">administrator</p>
+                <p th:case="${personal.role.DOCTOR}" th:text="#{DOCTOR}">doctor</p>
+                <p th:case="${personal.role.NURSE}" th:text="#{NURSE}">nurse</p>
+                <p th:case="*">Unknown role</p>
+            </td>
+            <td th:text="${personal.deleted}">Неожиданно удален</td>
+            <td>
+
+                <form style="display:inline">
+                    <button class="button3" type="submit">
+                        <a class="link" href="yourlink.com"
+                           th:href="@{/personal/{id}(id=${personal.id})}"
+                           th:text="#{buttonOpenProfile}">Link link</a></button>
+                </form>
+                <form style="display:inline">
+                    <button class="button3" type="submit">
+                        <a class="link" href="yourlink.com"
+                           th:href="@{/deletePersonalFromDB/{id}(id=${personal.id})}"
+                           th:text="#{buttonDeletePersonal}">Link link</a></button>
+                </form>
+            </td>
+        </tr>
+    </div>
+    </tbody>
+</table>
+
+<div class="pagination-div">
+    <span th:if="${page.hasPrevious()}">
+        <a th:href="@{/employees(page=${page.number-1},size=${page.size})}">Previous</a>
+    </span>
+    <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
+        <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>
+        <span th:unless="${page.number == i}">
+             <a th:href="@{/employees(page=${i},size=${page.size})}">[[${i}+1]]</a>
+        </span>
+    </th:block>
+    <span th:if="${page.hasNext()}">
+        <a th:href="@{/employees(page=${page.number+1},size=${page.size})}">Next</a>
+    </span>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
