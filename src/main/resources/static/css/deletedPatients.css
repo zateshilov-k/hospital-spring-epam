@@ -12,11 +12,13 @@
     }
 
     body {
-        font-size: 1.5em; /* Размер текста */
+        font-size: 1.5em;
     }
 
     table {
-        width: 100%; /* Ширина таблицы */
+        width: 100%;
+        word-wrap: break-word;
+        table-layout: fixed;
     }
 
     td.col {

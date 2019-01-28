@@ -36,12 +36,12 @@
                 <div class="card">
                     <div class="card-header" th:text="#{titleUpdatePatientPage}"></div>
                     <div class="card-body">
-                        <form th:action="@{/patients/updatePatient/{id}(id=${patient.id})}" th:object="${patient}" method="POST">
+                        <form th:action="@{/patients/{id}(id=${patient.id})}" th:object="${patient}" th:method="put">
                             <div class="form-group row">
                                 <label
                                         class="col-md-4 col-form-label text-md-right" th:text="#{firstNameField}">Input firstName</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" name="firstName"
+                                    <input type="text" id="firstname" class="form-control" name="firstName"
                                            autofocus th:value="${patient.firstName}" th:field="*{firstName}">
                                     <span class="err"th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
                                 </div>
@@ -51,7 +51,7 @@
                                 <label
                                         class="col-md-4 col-form-label text-md-right" th:text="#{lastNameField}"> Input lastName</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" name="lastName"
+                                    <input type="text" id="lastname" class="form-control" name="lastName"
                                            autofocus th:value="${patient.lastName}" th:field="*{lastName}">
                                     <span class="err" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
                                 </div>
@@ -67,7 +67,7 @@
                             </div>
 
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary" th:text="#{buttonSave}"></button>
+                                <button type="submit" id="updatepatient" class="btn btn-primary" th:text="#{buttonSave}"></button>
                                 <button type="button"
                                         class="btn btn-secondary" onclick="location.href='/patients';" th:text="#{buttonCancel}"> Cancel </button>
                             </div>

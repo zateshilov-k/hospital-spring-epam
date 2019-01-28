@@ -33,7 +33,7 @@
                     <div class="card">
                         <div class="card-header" th:text="#{titleUpdatePersonalPage}">Update personal</div>
                         <div class="card-body">
-                            <form th:action="@{/personal/{id}(id=${personal.id})}" th:object="${personal}" method="post">
+                            <form th:action="@{/personals/{id}(id=${personal.id})}" th:object="${personal}" th:method="put">
 
                                 <div id="errors" th:if="${(param.loginAleadyUsed != null)}">
                                     <div class="alert alert-danger" role="alert">
@@ -83,7 +83,7 @@
                                     <div class="col-md-6">
                                         <input type="text" id="field2" class="form-control" name="lastName"
                                                autofocus th:value="${personal.lastName}" th:field="*{lastName}">
-                                        <spa nclass="err"  th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+                                        <span class="err" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
                                     </div>
                                 </div>
 
@@ -102,7 +102,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary" th:text="#{buttonSave}">Save</button>
+                                    <button id="saveprofile" type="submit" class="btn btn-primary" th:text="#{buttonSave}">Save</button>
                                     <button type="button"
                                             class="btn btn-secondary" onclick="location.href='/personals';" th:text="#{buttonCancel}"> Cancel </button>
                                 </div>

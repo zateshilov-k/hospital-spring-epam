@@ -35,9 +35,9 @@
                             <div class="alert alert-danger" role="alert">
                                 <strong th:text="#{loginErrorMsg}"></strong>
                             </div>
+
                         </div>
-
-
+                        <br>
                         <div class="form-group row">
                             <label  class="col-md-4 col-form-label text-md-right" th:text="#{loginField}"></label>
                             <div class="col-md-6">
@@ -61,13 +61,22 @@
                         </div>
 
                         <!--local-->
-                        <span th:text="#{lang.change}"></span>
-                        <select id="locales" onchange="changeEventHandler(event);">
-                            <option value="en" th:text="#{lang.eng}"></option>
-                            <option value="ru" th:text="#{lang.ru}"></option>
-                        </select>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-1" >
+                                <span th:text="#{lang.change}"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-1">
+                                <select id="locales">
+                                    <option value="none" th:text="#{lang.none}"></option>
+                                    <option value="en" th:text="#{lang.eng}"></option>
+                                    <option value="ru" th:text="#{lang.ru}"></option>
+                                </select>
+                            </div>
+                        </div>
                     </form>
-
+                    <br>
                 </div>
             </div>
         </div>
@@ -85,6 +94,7 @@
             }
         });
     });
+
     if ((window.location.href.indexOf("lang=en") > 0)) {
         lang = "English";
         $("#locales").val("en");
@@ -93,18 +103,6 @@
         lang = "Russia";
         $("#locales").val("ru");
     }
-    <!--jQuery(document).ready(function(){-->
-    <!--jQuery("#locales").change(function() {-->
-    <!--var value = jQuery(this).children(":selected").attr("value");-->
-    <!--alert(value);-->
-    <!--});-->
-    <!--})-->
-    $(document).ready(function () {
-        $("#locales").change(function () {
-            $("#value").text($(this).val());
-            $("#text").text($("#locales option:selected").text());
-        });
-    });
 </script>
 
 </html>
