@@ -9,6 +9,11 @@ import com.epam.lab.hospitalspring.service.PrescriptionService;
 import com.epam.lab.hospitalspring.util.GsonFactory;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -23,6 +29,7 @@ import java.util.Locale;
 
 @Controller
 public class PatientController {
+    private String filter = null;
 
     @Autowired
     PatientService patientService;
@@ -33,22 +40,51 @@ public class PatientController {
 
     LocalDateTime today = LocalDateTime.now();
 
-    @GetMapping(value = "/patients")
-    public String getPatients(Model model, Authentication authentication) {
+    @GetMapping("/patients")
+    public String getPatients(@PageableDefault(size = 5) Pageable pageable,
+                              Model model, Authentication authentication) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role currentRole = personalDetailsService.getPersonal().getRole();
         if (currentRole != Role.ADMIN) {
-            model.addAttribute("patients", patientService.getNotDeletedPatients());
-            model.addAttribute("currentRole", personalDetailsService.getPersonal().getRole());
+
+            Page<Patient> page = null;
+            if (filter == null || filter == "") {
+                page = patientService.getNotDeletedPatients(pageable);
+
+            } else {
+                page = patientService.newFinder(filter, pageable);
+            }
+            Long totalElements = page.getTotalElements();
+            model.addAttribute("page", page);
+            model.addAttribute("page", page);
+//            model.addAttribute("patients", patientService.getNotDeletedPatients());
+            model.addAttribute("currentRole", currentRole);
             model.addAttribute("firstName", personalDetailsService.getPersonal().getFirstName());
             model.addAttribute("lastName", personalDetailsService.getPersonal().getLastName());
+            model.addAttribute("totalElements", totalElements);
+
             return "patients";
         } else {
             return "redirect:/error/errorMessage";
         }
     }
 
-    @GetMapping(value = "/deletedPatients")
+    @PostMapping("/patients")
+    public String search(Model model, Authentication authentication, String search, @PageableDefault(size = 5) Pageable pageable) {
+        filter = search;
+        Page<Patient> page = patientService.newFinder(search, pageable);
+        Long totalElements = page.getTotalElements();
+        model.addAttribute("page", page);
+        PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
+        model.addAttribute("currentRole", personalDetailsService.getPersonal().getRole());
+        model.addAttribute("firstName", personalDetailsService.getPersonal().getFirstName());
+        model.addAttribute("lastName", personalDetailsService.getPersonal().getLastName());
+        model.addAttribute("totalElements", totalElements);
+        return "patients";
+
+    }
+
+    @GetMapping("/deletedPatients")
     public String getDeletedPatients(Model model, Authentication authentication) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role currentRole = personalDetailsService.getPersonal().getRole();
@@ -95,8 +131,8 @@ public class PatientController {
         return "redirect:/patients";
     }
 
-    @GetMapping(value = "/patient/{id}")
-    public String showPatientProfile(@PathVariable("id") Long id, Model model, Authentication authentication) {
+    @GetMapping(value = "/patients/{id}")
+    public String showPatientProfile(Patient patient, @PathVariable("id") Long id, Model model, Authentication authentication) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role currentRole = personalDetailsService.getPersonal().getRole();
         model.addAttribute("patient", patientService.getPatientById(id));
@@ -107,13 +143,13 @@ public class PatientController {
         }
     }
 
-    @GetMapping(value = "/patients/updatePatient/{id}")
-    public String getPatientProfileForUpdate(Patient patient) {
-        return "patientUpdateForm";
-    }
+//    @GetMapping(value = "/patients/updatePatient/{id}")
+//    public String getPatientProfileForUpdate(Patient patient) {
+//        return "patientUpdateForm";
+//    }
 
 
-    @PostMapping(value = "/patients/updatePatient/{id}")
+    @PutMapping(value = "/patients/{id}")
     public String updatePatientProfile(@Valid Patient patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "patientUpdateForm";
@@ -126,4 +162,14 @@ public class PatientController {
         }
     }
 
+    @PostMapping(value = "/patients/{id}/discharge")
+    public ResponseEntity dischargePatient(@PathVariable("id") Long id, Authentication authentication) {
+        PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
+        if (patientService.discharge(personalDetailsService.getPersonal(), id)) {
+            return new ResponseEntity(HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+
+    }
 }

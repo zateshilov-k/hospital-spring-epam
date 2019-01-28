@@ -36,7 +36,7 @@
                 <div class="card">
                     <div class="card-header" th:text="#{titleUpdatePatientPage}"></div>
                     <div class="card-body">
-                        <form th:action="@{/patients/updatePatient/{id}(id=${patient.id})}" th:object="${patient}" method="POST">
+                        <form th:action="@{/patients/{id}(id=${patient.id})}" th:object="${patient}" th:method="put">
                             <div class="form-group row">
                                 <label
                                         class="col-md-4 col-form-label text-md-right" th:text="#{firstNameField}">Input firstName</label>

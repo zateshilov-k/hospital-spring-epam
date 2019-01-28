@@ -33,7 +33,7 @@
                     <div class="card">
                         <div class="card-header" th:text="#{titleUpdatePersonalPage}">Update personal</div>
                         <div class="card-body">
-                            <form th:action="@{/personal/{id}(id=${personal.id})}" th:object="${personal}" method="post">
+                            <form th:action="@{/personals/{id}(id=${personal.id})}" th:object="${personal}" th:method="put">
 
                                 <div id="errors" th:if="${(param.loginAleadyUsed != null)}">
                                     <div class="alert alert-danger" role="alert">

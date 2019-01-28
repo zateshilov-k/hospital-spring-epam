@@ -16,7 +16,137 @@
     <title>Patients</title>
 </head>
 <body style="background-color:powderblue">
+<style>
 
+    button.button3 {
+        background: -moz-linear-gradient(#a50600, rgba(216, 200, 192, 0.7));
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(#a50600), to(#d8c8c0));
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
+        padding: 3px 7px;
+        color: #333;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        border: 1px solid #666;
+    }
+
+    body {
+        font-size: 1.5em; /* Размер текста */
+    }
+
+    table {
+        background-color:white;
+        table-layout: fixed;
+        width: 100%; /* Ширина таблицы */
+    }
+
+    td {
+        word-wrap: break-word;
+    }
+
+    td.col {
+        background: white;
+        color: black;
+    }
+
+    th.col {
+        background: white;
+        color: black;
+    }
+
+    th.colHeadFirstTable {
+        background: rgba(91, 6, 0, 0.76);
+        color: black;
+        width: 30%;
+    }
+
+    th.FirstColumn {
+        background: rgba(91, 6, 0, 0.76);
+        color: black;
+        width: 10%;
+    }
+
+    header {
+        width: 100%;
+        display: inline-block;
+        background-color: #404040;
+    }
+
+    #deleted {
+        background-color: #4b4b4b;
+    }
+
+    nav {
+        background-color: #2b2b2b;
+        margin: 0;
+        max-height: 0;
+        overflow: hidden;
+        clear: both;
+        transition: max-height .3s cubic-bezier(0.63, 0, 0.25, 1);;
+    }
+
+    nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: block;
+    }
+
+    nav li {
+        display: block;
+        margin: 0;
+        text-align: center;
+    }
+
+    nav a {
+        color: white;
+        display: block;
+        padding: .4em;
+    }
+
+    header input[type="checkbox"]:checked ~ nav {
+        max-height: 150px;
+        border-bottom: #404040 5px solid;
+    }
+
+    header a:hover,
+    header a:focus,
+    header label:hover,
+    header label:focus {
+        background-color: #191919;
+    }
+
+    @media (min-width: 700px) {
+        .hamburger {
+            display: none;
+        }
+
+        nav {
+            background: transparent;
+            float: right;
+            border: 0 !important;
+            max-height: none;
+        }
+
+        nav ul, nav li, nav li a {
+            display: inline-block;
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 15px 1em;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        a.link {
+            color: #000000;
+        }
+    }
+
+</style>
 <header>
     <label></label>
     <nav>
@@ -41,10 +171,11 @@
     <table id="example" class="table table-bordered table-hover col1" cellspacing="0" width="100%">
         <thead>
         <tr>
-            <th class="colHeadFirstTable">Id</th>
-            <th class="colHeadFirstTable">FirstName</th>
-            <th class="colHeadFirstTable">LastName</th>
-            <th class="colHeadFirstTable">Action</th>
+            <th class="FirstColumn" th:text="#{columnId}">Id</th>
+            <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
+            <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
+            <th class="colHeadFirstTable" th:text="#{columnDischarged}">Discharged</th>
+            <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
         </tr>
         </thead>
 
@@ -52,12 +183,18 @@
         <div th:if="${patients} != null">
             <tr th:each="patient : ${patients}">
                 <td class="col" th:text="${patient.id}">Неожиданный id</td>
-                <td class="col" th:text="${patient.firstName}">Неожиданное имя</td>
                 <td class="col" th:text="${patient.lastName}">Неожиданная фамилия</td>
+                <td class="col" th:text="${patient.firstName}">Неожиданное имя</td>
+                <td class="col" th:switch="${patient.discharged}">
+                    <div th:case="true" th:text="#{isDischargedTrue}">111</div>
+                    <div th:case="false" th:text="#{isDischargedFalse}">222</div>
+                    <div th:case="*">Unknown value</div>
+                </td>
+
                 <td class="col">
                     <form th:if="${currentRole.toString() eq 'DOCTOR'}" style="display:inline">
                         <button class="button3" type="button">
-                            <a class="link" href="yourlink.com" th:href="@{/patient/{id}(id=${patient.id})}"
+                            <a class="link" href="yourlink.com" th:href="@{/patients/{id}(id=${patient.id})}"
                                th:text="#{buttonPatientProfile}">Link link</a></button>
                     </form>
                 </td>
