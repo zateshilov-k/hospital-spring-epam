@@ -143,9 +143,6 @@
             <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/patients" th:text="#{menuPatients}"></a></li>
             <li id="addpatient" th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/addPatient" th:text="#{menuAddPatient}"></a>
             </li>
-            <li th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/deletedPatients"
-                                                                 th:text="#{menuDeletedPatients}">Deleted Patients</a>
-            </li>
             <li id="deletedpatients" th:if="${currentRole.toString() eq 'DOCTOR'}"><a href="/deletedPatients"
                                                                                       th:text="#{menuDeletedPatients}">Deleted
                 Patients</a></li>

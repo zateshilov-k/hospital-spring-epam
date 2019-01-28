@@ -46,6 +46,8 @@
 
 <fieldset>
     <br>
+
+    <button class="button3" id="dischargeButton" th:text="#{buttonDischargePatient}">Discharge patient</button>
     <button class="button3" id="closeDiagnosisButton" th:text="#{buttonCloseDiagnosis}">Close diagnosis button</button>
     <button class="button3" id="doPrescription" style="display:inline; float:right" th:text="#{buttonDoPerscription}">Do
         prescription
@@ -140,12 +142,17 @@
     diagnosisSubmitButton.addEventListener("click", diagnosisSubmitButtonListener);
     var prescriptionSubmitButton = document.getElementById("prescriptionSubmit");
     prescriptionSubmitButton.addEventListener("click", prescriptionSubmitButtonListener);
+
+    var dischargePatientButton = document.getElementById("dischargeButton");
+    dischargePatientButton.addEventListener("click", dischargePatientButtonListener);
     var diagnosisTable = document.getElementById("diagnosis");
     var diagnosis = toJson('[[${diagnoses}]]');
     var userRole = '[[${role}]]';
     var enterPrescriptionMessage = '[[#{enterPrescriptionMessage}]]';
     var enterDiagnosisMessage = '[[#{enterDiagnosisMessage}]]';
     var closeDiagnosisMessage = '[[#{closeDiagnosisMessage}]]';
+    var dischargePatientMessage = '[[#{dischargePatientMessage}]]';
+    var patientId = '[[${patient.id}]]';
     if (diagnosis.length > 0) {
         getAndUpdateDiagnosis();
     }
@@ -154,6 +161,13 @@
         return JSON.parse(stringJson.replace(/&quot;/g, "\""));
     }
 
+    function dischargePatientButtonListener() {
+        var jqxhr = $.post("/patients/"+patientId+"/discharge",{},function (response) {
+            window.location.replace("/deletedPatients");
+        }).fail(function () {
+            alert(dischargePatientMessage);
+        })
+    }
     function prescriptionSubmitButtonListener() {
         var prescriptionTextArea = document.getElementById("prescriptionDescription");
         var prescriptionTypeSelect = document.getElementById("prescriptionType");
