@@ -10,10 +10,11 @@
         border: 1px solid #666;
     }
     body {
-        font-size: 1.5em; /* Размер текста */
+        font-size: 1.5em;
     }
     table {
-        width: 100%; /* Ширина таблицы */
+        width: 100%;
+        word-wrap: break-word;
     }
 
     th.colHeadFirstTable {
