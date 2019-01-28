@@ -1,14 +1,34 @@
-# Compiled class file
-*.class
+/target/
+!.mvn/wrapper/maven-wrapper.jar
 
-# Log file
-*.log
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
 
 # Package Files #
 *.jar
@@ -23,3 +43,4 @@ application-mysql.properties
 application-h2.properties
 
 target/*
+
