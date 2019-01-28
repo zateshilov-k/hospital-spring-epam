@@ -27,6 +27,7 @@ button.button3 {
     }
 
     table {
+        background-color:white;
         table-layout: fixed;
         width: 100%;
         word-wrap: break-word;
