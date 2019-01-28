@@ -10,7 +10,7 @@ public class InitRoles {
     public static WebDriver driver;
 
     public static WebDriver initAdmin() {
-        System.setProperty("webdriver.chrome.driver", "F:\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
         driver = new ChromeDriver();
         System.out.println("test start.");
         driver.get("http://localhost:8080/");
@@ -27,7 +27,7 @@ public class InitRoles {
     }
 
     public static WebDriver initDoctor() {
-        System.setProperty("webdriver.chrome.driver", "F:\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
         driver = new ChromeDriver();
         System.out.println("test start.");
         driver.get("http://localhost:8080/");
@@ -44,7 +44,7 @@ public class InitRoles {
     }
 
     public static WebDriver initNurse() {
-        System.setProperty("webdriver.chrome.driver", "F:\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
         driver = new ChromeDriver();
         System.out.println("test start.");
         driver.get("http://localhost:8080/");
