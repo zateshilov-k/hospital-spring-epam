@@ -15,10 +15,18 @@ public interface PersonalRepository extends JpaRepository<Personal, Long> {
 
     Optional<Personal> findOneByLogin(String login);
 
-    Page<Personal> findPersonalsByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(String firstName, String lastName, Pageable pageable);
+    Page<Personal> findAllByOrderByLastName(Pageable pageable);
+
+    Page<Personal> findPersonalsByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrderByLastName(
+            String firstName,
+            String lastName,
+            Pageable pageable);
 
     default Page<Personal> returnPage (String searchString, Pageable pageable){
-        Page<Personal> page = findPersonalsByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(searchString, searchString, pageable);
+        Page<Personal> page = findPersonalsByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrderByLastName(
+                searchString,
+                searchString,
+                pageable);
         return page;
     }
 }

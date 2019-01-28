@@ -51,7 +51,8 @@ public class PersonalServiceImpl implements PersonalService {
 
     @Override
     public Page<Personal> findAll(Pageable pageable) {
-        return personalRepository.findAll(pageable);
+//        return personalRepository.findAll(pageable);
+        return personalRepository.findAllByOrderByLastName(pageable);
     }
 
     @Override
