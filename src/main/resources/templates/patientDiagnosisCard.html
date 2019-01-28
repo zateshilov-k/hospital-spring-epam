@@ -11,12 +11,12 @@
 
 <style>
     table.diagnosisList {
-        width: 47.9%;
+        width: 46.9%;
 
     }
 
     table.prescriptionList {
-        width: 47.9%;
+        width: 46.9%;
 
     }
 
@@ -53,7 +53,7 @@
         prescription
     </button>
     <br>
-
+    <br>
     <div width="100%">
         <table bgcolor="powderblue" class="diagnosisList" id="diagnosis" style="display:inline; float:left " border="1"
                width="100%">
@@ -95,8 +95,7 @@
     <br>
     <p><textarea name="comment" id="diagnosisDescription"></textarea></p>
 
-    <font size="3.5" color="#f91d1d" face="Arial"><p style="text-align: center" id="emptyField"></p></font>
-
+    <font size="2" color="#f91d1d" face="Arial"><p style="text-align: left" id="emptyField"></p></font>
 
     <div class="Center">
         <button class="button3" id="diagnosisSubmit" value="Добавить" th:text="#{addDiagnosis}">Добавить</button>
@@ -116,7 +115,7 @@
         <caption th:text="#{perscriptionDescription}">Описание назначения:</caption>
         <p><textarea id="prescriptionDescription" name="comment"></textarea></p>
 
-        <font size="3.5" color="#f91d1d" face="Arial"><p style="text-align: center" id="emptyField2"></p></font>
+        <font size="2" color="#f91d1d" face="Arial"><p style="text-align: left; word-break: break-all;" id="emptyField2" ></p></font>
 
         <div class="Center">
             <button class="button3 Center" id="prescriptionSubmit" value="Добавить" th:text="#{addPerscription}">
@@ -168,12 +167,17 @@
             alert(dischargePatientMessage);
         })
     }
+    function clearErrors() {
+        document.getElementById("emptyField2").textContent = "";
+        document.getElementById("emptyField").textContent = "";
+    }
     function prescriptionSubmitButtonListener() {
         var prescriptionTextArea = document.getElementById("prescriptionDescription");
         var prescriptionTypeSelect = document.getElementById("prescriptionType");
         var diagnosisTable = document.getElementById("diagnosis");
         if (prescriptionTextArea.value === "") {
-            document.getElementById("emptyField2").textContent = "Please, Input the field";
+            //document.getElementById("emptyField2").textContent = "Please, Input the field";
+            document.getElementById("emptyField2").textContent = enterPrescriptionMessage;
         } else {
             $.post(window.location.href +
                 "/diagnosis/" + diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML +
@@ -182,8 +186,8 @@
                     prescriptionDescription: prescriptionTextArea.value,
                     prescriptionType: prescriptionTypeSelect.value
                 }, function (response) {
+                    clearErrors();
                     prescriptionTextArea.value = "";
-                    document.getElementById("emptyField2").textContent = "";
                     updatePrescriptionsTable(diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML);
                 });
         }
@@ -194,11 +198,12 @@
         var diagnosisTable = document.getElementById("diagnosis");
         var prescriptionFieldSet = document.getElementById("addPrescriptionFieldSet");
         if (diagnosisTextArea.value === "") {
-            document.getElementById("emptyField").textContent = "Please, Input the field";
+            //document.getElementById("emptyField").textContent = "Please, Input the field";
+            document.getElementById("emptyField").textContent = enterDiagnosisMessage;
         } else {
             $.post(window.location.href + "/addDiagnosis/", {description: diagnosisTextArea.value}, function (response) {
                 diagnosisTextArea.value = "";
-                document.getElementById("emptyField").textContent = "";
+                clearErrors();
                 getAndUpdateDiagnosis();
             });
         }
@@ -212,6 +217,7 @@
                 updatePrescriptionsTable(diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML);
                 var doPrescriptionButton = document.getElementById("doPrescription");
                 doPrescriptionButton.style.display = "none";
+                clearErrors();
             });
     }
 
@@ -282,6 +288,7 @@
     }
 
     function diagnosisClick() {
+        clearErrors();
         var prescriptionTable = document.getElementById("prescriptionsTable");
         var rows = this.parentNode.rows;
         for (i = 1; i < rows.length; i++) {
@@ -314,6 +321,7 @@
                 for (var i = 0; i < prescriptions.length; i++) {
                     var newRow = table.insertRow(i + 1);
                     newRow.addEventListener("click", prescriptionClick);
+                    setDefaultStyle(newRow);
                     for (var j = 0; j < 5; j++) {
                         var newCell = newRow.insertCell(j);
                         if (j === 0) {
@@ -341,6 +349,7 @@
     }
 
     function prescriptionClick() {
+        clearErrors();
         var rows = this.parentNode.rows;
         for (i = 1; i < rows.length; i++) {
             setDefaultStyle(rows[i]);
@@ -367,6 +376,7 @@
     }
 
     function closeDiagnosisButtonListener() {
+        clearErrors();
         var diagnosisTable = document.getElementById("diagnosis");
         var jqxhr = $.post(window.location.href + "/closeDiagnosis/" + diagnosisTable.rows[currentDiagnosisRow].cells[0].innerHTML,
             {}, function (data, status) {

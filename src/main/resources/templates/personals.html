@@ -150,14 +150,18 @@
 </header>
 <h3 align="center" th:text="#{titlePersonalsPage}"></h3>
 
-<nav class="navbar navbar-light bg-light">
-    <form class="form-inline" action="/personals" th:object="${search}" method="post">
-        <input class="form-control mr-sm-2" type="text" aria-label="Search" name="search" th:attr="placeholder=#{searchField}"/>
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" th:text="#{buttonSearch}">Search</button>
-    </form>
-</nav>
-
 <div class="container-fluid">
+    <nav class="navbar navbar-light bg-light col-md-6">
+        <form class="form-group form-group-lg row" action="/personals" th:object="${search}" method="post">
+            <div class="col-md-6">
+                <input class="form-control" type="text" aria-label="Search" name="search" th:attr="placeholder=#{searchField}"/>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-outline-success" type="submit" th:text="#{buttonSearch}">Search</button>
+            </div>
+        </form>
+    </nav>
+
     <table id="example" class="table  table-bordered table-hover" cellspacing="0" width="100%">
         <thead>
         <tr>
@@ -166,7 +170,6 @@
             <th class="colHeadFirstTable" th:text="#{columnLastName}">LastName</th>
             <th class="colHeadFirstTable" th:text="#{columnFirstName}">FirstName</th>
             <th class="colHeadFirstTable" th:text="#{columnRole}">Role</th>
-            <!--<th class="FirstColumn" th:text="#{columnActive}">Active</th>-->
             <th class="colHeadFirstTable" th:text="#{columnAction}">Action</th>
         </tr>
         </thead>
@@ -185,8 +188,6 @@
                     <p th:case="${personal.role.NURSE}" th:text="#{NURSE}">nurse</p>
                     <p th:case="*">Unknown role</p>
                 </td>
-                <!--<td th:if="${personal.deleted.toString() eq 'false'}"><p th:text="#{personalNotDeleted}">Неожиданно удален</p></td>-->
-                <!--<td th:if="${personal.deleted.toString() eq 'true'}"><p th:text="#{personalDeleted}">Неожиданно удален</p></td>-->
                 <td>
                     <form style="display:inline">
                         <button id="openprofile" class="button3" type="button">
@@ -203,21 +204,30 @@
         </div>
         </tbody>
     </table>
-</div>
-
-<div class="pagination-div">
-    <span th:if="${page.hasPrevious()}">
-        <a th:href="@{/personals(page=${page.number-1},size=${page.size})}">Previous</a>
-    </span>
-    <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
-        <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>
-        <span th:unless="${page.number == i}">
-             <a th:href="@{/personals(page=${i},size=${page.size})}">[[${i}+1]]</a>
-        </span>
-    </th:block>
-    <span th:if="${page.hasNext()}">
-        <a th:href="@{/personals(page=${page.number+1},size=${page.size})}">Next</a>
-    </span>
+    <div align="center">
+        <ul class="pagination">
+            <li class="page-item">
+            <span th:if="${page.hasPrevious()}">
+                <a class="page-link" th:href="@{/personals(page=${page.number-1},size=${page.size})}">Previous</a>
+            </span>
+            </li>
+            <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
+                <li class="page-item">
+                    <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>
+                </li>
+                <li class="page-item">
+                <span th:unless="${page.number == i}">
+                    <a class="page-link" th:href="@{/personals(page=${i},size=${page.size})}">[[${i}+1]]</a>
+                </span>
+                </li>
+            </th:block>
+            <li class="page-item">
+            <span th:if="${page.hasNext()}">
+                <a class="page-link" th:href="@{/personals(page=${page.number+1},size=${page.size})}">Next</a>
+            </span>
+            </li>
+        </ul>
+    </div>
 </div>
 
 </body>
