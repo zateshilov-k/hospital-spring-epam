@@ -17,8 +17,6 @@ public interface PatientService {
 
     Patient getPatientById(Long id);
 
-//    List<Patient> getAllPatients();
-
     Page<Patient> getNotDeletedPatients(Pageable pageable);
 
     List<Patient> getDeletedPatients();

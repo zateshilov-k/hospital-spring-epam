@@ -12,7 +12,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
-
+/**
+ * This class describes a staff of EPAM Hospital System.
+ */
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
