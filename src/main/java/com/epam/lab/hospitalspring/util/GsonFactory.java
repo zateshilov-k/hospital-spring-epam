@@ -7,6 +7,9 @@ import com.google.gson.GsonBuilder;
 
 import java.util.Locale;
 
+/**
+ * Factory that build Gson class to provide localized JSON of model objects.
+ */
 public class GsonFactory {
     public static Gson buildGson(Locale locale) {
         GsonBuilder builder = new GsonBuilder();

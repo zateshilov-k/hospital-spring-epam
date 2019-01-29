@@ -8,6 +8,9 @@ import java.time.format.FormatStyle;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Custom, localized diagnosis JSON serializer of Diagnosis objects.
+ */
 public class DiagnosisSerializer implements JsonSerializer<Diagnosis> {
     private Locale locale;
 

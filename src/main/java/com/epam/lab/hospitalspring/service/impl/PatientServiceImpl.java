@@ -1,6 +1,5 @@
 package com.epam.lab.hospitalspring.service.impl;
 
-import com.epam.lab.hospitalspring.form.PatientForm;
 import com.epam.lab.hospitalspring.model.Diagnosis;
 import com.epam.lab.hospitalspring.model.Patient;
 import com.epam.lab.hospitalspring.model.Personal;
@@ -17,6 +16,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Patient service provide business logic that works with Patient entities.
+ */
 @Service
 public class PatientServiceImpl implements PatientService {
 
@@ -28,16 +30,6 @@ public class PatientServiceImpl implements PatientService {
 
     @Autowired
     private DiagnosisRepository diagnosisRepository;
-
-    @Override
-    public boolean validateData(PatientForm patientForm) {
-        boolean isValidData = true;
-        if (patientForm.getFirstName().equals("") || patientForm.getFirstName() == null
-                || patientForm.getLastName().equals("") || patientForm.getLastName() == null) {
-            isValidData = false;
-        }
-        return isValidData;
-    }
 
     @Override
     public void addPatient(Patient patient) {
@@ -82,15 +74,23 @@ public class PatientServiceImpl implements PatientService {
         return patientRepository.findPatientsByDeletedIsTrue();
     }
 
+    /**
+     * Method throw exception when there is no patient to discharge in DB.
+     * When even one diagnosis is opened, system can't discharge patient and return false.
+     *
+     * @param  personal personal which tries to discharge patient
+     * @param  id       id of personal to discharge
+     * @return true, if discharged successfully, in other cases - false
+     */
     @Override
     public boolean discharge(Personal personal, Long id) {
         List<Diagnosis> diagnoses = diagnosisRepository.findDiagnosisByPatientId(id);
         Optional<Patient> currentPatient = patientRepository.findById(id);
         Patient patient = currentPatient.orElseThrow(() ->
-           new IllegalArgumentException("Can't discharge patient that is not exists")
+                new IllegalArgumentException("Can't discharge patient that is not exists")
         );
         for (Diagnosis diagnosis : diagnoses) {
-            if(diagnosis.getOpened()) {
+            if (diagnosis.getOpened()) {
                 return false;
             }
         }
@@ -98,11 +98,11 @@ public class PatientServiceImpl implements PatientService {
         return true;
     }
 
-    private void dischargePatient(Personal personal, Patient patient){
+    private void dischargePatient(Personal personal, Patient patient) {
         patient.setDischarged(true);
         patient.setDeleted(true);
         patientRepository.saveAndFlush(patient);
-        Diagnosis healthy = new Diagnosis(null,null,"Здоров",personal,patient,false,
+        Diagnosis healthy = new Diagnosis(null, null, "Здоров", personal, patient, false,
                 LocalDateTime.now());
         diagnosisRepository.saveAndFlush(healthy);
     }

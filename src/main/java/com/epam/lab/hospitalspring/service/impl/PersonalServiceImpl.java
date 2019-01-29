@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Personal service provide business logic that works with Personal entities.
+ */
 @Service
 public class PersonalServiceImpl implements PersonalService {
     @Autowired
@@ -51,7 +54,6 @@ public class PersonalServiceImpl implements PersonalService {
 
     @Override
     public Page<Personal> findAll(Pageable pageable) {
-//        return personalRepository.findAll(pageable);
         return personalRepository.findAllByOrderByLastName(pageable);
     }
 

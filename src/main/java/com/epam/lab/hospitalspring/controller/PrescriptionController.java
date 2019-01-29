@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Locale;
 
+/**
+ * Contains all controllers that handle all request related to Prescription.
+ */
 @Controller
 public class PrescriptionController {
     @Autowired

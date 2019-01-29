@@ -27,6 +27,10 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
+
+/**
+ * Contains all controllers that handle all request related to Patient.
+ */
 @Controller
 public class PatientController {
     private String filter = null;
@@ -38,31 +42,25 @@ public class PatientController {
     @Autowired
     PrescriptionService prescriptionService;
 
-    LocalDateTime today = LocalDateTime.now();
-
     @GetMapping("/patients")
     public String getPatients(@PageableDefault(size = 5) Pageable pageable,
                               Model model, Authentication authentication) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();
         Role currentRole = personalDetailsService.getPersonal().getRole();
         if (currentRole != Role.ADMIN) {
-
             Page<Patient> page = null;
             if (filter == null || filter == "") {
                 page = patientService.getNotDeletedPatients(pageable);
-
             } else {
                 page = patientService.newFinder(filter, pageable);
             }
             Long totalElements = page.getTotalElements();
             model.addAttribute("page", page);
             model.addAttribute("page", page);
-//            model.addAttribute("patients", patientService.getNotDeletedPatients());
             model.addAttribute("currentRole", currentRole);
             model.addAttribute("firstName", personalDetailsService.getPersonal().getFirstName());
             model.addAttribute("lastName", personalDetailsService.getPersonal().getLastName());
             model.addAttribute("totalElements", totalElements);
-
             return "patients";
         } else {
             return "redirect:/error/errorMessage";
@@ -143,12 +141,6 @@ public class PatientController {
         }
     }
 
-//    @GetMapping(value = "/patients/updatePatient/{id}")
-//    public String getPatientProfileForUpdate(Patient patient) {
-//        return "patientUpdateForm";
-//    }
-
-
     @PutMapping(value = "/patients/{id}")
     public String updatePatientProfile(@Valid Patient patient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -162,6 +154,13 @@ public class PatientController {
         }
     }
 
+    /**
+     * Returns HttpStatus.OK when patient doesn't have any opened diagnoses and
+     * successfully discharged and HttpStatus.FORBIDDEN when system can't discharge patient
+     * @param  id              id of patient
+     * @param  authentication  to get current personal
+     * @return                 the http status
+     */
     @PostMapping(value = "/patients/{id}/discharge")
     public ResponseEntity dischargePatient(@PathVariable("id") Long id, Authentication authentication) {
         PersonalDetailsImpl personalDetailsService = (PersonalDetailsImpl) authentication.getPrincipal();

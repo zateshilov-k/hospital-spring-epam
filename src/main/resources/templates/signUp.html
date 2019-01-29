@@ -36,7 +36,7 @@
                     <div class="card-body">
                         <form th:action="@{/signUp}" th:object="${personal}" method="post">
 
-                            <div id="errors" th:if="${(param.loginAleadyUsed != null)}">
+                            <div id="errors" th:if="${(param.loginAlreadyUsed != null)}">
                                 <div class="alert alert-danger" role="alert">
                                     <strong th:text="#{signUpErrorLoginAlreadyUsed}"></strong>
                                 </div>

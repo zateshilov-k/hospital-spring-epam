@@ -22,6 +22,5 @@ public class SignUpTest {
         driver.findElement(By.id("firstname")).sendKeys("Test");
         driver.findElement(By.id("lastname")).sendKeys("Testovich");
         driver.findElement(By.id("save")).submit();
-        // TO-DO!!!
     }
 }
