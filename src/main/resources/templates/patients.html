@@ -207,12 +207,12 @@
         <ul class="pagination">
             <li class="page-item">
             <span th:if="${page.hasPrevious()}">
-                <a class="page-link" th:href="@{/patients(page=${page.number-1},size=${page.size})}">Previous</a>
+                <a class="page-link" th:href="@{/patients(page=${page.number-1},size=${page.size})}" th:text="#{buttonPrevious}">Previous</a>
             </span>
             </li>
             <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
-                <li class="page-item">
-                    <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>
+                <li class="page-item active">
+                    <span class="page-link" th:if="${page.number == i}">[[${i}+1]]</span>
                 </li>
                 <li class="page-item">
                 <span th:unless="${page.number == i}">
@@ -222,7 +222,7 @@
             </th:block>
             <li class="page-item">
             <span th:if="${page.hasNext()}">
-                <a class="page-link" th:href="@{/patients(page=${page.number+1},size=${page.size})}">Next</a>
+                <a class="page-link" th:href="@{/patients(page=${page.number+1},size=${page.size})}" th:text="#{buttonNext}">Next</a>
             </span>
             </li>
         </ul>
