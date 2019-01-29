@@ -17,7 +17,7 @@ public class PersonalControllerTest {
     @Test
     public void testGetAddPersonalPage() {
         driver.findElement(By.id("menuAddPersonal")).click();
-        driver.findElement(By.id("login")).sendKeys("Test123@epam.com");
+        driver.findElement(By.id("login")).sendKeys("Test12311@epam.com");
         driver.findElement(By.id("password")).sendKeys("123456qwe");
         driver.findElement(By.id("firstname")).sendKeys("Marina");
         driver.findElement(By.id("lastname")).sendKeys("Avdeeva");
@@ -26,7 +26,7 @@ public class PersonalControllerTest {
 
     @Test
     public void testUpdatePersonal() {
-        driver.findElement(By.id("example")).findElements(By.tagName("tr")).get(10).findElement(By.id("openprofile")).click();
+        driver.findElement(By.id("example")).findElements(By.tagName("tr")).get(5).findElement(By.id("openprofile")).click();
         driver.findElement(By.id("field5")).clear();
         driver.findElement(By.id("field5")).sendKeys("Marina@epam.com");
         driver.findElement(By.id("password")).clear();
@@ -47,7 +47,7 @@ public class PersonalControllerTest {
     @Test
     public void testDeletePersonalFromDB() {
         WebElement personalTable = driver.findElement(By.id("example"));
-        personalTable.findElements(By.tagName("tr")).get(10).findElement(By.id("deletepersonalDB")).click();
+        personalTable.findElements(By.tagName("tr")).get(5).findElement(By.id("deletepersonalDB")).click();
     }
 
 }

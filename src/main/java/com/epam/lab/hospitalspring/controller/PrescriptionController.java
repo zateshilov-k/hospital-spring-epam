@@ -39,4 +39,5 @@ public class PrescriptionController {
                          @RequestParam("prescriptionType") String prescriptionType) {
         prescriptionService.addPrescription(diagnosisId, prescriptionDescription, prescriptionType);
     }
+
 }

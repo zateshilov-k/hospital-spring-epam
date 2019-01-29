@@ -10,7 +10,7 @@ public class InitRoles {
     public static WebDriver driver;
 
     public static WebDriver initAdmin() {
-        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "F:\\chromedriver.exe");
         driver = new ChromeDriver();
         System.out.println("test start.");
         driver.get("http://localhost:8080/");
@@ -27,7 +27,7 @@ public class InitRoles {
     }
 
     public static WebDriver initDoctor() {
-        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "F:\\chromedriver.exe");
         driver = new ChromeDriver();
         System.out.println("test start.");
         driver.get("http://localhost:8080/");
@@ -44,7 +44,7 @@ public class InitRoles {
     }
 
     public static WebDriver initNurse() {
-        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "F:\\chromedriver.exe");
         driver = new ChromeDriver();
         System.out.println("test start.");
         driver.get("http://localhost:8080/");
@@ -55,7 +55,7 @@ public class InitRoles {
         WebElement passwordInput = driver.findElement(By.id("password"));
 
         emailInput.sendKeys("nurse@epam.com");
-        passwordInput.sendKeys("nurse123");
+        passwordInput.sendKeys("nursenurse");
         driver.findElement(By.id("enter")).submit();
         return driver;
     }
