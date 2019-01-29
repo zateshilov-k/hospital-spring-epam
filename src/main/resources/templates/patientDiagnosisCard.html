@@ -49,7 +49,7 @@
 
     <button class="button3" id="dischargeButton" th:text="#{buttonDischargePatient}">Discharge patient</button>
     <button class="button3" id="closeDiagnosisButton" th:text="#{buttonCloseDiagnosis}">Close diagnosis button</button>
-    <button class="button3" id="doPrescription" style="display:inline; float:right" th:text="#{buttonDoPerscription}">Do
+    <button class="button3" id="doPrescription" style="display:none; float:right" th:text="#{buttonDoPerscription}">Do
         prescription
     </button>
     <br>
@@ -211,7 +211,6 @@
         var diagnosisTable = document.getElementById("diagnosis");
         var prescriptionFieldSet = document.getElementById("addPrescriptionFieldSet");
         if (diagnosisTextArea.value === "") {
-            //document.getElementById("emptyField").textContent = "Please, Input the field";
             document.getElementById("emptyField").textContent = enterDiagnosisMessage;
         } else {
             $.post(window.location.href + "/addDiagnosis/", {description: diagnosisTextArea.value}, function (response) {
