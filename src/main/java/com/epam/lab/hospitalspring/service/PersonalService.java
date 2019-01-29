@@ -9,7 +9,7 @@ public interface PersonalService {
 
     boolean update(PersonalForm personalForm, Long id);
 
-    Personal getById(Long id);
+    Personal getPersonalById(Long id);
 
     Page<Personal> newFinder(String searchString, Pageable pageable);
 

@@ -26,32 +26,6 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     private DiagnosisRepository diagnosisRepository;
 
     @Override
-    public Prescription addPrescription(Prescription prescription) {
-        Prescription savedPersonal = prescriptionRepository.saveAndFlush(prescription);
-        return savedPersonal;
-    }
-
-    @Override
-    public void update(Prescription prescription) {
-        Prescription savedPersonal = prescriptionRepository.saveAndFlush(prescription);
-    }
-
-    @Override
-    public Prescription getById(Long id) {
-        return prescriptionRepository.findPrescriptionById(id);
-    }
-
-    @Override
-    public List<Prescription> getAllPrescriptions() {
-        return prescriptionRepository.findAll();
-    }
-
-    @Override
-    public List<Prescription> findPrescriptionsForDiagnosisByDiagnosisId(Long diagnosisId) {
-        return prescriptionRepository.findPrescriptionsForDiagnosisByDiagnosisId(diagnosisId);
-    }
-
-    @Override
     public String findPrescriptionsForDiagnosisByDiagnosisIdOrderByIdAsc(Long diagnosisId, Locale locale) {
         List<Prescription> prescriptions =
                 prescriptionRepository.findPrescriptionsForDiagnosisByDiagnosisIdOrderByIdAsc(diagnosisId);

@@ -57,7 +57,7 @@ public class PersonalController {
      * @return web page of employees list
      */
     @PostMapping("/personals")
-    public String search(Model model, Authentication authentication, String search, @PageableDefault(size = 5) Pageable pageable) {
+    public String getFilteredListOfPersonals(Model model, Authentication authentication, String search, @PageableDefault(size = 5) Pageable pageable) {
         filter = search;
         Page<Personal> page = personalService.newFinder(search, pageable);
         Long totalElements = page.getTotalElements();
@@ -73,7 +73,7 @@ public class PersonalController {
 
     @GetMapping("/personals/{id}")
     public String getPersonalPage(Personal personal, @PathVariable("id") Long id, Model model) {
-        model.addAttribute("personal", personalService.getById(id));
+        model.addAttribute("personal", personalService.getPersonalById(id));
         return "/personal";
     }
 

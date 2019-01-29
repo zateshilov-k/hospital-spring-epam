@@ -45,13 +45,12 @@ public class PersonalServiceImpl implements PersonalService {
     }
 
     @Override
-    public Personal getById(Long id) {
+    public Personal getPersonalById(Long id) {
         return personalRepository.findPersonalById(id);
     }
 
     @Override
     public Page<Personal> findAll(Pageable pageable) {
-//        return personalRepository.findAll(pageable);
         return personalRepository.findAllByOrderByLastName(pageable);
     }
 
