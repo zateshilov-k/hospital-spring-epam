@@ -73,9 +73,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Page<Patient> newFinder(String searchString, Pageable pageable) {
-        Page<Patient> page;
-        page = patientRepository.returnPage(searchString, pageable);
-        return page;
+        return patientRepository.returnPage(searchString, pageable);
     }
 
     public List<Patient> getDeletedPatients() {

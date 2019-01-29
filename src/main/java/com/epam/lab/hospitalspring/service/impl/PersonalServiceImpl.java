@@ -61,9 +61,7 @@ public class PersonalServiceImpl implements PersonalService {
 
     @Override
     public Page<Personal> newFinder(String searchString, Pageable pageable) {
-        Page<Personal> page;
-        page = personalRepository.returnPage(searchString, pageable);
-        return page;
+        return personalRepository.returnPage(searchString, pageable);
     }
 
 }
