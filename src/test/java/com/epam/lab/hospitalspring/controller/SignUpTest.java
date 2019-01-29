@@ -10,17 +10,18 @@ public class SignUpTest {
 
     @Test
     public void testSignUp (){
-        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "F:\\chromedriver.exe");
         driver = new ChromeDriver();
         System.out.println("test start.");
         driver.get("http://localhost:8080/");
         System.out.println("Page title is: " + driver.getTitle());
 
         driver.findElement(By.id("signup")).click();
-        driver.findElement(By.id("login")).sendKeys("Test@epam.com");
-        driver.findElement(By.id("password")).sendKeys("test5");
+        driver.findElement(By.id("login")).sendKeys("Test12345@epam.com");
+        driver.findElement(By.id("password")).sendKeys("test555");
         driver.findElement(By.id("firstname")).sendKeys("Test");
         driver.findElement(By.id("lastname")).sendKeys("Testovich");
-        driver.findElement(By.id("save")).submit();
+        driver.findElement(By.id("addpersonal")).submit();
     }
+
 }
