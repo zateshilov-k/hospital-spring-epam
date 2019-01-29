@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-
+/**
+ * This class describes diagnosis of patients of EPAM Hospital System.
+ */
 @Entity
 @Table(name = "diagnosis")
 @Data

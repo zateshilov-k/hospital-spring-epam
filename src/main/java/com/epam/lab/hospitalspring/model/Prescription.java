@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
+/**
+ * This class describes the assignments related to the diagnosis.
+ */
 @Entity
 @Data
 @AllArgsConstructor
