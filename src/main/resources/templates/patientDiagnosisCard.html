@@ -156,6 +156,19 @@
         getAndUpdateDiagnosis();
     }
 
+    if(userRole === 'NURSE') {
+        var dischargeButton = document.getElementById("dischargeButton");
+        var closeDiagnosisButton = document.getElementById("closeDiagnosisButton");
+        var prescriptionFieldSet = document.getElementById("addPrescriptionFieldSet");
+        var diagnosisFieldSet = document.getElementById("diagnosisFieldSet");
+        var doPrescriptionButton = document.getElementById("doPrescription");
+
+        dischargeButton.style.display = "none";
+        prescriptionFieldSet.style.display = "none";
+        closeDiagnosisButton.style.display = "none";
+        diagnosisFieldSet.style.display = "none";
+        doPrescriptionButton.style.display = "none";
+    }
     function toJson(stringJson) {
         return JSON.parse(stringJson.replace(/&quot;/g, "\""));
     }
@@ -261,6 +274,7 @@
         var closeDiagnosisButton = document.getElementById("closeDiagnosisButton");
         var prescriptionFieldSet = document.getElementById("addPrescriptionFieldSet");
         var diagnosisFieldSet = document.getElementById("diagnosisFieldSet");
+        var dischargeButton = document.getElementById("dischargeButton");
         var isDiagnosisOpened = diagnosisTable.rows[currentDiagnosisRow].cells[3].innerHTML;
         if (userRole === "DOCTOR" || userRole === "ADMIN") {
             if (isDiagnosisOpened === diagnosisIsNotOpened) {
@@ -284,7 +298,6 @@
 
     function setDefaultStyle(row) {
         row.style.backgroundColor = "white";
-        //row.style.color = "black";
     }
 
     function diagnosisClick() {
