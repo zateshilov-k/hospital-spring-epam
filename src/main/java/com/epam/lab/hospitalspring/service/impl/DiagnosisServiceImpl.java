@@ -32,26 +32,6 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     private PrescriptionRepository prescriptionRepository;
 
     @Override
-    public Diagnosis addDiagnosis(Diagnosis diagnosis) {
-        return diagnosisRepository.saveAndFlush(diagnosis);
-    }
-
-    @Override
-    public void update(Diagnosis diagnosis) {
-        Diagnosis savedDiagnosis = diagnosisRepository.saveAndFlush(diagnosis);
-    }
-
-    @Override
-    public Diagnosis getById(Long id) {
-        return diagnosisRepository.findDiagnosisById(id);
-    }
-
-    @Override
-    public List<Diagnosis> getAllDiagnosis() {
-        return diagnosisRepository.findAll();
-    }
-
-    @Override
     public String findDiagnosisByPatientId(Long id, Locale locale) {
         Gson gson = GsonFactory.buildGson(locale);
         List<Diagnosis> diagnoses = diagnosisRepository.findDiagnosisByPatientId(id);
@@ -67,7 +47,7 @@ public class DiagnosisServiceImpl implements DiagnosisService {
                 List<Prescription> prescriptions =
                         prescriptionRepository.findPrescriptionsForDiagnosisByDiagnosisId(diagnosis.getId());
                 for (Prescription prescription : prescriptions) {
-                    if(!prescription.getDone()) {
+                    if (!prescription.getDone()) {
                         return false;
                     }
                 }
@@ -91,8 +71,8 @@ public class DiagnosisServiceImpl implements DiagnosisService {
         Patient currentPatient = patient.get();
         currentPatient.setDischarged(false);
         patientRepository.saveAndFlush(currentPatient);
-        Diagnosis diagnosis = new Diagnosis(null,null,description,personal.get(),patient.get(),
-                true,LocalDateTime.now());
+        Diagnosis diagnosis = new Diagnosis(null, null, description, personal.get(), patient.get(),
+                true, LocalDateTime.now());
         diagnosisRepository.saveAndFlush(diagnosis);
     }
 }
