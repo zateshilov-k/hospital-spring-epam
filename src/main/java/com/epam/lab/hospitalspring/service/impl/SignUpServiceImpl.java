@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * Class provide signUp functionality
+ */
 @Service
 public class SignUpServiceImpl implements SignUpService {
     public static class LoginAlreadyUsed extends RuntimeException {
@@ -20,6 +23,13 @@ public class SignUpServiceImpl implements SignUpService {
     @Autowired
     PersonalRepository personalRepository;
 
+    /**
+     * When input personalForm login already in DB, exception is thrown
+     * and catched in controller to provide error on frontend page.
+     *
+     * @param  personalForm form from front end
+     * @throws LoginAlreadyUsed
+     */
     @Override
     public void signUp(PersonalForm personalForm) throws LoginAlreadyUsed {
         String login = personalForm.getLogin();

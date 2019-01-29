@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+/**
+ * Prescription service provide business logic that works with Prescription entities.
+ */
 @Service
 public class PrescriptionServiceImpl implements PrescriptionService {
 
@@ -33,6 +36,13 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         return gson.toJson(prescriptions);
     }
 
+    /**
+     * Method tries to do prescription.
+     * When selected prescription is not presented in DB, exception is thrown.
+     * When selected prescription is already done, exception is thrown.
+     *
+     * @param prescriptionId selected prescription id
+     */
     @Override
     public void doPrescription(Long prescriptionId) {
         Optional<Prescription> currentPrescription = prescriptionRepository.findById(prescriptionId);

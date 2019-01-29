@@ -8,7 +8,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
+/**
+ * Custom, localized diagnosis JSON serializer of Prescription objects.
+ */
 public class PrescriptionSerializer implements JsonSerializer<Prescription> {
     Locale locale;
     public void setLocale(Locale locale){

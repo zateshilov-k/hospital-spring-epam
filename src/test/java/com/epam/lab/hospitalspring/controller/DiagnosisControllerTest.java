@@ -15,13 +15,5 @@ public class DiagnosisControllerTest {
         driver.findElement(By.id("diagnosisSubmit")).click();
 
         driver.findElements(By.tagName("tr")).get(31).findElement(By.id("diagnosis")).click();
-//        driver.findElement(By.id("prescriptionDescription")).sendKeys("Test prescription3");
-//        driver.findElement(By.id("prescriptionSubmit")).click();
-
-//        driver.findElement(By.id("doPrescription")).click();
-//        driver.findElement(By.id("closeDiagnosisButton")).click();
-
-        // TO-DO!!!
     }
-
 }

@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+/**
+ * Diagnosis service provide business logic that works with Diagnosis entities.
+ */
 @Service
 public class DiagnosisServiceImpl implements DiagnosisService {
 
@@ -31,6 +34,13 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     @Autowired
     private PrescriptionRepository prescriptionRepository;
 
+    /**
+     * Find all diagnoses for patient, and return them as localized JSON array.
+     *
+     * @param  id     id of patient.
+     * @param  locale current locale.
+     * @return        JSON array of diagnoses to frontend
+     */
     @Override
     public String findDiagnosisByPatientId(Long id, Locale locale) {
         Gson gson = GsonFactory.buildGson(locale);
@@ -38,6 +48,13 @@ public class DiagnosisServiceImpl implements DiagnosisService {
         return gson.toJson(diagnoses);
     }
 
+    /**
+     * Tries to close diagnosis. If there is no diagnosis in DB, or diagnosis is already closed
+     * throw exception.
+     *
+     * @param diagnosisId diagnosis id
+     * @return            true if successfully closed, in other cases false
+     */
     @Override
     public boolean closeDiagnosis(Long diagnosisId) {
         Optional<Diagnosis> currentDiagnosis = diagnosisRepository.findById(diagnosisId);
@@ -62,6 +79,15 @@ public class DiagnosisServiceImpl implements DiagnosisService {
         return true;
     }
 
+    /**
+     * Tries to add  opened diagnosis to selected patient and personal.
+     * Throw exception if there is no personal or patient in DB.
+     * Change discharged patient status to false.
+     *
+     * @param patientId
+     * @param personalId
+     * @param description
+     */
     @Override
     public void addDiagnosis(Long patientId, Long personalId, String description) {
         Optional<Personal> personal = personalRepository.findById(personalId);

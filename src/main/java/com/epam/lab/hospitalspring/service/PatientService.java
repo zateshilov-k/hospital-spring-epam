@@ -9,8 +9,6 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface PatientService {
-    boolean validateData(PatientForm patientForm);
-
     void addPatient(Patient patient);
 
     void updatePatient(Patient patient);

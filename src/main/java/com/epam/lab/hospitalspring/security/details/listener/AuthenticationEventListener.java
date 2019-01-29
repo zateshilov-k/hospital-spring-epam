@@ -7,6 +7,9 @@ import org.springframework.security.authentication.event.AbstractAuthenticationE
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+/**
+ * This authentication event handler logs every authentication attempt.
+ */
 @Component
 public class AuthenticationEventListener implements ApplicationListener<AbstractAuthenticationEvent> {
     @Autowired
