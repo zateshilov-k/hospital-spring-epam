@@ -1,4 +1,4 @@
-package com.epam.lab.hospitalspring;
+package com.epam.lab.hospitalspring.service;
 
 import com.epam.lab.hospitalspring.model.Diagnosis;
 import com.epam.lab.hospitalspring.model.Prescription;
