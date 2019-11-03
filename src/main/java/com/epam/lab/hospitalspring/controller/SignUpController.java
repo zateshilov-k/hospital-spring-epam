@@ -40,6 +40,6 @@ public class SignUpController {
         log.info("User " + personal.getLastName()
                 + " " + personal.getFirstName()
                 + " with email:" + personal.getLogin() + " signed up.");
-        return "redirect:/personals";
+        return "redirect:/";
     }
 }
